@@ -2,7 +2,7 @@ CC=g++
 DEBUG=-g
 
 CFLAGS=$(INCLUDES) $(DEBUG)
-EXTDIR=/Academics/6th_Semester/Graphics/Graphics-OpenGLPipeLine
+EXTDIR=~/Academics/6th_Semester/Graphics/Graphics-OpenGLPipeLine
 INCLUDES=-I$(EXTDIR)/include -I../glfw-3.3/deps
 IGNORES=-isystem $(EXTDIR)/include -isystem ../glfw-3.3/deps
 TOPDIR=.
@@ -27,7 +27,7 @@ include $(DEPFILE)
 $(BUILDDIR)/%.o : %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-EXTLIB=-lglfw -lglew -framework OpenGl
+EXTLIB=-lglut -lglfw -Wall -lGL -ldl -lGLEW -fopenmp -O3
 
 $(BUILDDIR)/gapp: $(OBJS)
 	$(CC) $(DEBUG) -o $@ $^ -L$(EXTDIR)/lib $(EXTLIB)
