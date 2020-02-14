@@ -21,7 +21,7 @@ int main( int argc, char* args[] )
    Scene* baseScene = new Scene();                 // Should come from a file. Temporary scene, with default shader
    Geom* sphere1 = new Geom("vertices.csv");
    glm::mat4 transform1 = glm::mat4(1.f);
-   transform1 = glm::translate(transform1,glm::vec3(0.5,0.5,0));
+   transform1 = glm::translate(transform1,glm::vec3(0,0,0));
 
    baseScene->addchild(sphere1,transform1);
    Renderer renderer(window.Width(), window.Height(), baseScene); // Renderer renders scene from its camera

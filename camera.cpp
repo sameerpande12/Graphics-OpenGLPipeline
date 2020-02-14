@@ -4,9 +4,9 @@ Camera::Camera(int width, int height, float fov, float near, float far)
 {
     // projection = glm::perspective(glm::radians(45.0f), (float) width / (float)height, 0.1f, 100.0f);
     projection(width, height, fov, near, far); 
-    position(0.0, 0.0, 3.0, false);
+    position(0.0, 2.0, 0.0, false);
     lookat(0.0, 0.0, 0.0, false);
-    upward(0.0, 1.0, 0.0, true);
+    upward(0.0, 0.0, 1.0, true);
 
     // orientation = glm::quat(up);
 }
@@ -67,4 +67,9 @@ const glm::mat4 Camera::matrix(const glm::mat4 modelmat) const
 {
     // ModelViewProjection
     return pvmat * modelmat; // Remember, matrix multiplication is the other way around
+}
+
+const glm::vec3 Camera::getPosition() const
+{
+   return pos;
 }

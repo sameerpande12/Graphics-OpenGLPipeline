@@ -13,11 +13,16 @@ public:
       glUniformMatrix4fv(MVPid, 1, GL_FALSE, mvp);
    }
 
+   void setLightPos(const GLfloat* lightpos){
+      glUniform3fv(lightPosid,1,lightpos);
+   }
+
    Shader(const char *vsfile=NULL, const char *fsfile=NULL);
 
 protected:
    GLuint program;
    GLuint MVPid; // Every shader must have at least an MVP.
+   GLuint lightPosid;
    void defaults();
    void makeProgram(GLuint vs, GLint fs);
    virtual void getUniformIDs();

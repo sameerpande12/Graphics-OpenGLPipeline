@@ -15,7 +15,7 @@ public:
    void resize(int width, int height);
    void setMat(float *mat) { rendermat = mat; }
    void useShader(Shader *shader);
-
+   const glm::vec3 getCameraPosition() const;
 private:
    float fov, near, far; // Should I bother remembering? May be useful later for UI purpose.?
    Camera camera;    // A renderer owns a camera

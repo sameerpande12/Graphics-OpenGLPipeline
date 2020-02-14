@@ -70,14 +70,14 @@ int main(int argc, char**argv){
 
                 std::vector<int>temp2;
                 temp2.push_back(offset+j);
-                temp2.push_back(offset+numLongitudes +  (numLongitudes+(j-1))%numLongitudes);
-                temp2.push_back(offset+numLongitudes+j);
+                temp2.push_back(offset+numLongitudes +j );
+                temp2.push_back(offset+numLongitudes+(j+1)%numLongitudes);
                 triangles.push_back(temp2);
 
                 std::vector<int>temp1;
                 temp1.push_back(offset+j);
-                temp1.push_back(offset+numLongitudes+j);
-                temp1.push_back(offset+numLongitudes + (j+1)%numLongitudes);
+                temp1.push_back(offset+numLongitudes+(j+1)%numLongitudes);
+                temp1.push_back(offset+ (j+1)%numLongitudes);
                 triangles.push_back(temp1);
 
             }
@@ -88,7 +88,10 @@ int main(int argc, char**argv){
     offset++;//to include the top most point
 
     for(int i = 0;i<offset;i++){
-        outputfile<<points[i][0]<<","<<points[i][1]<<","<<points[i][2]<<"\n";
+        // outputfile<<points[i][0]<<","<<points[i][1]<<","<<points[i][2]<<",";
+        float length = sqrt(points[i][0]*points[i][0]+points[i][1]*points[i][1]+points[i][2]*points[i][2]);
+        outputfile<<points[i][0]/length<<","<<points[i][1]<<","<<points[i][2]<<"\n";//the normals of sphere
+
     }
     outputfile<<"GL_TRIANGLES\n";
     for(int i = 0;i<triangles.size();i++){
@@ -99,25 +102,4 @@ int main(int argc, char**argv){
         }
     }
 
-
-    
-    // for(int i =0 ;i<numLongitudes;i++){
-    //     phi =    M_PI_2 *  (2*( (float)(i)/(float)(numLongitudes-1) ) - 1 );
-               
-    //     for(int j =0 ;j<numLatitudes;j++){
-                
-    //             theta = M_PI_2 *  (2*( (float)(j)/(float)(numLatitudes-1) ) - 1 );
-    //             float x = R * cos(phi) * cos(theta);
-    //             float y = R * cos(phi) * sin(theta);
-    //             float z = R * sin(phi);
-    //             std::vector<float> temp;
-    //             temp.push_back(x);temp.push_back(y);temp.push_back(z);
-    //             points[id]=temp;
-    //             // outputfile<<id<<","<<x<<","<<y<<","<<z<<endl;
-    //             id++;
-
-
-    //             if(i==numLongitudes-1 || i == 0)break;
-    //     }
-    // }
 }

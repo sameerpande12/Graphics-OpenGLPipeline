@@ -88,9 +88,11 @@ int Geom::read(const char *filename)
         glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
 
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glVertexAttribPointer(0, vertStride, GL_FLOAT, GL_FALSE, 0, NULL);        
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), NULL);        
         glEnableVertexAttribArray(0);
 
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), NULL);        
+        glEnableVertexAttribArray(1);
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ebo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(indices),indices,GL_STATIC_DRAW);
@@ -106,6 +108,7 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat) const
 {
     renderer->useShader(shader);
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
+    shader->setLightPos((const GLfloat*)glm::value_ptr(renderer->getCameraPosition()));
     glBindVertexArray(vao);
     if(numIndices>0 && useDrawElements)
     {    

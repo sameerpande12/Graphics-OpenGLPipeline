@@ -43,6 +43,7 @@ void Shader::getUniformIDs()
 {
    // "MVP" as an arg is expected. Otherwise overwrite
    MVPid = glGetUniformLocation(program, "MVP");
+   lightPosid = glGetUniformLocation(program,"LightPos");
 }
 
 static bool isCompiled(const char *prefix, GLuint shader)

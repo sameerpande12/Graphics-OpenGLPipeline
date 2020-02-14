@@ -19,6 +19,7 @@ public:
     const glm::mat4 pvmatrix();
     const glm::mat4 matrix(const glm::mat4 modelmat) const;
     const glm::mat4 matrix() const;
+    const glm::vec3 getPosition() const;
 
 private:
     glm::mat4 projmat;
