@@ -9,40 +9,16 @@
 #define endl std::endl
 int Geom::read(const char *filename)
 {   
-    cout<<"HI"<<endl;
+    
     useDrawElements = false;
     if(filename==NULL){    
-        
-        float points[] = {
-        1.f,  0.0f,  0.0f,
-        -1.f,  0.0f,  0.0f,
-        0.0f,  1.0f,  0.0f,
-
-        1.f,  -0.5f,  0.0f,
-        -1.f,  -0.5f,  0.0f,
-        0.0f,  -1.2f, 0.0f
-        };
-
-        GLuint vbo = 0;
-
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
-        glBindVertexArray(vao);
-
-        glGenBuffers(1, &vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, 18 * sizeof(float), points, GL_STATIC_DRAW);
-
-
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
         
-        
-        shader = new Shader("data/vs.glsl", "data/fs.glsl"); 
+        shader = new Shader("data/vs.glsl", "data/fs.glsl");//render nothing 
     }
     else{
-        cout<<"filename="<<filename<<endl;
+        // cout<<"filename="<<filename<<endl;
         std::ifstream infile(filename);
         int numVertices = 0;
         int numPrimLines = 0;
@@ -132,11 +108,11 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat) const
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
     glBindVertexArray(vao);
     if(numIndices>0 && useDrawElements)
-    {    cout<<"123"<<endl;
+    {    
         glDrawElements(GL_TRIANGLES,numIndices,GL_UNSIGNED_INT,0);
     }
     else    
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glDrawArrays(GL_TRIANGLES, 0, 0);
     
     return glGetError();
 }
