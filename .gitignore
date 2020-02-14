@@ -1,0 +1,7 @@
+.depend
+*.out
+gen
+read
+build/
+*.csv
+*.txt

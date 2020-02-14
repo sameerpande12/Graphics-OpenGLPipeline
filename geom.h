@@ -7,6 +7,8 @@ public:
    int read(const char *filename);
    int render(Renderer *renderer, glm::mat4 rendermat) const;
    Geom(const char *filename=NULL) { read(filename); }
-
+private:
+   bool useDrawElements;
+   int numIndices=-1;
 };
 

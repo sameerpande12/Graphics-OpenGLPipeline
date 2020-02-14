@@ -16,8 +16,8 @@ int main( int argc, char* args[] )
    glGetIntegerv(GL_MINOR_VERSION, &m);
    printf("OpenGL version: %d.%d\n", M, m);
 
-   Scene scene;                 // Should come from a file. Temporary scene, with default shader
-   Renderer renderer(window.Width(), window.Height(), &scene); // Renderer renders scene from its camera
+   Scene* scene = new Scene("vertices.csv");                 // Should come from a file. Temporary scene, with default shader
+   Renderer renderer(window.Width(), window.Height(), scene); // Renderer renders scene from its camera
    UI_GLFW ui(&renderer, &window);	// User interface: intermediary between a renderer and a window
    window.renderloop(renderer);		// Keep rendering until an "End condition"
 }

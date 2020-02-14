@@ -2,7 +2,7 @@ CC=g++
 DEBUG=-g
 
 CFLAGS=$(INCLUDES) $(DEBUG)
-EXTDIR=~/Academics/6th_Semester/Graphics/Graphics-OpenGLPipeLine
+EXTDIR=.
 INCLUDES=-I$(EXTDIR)/include -I../glfw-3.3/deps
 IGNORES=-isystem $(EXTDIR)/include -isystem ../glfw-3.3/deps
 TOPDIR=.
