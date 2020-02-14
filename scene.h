@@ -12,7 +12,7 @@ public:
       if(filename == NULL) {
         Scene::init(new Geom(), glm::mat4(1.0f), NULL, NULL); // I have a temporary scene generator
       } else {
-        printf("Scene reading from file Unimplemented");
+        Scene::init(new Geom(filename), glm::mat4(1.0f), NULL, NULL);
       }
    }
 };

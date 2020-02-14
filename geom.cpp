@@ -4,11 +4,15 @@
 #include "geom.h"
 #include "render.h"
 #include "shader.h"
-
+#include <iostream>
+#define cout std::cout
+#define endl std::endl
 int Geom::read(const char *filename)
-{
+{   
+    cout<<"HI"<<endl;
     useDrawElements = false;
     if(filename==NULL){    
+        
         float points[] = {
         1.f,  0.0f,  0.0f,
         -1.f,  0.0f,  0.0f,
@@ -38,6 +42,7 @@ int Geom::read(const char *filename)
         shader = new Shader("data/vs.glsl", "data/fs.glsl"); 
     }
     else{
+        cout<<"filename="<<filename<<endl;
         std::ifstream infile(filename);
         int numVertices = 0;
         int numPrimLines = 0;
@@ -115,7 +120,7 @@ int Geom::read(const char *filename)
         glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(indices),indices,GL_STATIC_DRAW);
         shader = new Shader("data/vs.glsl", "data/fs.glsl");
         useDrawElements = true;
-        
+        numIndices = numPrimLines*primStride;
     }
 
    return vao;
@@ -127,7 +132,9 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat) const
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
     glBindVertexArray(vao);
     if(numIndices>0 && useDrawElements)
+    {    cout<<"123"<<endl;
         glDrawElements(GL_TRIANGLES,numIndices,GL_UNSIGNED_INT,0);
+    }
     else    
         glDrawArrays(GL_TRIANGLES, 0, 6);
     
