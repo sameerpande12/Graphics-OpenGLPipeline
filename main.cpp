@@ -7,7 +7,6 @@
 #include "scene.h"
 #include <glm/ext.hpp>
 
-
 int main( int argc, char* args[] )
 {
 

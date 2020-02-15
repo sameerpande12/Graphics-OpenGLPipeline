@@ -7,5 +7,8 @@ uniform vec3 LightPos;
 void main() {
 
    gl_Position =  MVP * vec4(vp,1.0);
-   vcolor = vec4(1,1,1,1);
+   float invDist = (vp[0]-LightPos[0])*(vp[0]-LightPos[0])+(vp[1]-LightPos[1])*(vp[1]-LightPos[1])+(vp[2]-LightPos[2])*(vp[2]-LightPos[2]);
+   invDist = 1/(invDist);
+   vcolor =    vec4(invDist,invDist,invDist,1);
+   
 }

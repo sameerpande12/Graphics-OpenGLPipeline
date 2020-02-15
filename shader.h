@@ -16,6 +16,9 @@ public:
    void setLightPos(const GLfloat* lightpos){
       glUniform3fv(lightPosid,1,lightpos);
    }
+   void setConstFactor(const GLfloat v){
+      glUniform1f(scaleFactorId,v);
+   }
 
    Shader(const char *vsfile=NULL, const char *fsfile=NULL);
 
@@ -23,6 +26,7 @@ protected:
    GLuint program;
    GLuint MVPid; // Every shader must have at least an MVP.
    GLuint lightPosid;
+   GLuint scaleFactorId;
    void defaults();
    void makeProgram(GLuint vs, GLint fs);
    virtual void getUniformIDs();

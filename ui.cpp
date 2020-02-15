@@ -2,7 +2,7 @@
 #include "render.h"
 #include "gwindow.h"
 #include "uiConstants.h"
-
+#include <iostream>
 UI::UI(Renderer *renderer, gWindow *window)
 {
   _quit = false;

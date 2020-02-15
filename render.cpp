@@ -67,3 +67,7 @@ void Renderer::resize(int width, int height)
     // glMatrixMode(GL_PROJECTION);
     // glLoadIdentity();
 }
+void Renderer::setCameraPosition(glm::vec3 pos){
+    camera.position(pos[0],pos[1],pos[2]);
+
+}

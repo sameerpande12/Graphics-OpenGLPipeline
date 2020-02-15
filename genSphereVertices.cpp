@@ -12,8 +12,8 @@ int main(int argc, char**argv){
     //theta is the angle in the x-y plane with x angle
     float phi = 0.0;
     
-    int numLatitudes = 100;//including both the poles
-    int numLongitudes = 100;
+    int numLatitudes = 150;//including both the poles
+    int numLongitudes = 150;
     int id = 0;
 
     ofstream outputfile;
