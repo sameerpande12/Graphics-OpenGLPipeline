@@ -5,6 +5,7 @@ layout(location = 2) in vec4 inVertexColor;
 layout(location = 3) in vec2 texPos;
 out vec4 vcolor;
 out vec2 TexCoord;
+out vec4 colorMultiply;
 
 uniform mat4 MVP;
 uniform vec3 LightPos;
@@ -14,8 +15,10 @@ void main() {
    float invDist = length(vp - LightPos);
    invDist = invDist * invDist;
    invDist = 1/(invDist);
-   vcolor =    inVertexColor;
-
-  TexCoord = texPos;
+   
+   colorMultiply=vec4(invDist,invDist,invDist,1);
+   vcolor =    colorMultiply * inVertexColor;
+   
+    TexCoord = texPos;
    
 }
