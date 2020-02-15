@@ -44,7 +44,6 @@ void Shader::getUniformIDs()
    // "MVP" as an arg is expected. Otherwise overwrite
    MVPid = glGetUniformLocation(program, "MVP");
    lightPosid = glGetUniformLocation(program,"LightPos");
-   scaleFactorId = glGetUniformLocation(program,"ScaleFactor");
    MVid = glGetUniformLocation(program,"MV");
 }
 

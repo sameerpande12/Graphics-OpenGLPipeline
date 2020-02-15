@@ -160,13 +160,6 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     renderer->useShader(shader);
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
     shader->setMVmatrix((const GLfloat*)glm::value_ptr(viewrendermat));
-    for(int i = 0;i<4;i++){
-        for(int j=0;j<4;j++){
-            cout<<viewrendermat[j][i]<<" ";
-        }
-        cout<<endl;
-    }
-    cout<<endl;
     shader->setLightPos((const GLfloat*)glm::value_ptr(renderer->getCameraPosition()));
 
     glBindVertexArray(vao);
