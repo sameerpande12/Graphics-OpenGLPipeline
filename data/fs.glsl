@@ -9,4 +9,5 @@ uniform sampler2D myTexture;
 
 void main() {
    fcolor = texture(myTexture,TexCoord);
+   // fcolor = vcolor;
 }

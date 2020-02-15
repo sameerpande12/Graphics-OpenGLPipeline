@@ -10,7 +10,7 @@ int main(int argc, char**argv){
     float R = 1.0;
     float theta = 0.0;
     //theta is the angle in the x-y plane with x angle
-    float phi = 0.0;
+    float phi = 0.0;//phi is the angle with xy plane
     
     int numLatitudes = 150;//including both the poles
     int numLongitudes = 150;
@@ -33,8 +33,9 @@ int main(int argc, char**argv){
             std::vector<float> temp;
             temp.push_back(x);temp.push_back(y);temp.push_back(z);
 
-            float texX = theta/(2*M_PI)+0.5;
+            float texX = 0.5*(theta/(M_PI)+1);
             float texY = phi/M_PI + 0.5;
+            
             temp.push_back(texX);
             temp.push_back(texY);
 

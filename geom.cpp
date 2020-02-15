@@ -77,7 +77,17 @@ int Geom::read(const char *filename)
                 
             }
         }
-        
+    //   float points[] = {
+    //     // positions          // colors           // texture coords
+    //      0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
+    //      0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
+    //     -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
+    //     -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
+    //     };
+    //     unsigned int indices[] = {  
+    //         0, 1, 3, // first triangle
+    //         1, 2, 3  // second triangle
+    //     };  
         GLuint vbo = 0;
         unsigned int ebo;
         
@@ -92,24 +102,28 @@ int Geom::read(const char *filename)
         glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
 
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), NULL);        
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), (void*)(0));        
         glEnableVertexAttribArray(0);
 
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), NULL);        
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), (void*)(3*sizeof(float)));        
         glEnableVertexAttribArray(1);
 
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), NULL);        
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), (void*)(6*sizeof(float)));        
         glEnableVertexAttribArray(2);
         
         unsigned int tex;
         glGenTextures(1,&tex);
         glBindTexture(GL_TEXTURE_2D,tex);
-        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);	// set texture wrapping to GL_REPEAT (default wrapping method)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        // set texture filtering parameters
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         int width;
         int height;
         int numChannels;
-        unsigned char* image = stbi_load("data/yellow.jpeg",&width,&height,&numChannels,0);
+        stbi_set_flip_vertically_on_load(true);
+        unsigned char* image = stbi_load("data/smiley6.jpeg",&width,&height,&numChannels,0);
         if(image!=NULL){
             glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,image);
             glGenerateMipmap(GL_TEXTURE_2D);

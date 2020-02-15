@@ -15,6 +15,6 @@ void main() {
    invDist = 1/(invDist);
    vcolor =    vec4(1,1,1,1);
 
-   TexCoord = texPos;
+  TexCoord = texPos;
    
 }
