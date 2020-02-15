@@ -8,6 +8,8 @@ uniform sampler2D myTexture;
 
 
 void main() {
-   fcolor = texture(myTexture,TexCoord);
-   // fcolor = vcolor;
+   if (TexCoord[0]<=1 && TexCoord[0]>=0 && TexCoord[1]>=0 && TexCoord[1]<=1)
+      fcolor = texture(myTexture,TexCoord);
+   else 
+      fcolor = vcolor;
 }

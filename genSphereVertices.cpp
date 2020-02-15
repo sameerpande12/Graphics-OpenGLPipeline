@@ -23,6 +23,9 @@ int main(int argc, char**argv){
     points[id]= std::vector<float> {0,0,-R,0,0};
     id++;
 
+    double phiLimit = M_PI_4;
+    double thetaLimit = M_PI_4;
+
     for(int i = 1; i<=numLatitudes-2;i++){
         phi = M_PI_2 * (   2* ((float)(i)/(float)(numLatitudes-1)) - 1);
         for(int j = 0;j<numLongitudes;j++){
@@ -33,9 +36,10 @@ int main(int argc, char**argv){
             std::vector<float> temp;
             temp.push_back(x);temp.push_back(y);temp.push_back(z);
 
-            float texX = 0.5*(theta/(M_PI)+1);
-            float texY = phi/M_PI + 0.5;
-            
+            // float texX = 0.5*(theta/(M_PI)+1);
+            // float texY = phi/M_PI + 0.5;
+            float texX = ( theta + thetaLimit)/(2*thetaLimit);
+            float texY = (phi+phiLimit)/(2*phiLimit);
             temp.push_back(texX);
             temp.push_back(texY);
 

@@ -123,7 +123,7 @@ int Geom::read(const char *filename)
         int height;
         int numChannels;
         stbi_set_flip_vertically_on_load(true);
-        unsigned char* image = stbi_load("data/smiley6.jpeg",&width,&height,&numChannels,0);
+        unsigned char* image = stbi_load("data/smiley.jpg",&width,&height,&numChannels,0);
         if(image!=NULL){
             glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,image);
             glGenerateMipmap(GL_TEXTURE_2D);

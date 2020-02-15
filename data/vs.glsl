@@ -13,7 +13,7 @@ void main() {
    float invDist = length(vp - LightPos);
    invDist = invDist * invDist;
    invDist = 1/(invDist);
-   vcolor =    vec4(1,1,1,1);
+   vcolor =    vec4(1,1,0,1);
 
   TexCoord = texPos;
    
