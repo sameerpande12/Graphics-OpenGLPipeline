@@ -20,11 +20,16 @@ public:
       glUniform1f(scaleFactorId,v);
    }
 
+   void setMVmatrix(const GLfloat * mv){
+      glUniformMatrix4fv(MVid, 1, GL_FALSE, mv);
+   }
+
    Shader(const char *vsfile=NULL, const char *fsfile=NULL);
 
 protected:
    GLuint program;
    GLuint MVPid; // Every shader must have at least an MVP.
+   GLuint MVid; // Every shader must have at least an MVP.
    GLuint lightPosid;
    GLuint scaleFactorId;
    void defaults();

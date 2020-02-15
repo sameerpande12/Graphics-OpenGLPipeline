@@ -45,6 +45,7 @@ void Shader::getUniformIDs()
    MVPid = glGetUniformLocation(program, "MVP");
    lightPosid = glGetUniformLocation(program,"LightPos");
    scaleFactorId = glGetUniformLocation(program,"ScaleFactor");
+   MVid = glGetUniformLocation(program,"MV");
 }
 
 static bool isCompiled(const char *prefix, GLuint shader)

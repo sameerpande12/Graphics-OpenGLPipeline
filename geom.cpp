@@ -155,10 +155,18 @@ int Geom::read(const char *filename)
    return vao;
 }
 
-int Geom::render(Renderer *renderer, glm::mat4 rendermat) const
+int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrendermat) const//view render mat is same as render mat except projection matrix is not applied
 {
     renderer->useShader(shader);
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
+    shader->setMVmatrix((const GLfloat*)glm::value_ptr(viewrendermat));
+    for(int i = 0;i<4;i++){
+        for(int j=0;j<4;j++){
+            cout<<viewrendermat[j][i]<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<endl;
     shader->setLightPos((const GLfloat*)glm::value_ptr(renderer->getCameraPosition()));
 
     glBindVertexArray(vao);

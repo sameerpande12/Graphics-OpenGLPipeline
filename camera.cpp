@@ -69,6 +69,13 @@ const glm::mat4 Camera::matrix(const glm::mat4 modelmat) const
     return pvmat * modelmat; // Remember, matrix multiplication is the other way around
 }
 
+const glm::mat4 Camera::viewmatrix(const glm::mat4 modelmat) const
+{
+    // ModelViewProjection
+    return viewmat * modelmat; // Remember, matrix multiplication is the other way around
+}
+
+
 const glm::vec3 Camera::getPosition() const
 {
    return pos;

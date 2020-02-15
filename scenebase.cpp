@@ -16,7 +16,7 @@ int SceneBase::render(Renderer *renderer, const Camera &camera, const float *mat
 
 int SceneBase::render(Renderer *renderer, const Camera &camera, glm::mat4 mat) {
    glm::mat4 nextmat = mat * objmat; // objmat must not be NULL
-   object->render(renderer, camera.matrix(nextmat));
+   object->render(renderer, camera.matrix(nextmat),camera.viewmatrix(nextmat));
    bool result = true;
    for(SceneBase* cur = firstchild; cur != NULL; cur = cur->sibling) {
       result &= cur->render(renderer, camera, nextmat);

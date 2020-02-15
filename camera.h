@@ -16,6 +16,8 @@ public:
     void lookat(float x, float y, float z, bool update=true);
     void upward(float x, float y, float z, bool update=true);
     const glm::mat4 viewmatrix();
+    const glm::mat4 viewmatrix(const glm::mat4 modelmat) const;
+
     const glm::mat4 pvmatrix();
     const glm::mat4 matrix(const glm::mat4 modelmat) const;
     const glm::mat4 matrix() const;
