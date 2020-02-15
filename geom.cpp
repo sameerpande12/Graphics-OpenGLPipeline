@@ -7,6 +7,9 @@
 #include <iostream>
 #define cout std::cout
 #define endl std::endl
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 int Geom::read(const char *filename)
 {   
     
@@ -74,18 +77,6 @@ int Geom::read(const char *filename)
                 
             }
         }
-        // vertStride = 3;
-        // primStride = 3;
-        // float points[24]={
-        //     -10.5, 0.5, 0,
-        //     -0.5, 0.5,0,
-        //     0,-1,0,
-
-        //     5,5,5,
-        //     -5,5,5,
-        //     0,-5,5      
-        // };
-        // int indices[6]={0,1,2,3,4,5};
         
         GLuint vbo = 0;
         unsigned int ebo;
@@ -104,8 +95,27 @@ int Geom::read(const char *filename)
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), NULL);        
         glEnableVertexAttribArray(0);
 
-        // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), NULL);        
-        // glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), NULL);        
+        glEnableVertexAttribArray(1);
+
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), NULL);        
+        glEnableVertexAttribArray(2);
+        
+        unsigned int tex;
+        glGenTextures(1,&tex);
+        glBindTexture(GL_TEXTURE_2D,tex);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+
+        int width;
+        int height;
+        int numChannels;
+        unsigned char* image = stbi_load("data/yellow.jpeg",&width,&height,&numChannels,0);
+        if(image!=NULL){
+            glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,image);
+            glGenerateMipmap(GL_TEXTURE_2D);
+        }//https://learnopengl.com/Getting-started/Textures
+
+
         glClearDepth(1.0f);
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LEQUAL);
@@ -125,20 +135,6 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat) const
     renderer->useShader(shader);
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
     shader->setLightPos((const GLfloat*)glm::value_ptr(renderer->getCameraPosition()));
-    
-    double phi1 = M_PI/180 * 5;
-    double phi2 = M_PI - phi1;
-    glm::vec4 pos1 = renderer->camera.pvmatrix() * glm::vec4(2*cos(phi1),0,2*sin(phi1),1);
-    glm::vec4 pos2 = renderer->camera.pvmatrix()* glm::vec4(2*cos(phi2),0,2*sin(phi2),1);
-    
-    glm::vec4 pos3 = renderer->camera.pvmatrix() * glm::vec4(2*cos(-phi1),0,2*sin(-phi1),1);
-    glm::vec4 pos4 = renderer->camera.pvmatrix()* glm::vec4(2*cos(-phi2),0,2*sin(-phi2),1);
-
-    // cout<<"1. "<<pos1[0]<<" "<<pos1[1]<<" "<<pos1[2]<<"\n";
-    // cout<<"2. "<<pos2[0]<<" "<<pos2[1]<<" "<<pos2[2]<<"\n";
-    // cout<<"3. "<<pos3[0]<<" "<<pos3[1]<<" "<<pos3[2]<<"\n";
-    // cout<<"4. "<<pos4[0]<<" "<<pos4[1]<<" "<<pos4[2]<<"\n\n";
-
 
     glBindVertexArray(vao);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

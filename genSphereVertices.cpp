@@ -19,7 +19,8 @@ int main(int argc, char**argv){
     ofstream outputfile;
     outputfile.open("vertices.csv");
     
-    points[id]= std::vector<float> {0,0,-R};
+    // points[id]= std::vector<float> {0,0,-R};
+    points[id]= std::vector<float> {0,0,-R,0,0};
     id++;
 
     for(int i = 1; i<=numLatitudes-2;i++){
@@ -31,12 +32,19 @@ int main(int argc, char**argv){
             float z = R * sin(phi);
             std::vector<float> temp;
             temp.push_back(x);temp.push_back(y);temp.push_back(z);
+
+            float texX = theta/(2*M_PI)+0.5;
+            float texY = phi/M_PI + 0.5;
+            temp.push_back(texX);
+            temp.push_back(texY);
+
             points[id]=temp;
             id++;
         } 
     }
 
-    points[id]= std::vector<float> {0,0,R};
+    // points[id]= std::vector<float> {0,0,R};
+    points[id]= std::vector<float> {0,0,R,0,1};
     id++;
 
     std::vector<std::vector<int>>triangles;
@@ -88,9 +96,11 @@ int main(int argc, char**argv){
     offset++;//to include the top most point
 
     for(int i = 0;i<offset;i++){
-        // outputfile<<points[i][0]<<","<<points[i][1]<<","<<points[i][2]<<",";
-        float length = sqrt(points[i][0]*points[i][0]+points[i][1]*points[i][1]+points[i][2]*points[i][2]);
-        outputfile<<points[i][0]/length<<","<<points[i][1]<<","<<points[i][2]<<"\n";//the normals of sphere
+        outputfile<<points[i][0]<<","<<points[i][1]<<","<<points[i][2]<<",";
+        
+        outputfile<<points[i][0]/R<<","<<points[i][1]/R<<","<<points[i][2]/R<<",";//the normals of sphere
+
+        outputfile<<points[i][3]<<","<<points[i][4]<<"\n";//the normals of sphere
 
     }
     outputfile<<"GL_TRIANGLES\n";
