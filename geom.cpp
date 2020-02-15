@@ -30,14 +30,12 @@ int Geom::read(const char *filename)
         int vertStride;
         int primStride;
         std::vector<std::vector<std::string>> lines;
+        std::string imageFileName;
         while(!infile.eof()){
             std::string line;
             infile>>line;
             if(line.length()==0)continue;
-            if(line.substr(0,2).compare("GL")==0){
-                countVertices = false;   
-                continue;   
-            }
+            
             
             std::vector<std::string> vals;
             be = 0;iter=0;
@@ -50,6 +48,17 @@ int Geom::read(const char *filename)
             }
             
             vals.push_back(line.substr(be,iter-be));
+            
+            if(line.substr(0,2).compare("GL")==0){
+                countVertices = false;
+                if(vals.size()>=2)
+                    imageFileName=vals[1];
+                else 
+                    imageFileName = "";   
+                continue;   
+            }
+            
+
             lines.push_back(vals);
             if(countVertices)
                 numVertices++;
@@ -77,17 +86,6 @@ int Geom::read(const char *filename)
                 
             }
         }
-    //   float points[] = {
-    //     // positions          // colors           // texture coords
-    //      0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
-    //      0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
-    //     -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-    //     -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
-    //     };
-    //     unsigned int indices[] = {  
-    //         0, 1, 3, // first triangle
-    //         1, 2, 3  // second triangle
-    //     };  
         GLuint vbo = 0;
         unsigned int ebo;
         
@@ -108,28 +106,41 @@ int Geom::read(const char *filename)
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), (void*)(3*sizeof(float)));        
         glEnableVertexAttribArray(1);
 
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), (void*)(6*sizeof(float)));        
+        glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), (void*)(6*sizeof(float)));        
         glEnableVertexAttribArray(2);
         
-        unsigned int tex;
-        glGenTextures(1,&tex);
-        glBindTexture(GL_TEXTURE_2D,tex);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);	// set texture wrapping to GL_REPEAT (default wrapping method)
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        // set texture filtering parameters
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        int width;
-        int height;
-        int numChannels;
-        stbi_set_flip_vertically_on_load(true);
-        unsigned char* image = stbi_load("data/smiley.jpg",&width,&height,&numChannels,0);
-        if(image!=NULL){
-            glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,image);
-            glGenerateMipmap(GL_TEXTURE_2D);
-        }//https://learnopengl.com/Getting-started/Textures
+        if(imageFileName.length()>0){
+            
+            std::ifstream checkFile(imageFileName);
+            if(checkFile){//i.e apply texture only if texture image exists
+                checkFile.close();
 
+                glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), (void*)(10*sizeof(float)));        
+                glEnableVertexAttribArray(3);
+                
+                unsigned int tex;
+                glGenTextures(1,&tex);
+                glBindTexture(GL_TEXTURE_2D,tex);
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);	// set texture wrapping to GL_REPEAT (default wrapping method)
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+                // set texture filtering parameters
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+                int width;
+                int height;
+                int numChannels;
+                stbi_set_flip_vertically_on_load(true);
 
+                char imFileArr[imageFileName.length()+1];
+                strcpy(imFileArr,imageFileName.c_str());
+                unsigned char* image = stbi_load(imFileArr,&width,&height,&numChannels,0);
+                if(image!=NULL){
+                    glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,image);
+                    glGenerateMipmap(GL_TEXTURE_2D);
+                }//https://learnopengl.com/Getting-started/Textures
+            }
+            
+        }
         glClearDepth(1.0f);
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LEQUAL);

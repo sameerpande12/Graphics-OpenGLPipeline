@@ -1,7 +1,8 @@
 #version 410
 layout(location = 0) in vec3 vp;
 layout(location = 1) in vec3 normal;
-layout(location = 2) in vec2 texPos;
+layout(location = 2) in vec4 inVertexColor;
+layout(location = 3) in vec2 texPos;
 out vec4 vcolor;
 out vec2 TexCoord;
 
@@ -13,7 +14,7 @@ void main() {
    float invDist = length(vp - LightPos);
    invDist = invDist * invDist;
    invDist = 1/(invDist);
-   vcolor =    vec4(0.984,0.851,0.329,1);
+   vcolor =    inVertexColor;
 
   TexCoord = texPos;
    

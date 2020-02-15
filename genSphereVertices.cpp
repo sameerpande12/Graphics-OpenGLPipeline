@@ -105,10 +105,12 @@ int main(int argc, char**argv){
         
         outputfile<<points[i][0]/R<<","<<points[i][1]/R<<","<<points[i][2]/R<<",";//the normals of sphere
 
+        outputfile<<0.984<<","<<0.851<<","<<0.329<<",1,";
+
         outputfile<<points[i][3]<<","<<points[i][4]<<"\n";//the normals of sphere
 
     }
-    outputfile<<"GL_TRIANGLES\n";
+    outputfile<<"GL_TRIANGLES,data/smiley.jpg\n";
     for(int i = 0;i<triangles.size();i++){
         for(int j = 0;j<triangles[i].size();j++){
             outputfile<<triangles[i][j];
