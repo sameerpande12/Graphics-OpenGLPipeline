@@ -47,10 +47,6 @@ int Renderer::render(float *mat)
     return scene->render(this, camera, rendermat);
 }
 
-const glm::vec3 Renderer::getCameraPosition() const
-{
-    return camera.getPosition();
-}
 
 void Renderer::resize(int width, int height)
 {

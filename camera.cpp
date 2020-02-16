@@ -1,12 +1,12 @@
 #include "camera.h"
-
+#include "iostream"
 Camera::Camera(int width, int height, float fov, float near, float far)
 {
     // projection = glm::perspective(glm::radians(45.0f), (float) width / (float)height, 0.1f, 100.0f);
     projection(width, height, fov, near, far); 
-    position(5,0,2, false);
-    lookat(0, 0, 0, false);
-    upward(0, 0, 1, true);
+    position(0,0,6, true);
+    lookat(0, 0, 0, true);
+    upward(0, 1, 0, true);
 
     // orientation = glm::quat(up);
 }
@@ -75,8 +75,7 @@ const glm::mat4 Camera::viewmatrix(const glm::mat4 modelmat) const
     return viewmat * modelmat; // Remember, matrix multiplication is the other way around
 }
 
-
-const glm::vec3 Camera::getPosition() const
+glm::vec3 Camera::getPosition()
 {
    return pos;
 }

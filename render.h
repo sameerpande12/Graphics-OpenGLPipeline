@@ -2,7 +2,7 @@
 
 #include "glConstants.h"
 #include "camera.h"
-
+#include "iostream"
 class Scene;
 class Shader;
 
@@ -15,13 +15,12 @@ public:
    void resize(int width, int height);
    void setMat(float *mat) { rendermat = mat; }
    void useShader(Shader *shader);
-   const glm::vec3 getCameraPosition() const;
    void setCameraPosition(glm::vec3 pos);
-   glm::vec3 getCameraPosition(){camera.getPosition();}
-       // A renderer owns a camera
+      // A renderer owns a camera
+   Camera camera;
 private:
    float fov, near, far; // Should I bother remembering? May be useful later for UI purpose.?
-   Camera camera;
+   
    float *rendermat; // Renderer can use a global matrix for its scene. It is identity be default.
    Shader *current_shader; // Cache a shader. so it does not need to be set again unnecessarily
    Scene *scene;     // This is what I render

@@ -9,7 +9,7 @@ uniform sampler2D myTexture;
 
 void main() {
    if (TexCoord[0]<=1 && TexCoord[0]>=0 && TexCoord[1]>=0 && TexCoord[1]<=1)
-      fcolor = colorMultiply * texture(myTexture,TexCoord);
+      fcolor = vec4(0,0,1,1) * texture(myTexture,TexCoord);
    else 
       fcolor = vcolor;
 }
