@@ -46,7 +46,6 @@ void Shader::getUniformIDs()
    lightPosid = glGetUniformLocation(program,"LightPos");
    MVid = glGetUniformLocation(program,"MV");
    cameraid = glGetUniformLocation(program,"CameraPos");
-   MVinvid = glGetUniformLocation(program,"MVinv");
    Viewid = glGetUniformLocation(program,"CamViewMatrix");
 }
 

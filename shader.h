@@ -21,9 +21,9 @@ public:
       glUniformMatrix4fv(MVid, 1, GL_FALSE, mv);
    }
 
-   void setMVinvmatrix(const GLfloat * mv){
-      glUniformMatrix4fv(MVinvid, 1, GL_FALSE, mv);
-   }
+   // void setMVinvmatrix(const GLfloat * mv){
+   //    glUniformMatrix4fv(MVinvid, 1, GL_FALSE, mv);
+   // }
    void setViewMatrix(const GLfloat * mv){
       glUniformMatrix4fv(Viewid,1,GL_FALSE,mv);
    }
@@ -40,7 +40,7 @@ protected:
    GLuint Viewid;
    GLuint lightPosid;
    GLuint cameraid;
-   GLuint MVinvid;
+   // GLuint MVinvid;
 
    void defaults();
    void makeProgram(GLuint vs, GLint fs);

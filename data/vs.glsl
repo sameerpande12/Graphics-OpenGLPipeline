@@ -9,7 +9,7 @@ out vec4 colorMultiply;
 
 uniform mat4 MVP;
 uniform mat4 MV;
-uniform mat4 MVinv;
+
 uniform mat4 CamViewMatrix;
 uniform vec3 LightPos;
 uniform vec3 CameraPos;
@@ -25,7 +25,7 @@ void main() {
 
     vec3 transformedVp  = vec3(MV* vec4(vp,1));
 
-    vec3 transformedNormal = normalize(vec3(MVinv * vec4(normal,0)));//since we are rotating the vector
+    vec3 transformedNormal = normalize(vec3(MV * vec4(normal,0)));//since we are rotating the vector
 
 
     vec3 l = normalize(transformedLightPos - transformedVp);
