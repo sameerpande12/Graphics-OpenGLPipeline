@@ -54,7 +54,7 @@ int Geom::read(const char *filename)
                 if(vals.size()>=2)
                     imageFileName=vals[1];
                 else 
-                    imageFileName = "";   
+                    imageFileName = "";
                 continue;   
             }
             
@@ -86,6 +86,28 @@ int Geom::read(const char *filename)
                 
             }
         }
+
+        bool hasTex = true;
+        if(imageFileName.length()>0){
+            std::ifstream checkFile(imageFileName);
+            if(checkFile){
+                checkFile.close();
+            }
+            else{
+                hasTex = false;
+            }
+        }
+        else{
+            hasTex = false;
+
+        }
+        if(!hasTex){
+            for(int i = 0;i<numVertices;i++){
+                    points[i*vertStride+vertStride - 2]=-1;
+                    points[i*vertStride + vertStride -1 ]=-1;
+            }   
+        }
+
         GLuint vbo = 0;
         unsigned int ebo;
         
@@ -109,14 +131,10 @@ int Geom::read(const char *filename)
         glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), (void*)(6*sizeof(float)));        
         glEnableVertexAttribArray(2);
         
-        if(imageFileName.length()>0){
+        glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), (void*)(10*sizeof(float)));        
+        glEnableVertexAttribArray(3);
+        if(hasTex){
             
-            std::ifstream checkFile(imageFileName);
-            if(checkFile){//i.e apply texture only if texture image exists
-                checkFile.close();
-
-                glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), (void*)(10*sizeof(float)));        
-                glEnableVertexAttribArray(3);
                 
                 unsigned int tex;
                 glGenTextures(1,&tex);
@@ -138,7 +156,6 @@ int Geom::read(const char *filename)
                     glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,image);
                     glGenerateMipmap(GL_TEXTURE_2D);
                 }//https://learnopengl.com/Getting-started/Textures
-            }
             
         }
         glClearDepth(1.0f);

@@ -5,3 +5,5 @@ read
 build/
 *.csv
 *.txt
+genPlane
+genSphere

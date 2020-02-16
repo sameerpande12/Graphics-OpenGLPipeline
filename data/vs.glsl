@@ -14,10 +14,7 @@ void main() {
 
    gl_Position =  MVP * vec4(vp,1.0);
    vec3 newvp = vec3(MV*vec4(vp,1.0));
-   float invDist = length( newvp );//in newvp which is in camera space , camera origin is at (0,0,0)
-   invDist = 1;
-   
-   colorMultiply=vec4(invDist,invDist,invDist,1);
+   colorMultiply=vec4(1,1,1,1);
    vcolor =    colorMultiply * inVertexColor;
    
     TexCoord = texPos;
