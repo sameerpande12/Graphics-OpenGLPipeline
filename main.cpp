@@ -18,9 +18,12 @@ int main( int argc, char* args[] )
 
    Scene* primaryScene = new Scene();                 // Should come from a file. Temporary scene, with default shader
 
+   glm::vec3 baseCentre = glm::vec3(0,0,-1);
+
+
    Geom * floor = new Geom("xyPlaneVertices.csv",3);
    glm::mat4 floorTransform = glm::mat4(1.0f);
-   floorTransform = glm::translate(floorTransform,glm::vec3(0,0,-2));
+   floorTransform = glm::translate(floorTransform,baseCentre+ glm::vec3(0,0,-1));
    floorTransform = glm::scale(floorTransform,glm::vec3(10,10,10));
    primaryScene->addchild(floor,floorTransform);
    
@@ -28,13 +31,13 @@ int main( int argc, char* args[] )
    glm::mat4 basetransform = glm::mat4(1.f);
    
    basetransform = glm::scale(basetransform,glm::vec3(1,1,1));
-   basetransform = glm::translate(basetransform,glm::vec3(0,0,-1));
+   basetransform = glm::translate(basetransform,baseCentre);
    primaryScene->addchild(base,basetransform);
    
    Geom* torso = new Geom("sphereVertices.csv",1);
    glm::mat4 torsotransform = glm::mat4(1.f);
    
-   torsotransform = glm::translate(torsotransform,glm::vec3(0,0,0.1));
+   torsotransform = glm::translate(torsotransform,baseCentre+ glm::vec3(0,0,1.1));
    torsotransform = glm::scale(torsotransform,glm::vec3(0.5,0.5,0.5));
    primaryScene->addchild(torso,torsotransform);
 
@@ -42,10 +45,25 @@ int main( int argc, char* args[] )
 
    Geom* head = new Geom("sphereVertices.csv",1);
    glm::mat4 headtransform = glm::mat4(1.f);
-   headtransform = glm::translate(headtransform,glm::vec3(0,0,0.7));
+   headtransform = glm::translate(headtransform,baseCentre + glm::vec3(0,0,1.7));
    headtransform = glm::scale(headtransform,glm::vec3(0.33,0.33,0.33));
    primaryScene->addchild(head,headtransform);
    
+   Geom** spheres = new Geom*[12];
+   for(int i =0 ;i<12;i++){
+      Geom* sphere = new Geom("sphereVertices.csv");
+      glm::mat4 sphereTransform = glm::mat4(1.f);
+      
+      float radius = 0.25;
+      float largeRadius = 2;
+      float angle = M_PI/6 * i;
+
+      glm::vec3 newCentre = baseCentre +  glm::vec3(0,0,-1)+ glm::vec3(0,0,radius);
+      newCentre = newCentre + glm::vec3(largeRadius*cos(angle),largeRadius*sin(angle),0);
+      sphereTransform = glm::translate(sphereTransform,newCentre);
+      sphereTransform = glm::scale(sphereTransform,glm::vec3(radius,radius,radius));
+      primaryScene->addchild(sphere,sphereTransform);
+   }
 
 
    Renderer renderer(window.Width(), window.Height(), primaryScene); // Renderer renders scene from its camera
