@@ -190,36 +190,6 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     shader->setViewMatrix((const GLfloat*)glm::value_ptr(renderer->camera.viewmatrix()));
     shader->setLightPos((const GLfloat*)glm::value_ptr(cameraPos));
     shader->setCameraPos((const GLfloat*)glm::value_ptr(cameraPos));
-
-    // glm::mat4 inv = glm::inverse(viewrendermat);
-    
-    
-    // glm::vec3 normal = glm::vec3(0,0,1);
-    // printVector("normal",normal);
-    
-    // glm::vec3 transformedLightPos =  glm::vec3(renderer->camera.viewmatrix() * glm::vec4(cameraPos,1));
-    // // glm::vec3 transformedLightPos = glm::vec3(transformedLightPos1[0],transformedLightPos1[1],transformedLightPos1[2]);
-    // printVector("transformedLightPos",transformedLightPos);
-
-    // glm::vec3 transformedCameraPos = transformedLightPos;
-    // printVector("transformedCameraPos",transformedCameraPos);
-    
-    // glm::vec3 point = glm::vec3(0,-4,-2);
-    // printVector("point",point);
-    // glm::vec3 transformedVp = glm::vec3(viewrendermat * glm::vec4(point,1));
-    // printVector("transformedVp",transformedVp);
-    
-    // glm::vec3 transformedNormal = glm::normalize(glm::vec3(viewrendermat* glm::vec4(normal,0)));
-    // printVector("transformedNormal",transformedNormal);
-
-    // glm::vec3 l = glm::normalize(transformedLightPos - transformedVp);
-    // printVector("lvec",l);
-    // glm::vec3 v = glm::normalize(transformedCameraPos - transformedVp);
-    // glm::vec3 h = glm::normalize( l  + v);
-
-    // float diffCoeff = 1;
-    // float diffColor = diffCoeff* glm::dot(l,transformedNormal);
-    // cout<<"diffColor:"<<diffColor<<"\n";
     glBindVertexArray(vao);
     glBindTexture(GL_TEXTURE_2D,tex);
     // cout<<id<<" "<<vao<<"\n";
