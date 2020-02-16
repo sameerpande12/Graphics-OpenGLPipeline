@@ -47,6 +47,7 @@ void Shader::getUniformIDs()
    MVid = glGetUniformLocation(program,"MV");
    cameraid = glGetUniformLocation(program,"CameraPos");
    MVinvid = glGetUniformLocation(program,"MVinv");
+   Viewid = glGetUniformLocation(program,"CamViewMatrix");
 }
 
 static bool isCompiled(const char *prefix, GLuint shader)

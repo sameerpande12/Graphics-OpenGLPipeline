@@ -10,14 +10,15 @@ out vec4 colorMultiply;
 uniform mat4 MVP;
 uniform mat4 MV;
 uniform mat4 MVinv;
+uniform mat4 CamViewMatrix;
 uniform vec3 LightPos;
 uniform vec3 CameraPos;
 void main() {
 
     gl_Position =  MVP * vec4(vp,1.0);
 
-    vec3 transformedLightPos = vec3(MV*vec4(LightPos,1));//wrong
-    vec3 transformedCameraPos = vec3(MV*vec4(CameraPos,1));//wrong
+    vec3 transformedLightPos = vec3(CamViewMatrix*vec4(LightPos,1));
+    vec3 transformedCameraPos = vec3(CamViewMatrix*vec4(CameraPos,1));
 
     transformedLightPos = vec3(0,0,0);
     transformedCameraPos = vec3(0,0,0);
@@ -32,7 +33,7 @@ void main() {
     vec3 h = normalize(v+l);
 
     float s = 0.5;
-    float diffCoeff = 0.5;
+    float diffCoeff = 0.7;
     float specCoeff = 0.5;
 
     float diffColor = diffCoeff*dot(l,transformedNormal);
@@ -40,7 +41,7 @@ void main() {
     float specColor = specCoeff * pow(dot(h,transformedNormal),s);
     if(dot(h,normal)<0)specColor = 0; 
 
-    float finalCoeff = diffColor*diffColor;
+    float finalCoeff = diffColor+specColor;
     
     colorMultiply = vec4(finalCoeff,finalCoeff,finalCoeff,1);
     vcolor = colorMultiply*inVertexColor;

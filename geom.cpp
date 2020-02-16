@@ -187,6 +187,7 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
     shader->setMVmatrix((const GLfloat*)glm::value_ptr(viewrendermat));
     shader->setMVinvmatrix((const GLfloat*)glm::value_ptr(glm::inverse(viewrendermat)));
+    shader->setViewMatrix((const GLfloat*)glm::value_ptr(renderer->camera.viewmatrix()));
     shader->setLightPos((const GLfloat*)glm::value_ptr(cameraPos));
     shader->setCameraPos((const GLfloat*)glm::value_ptr(cameraPos));
 
@@ -196,14 +197,14 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     glm::vec3 normal = glm::vec3(0,0,1);
     printVector("normal",normal);
     
-    glm::vec3 transformedLightPos =  glm::vec3(viewrendermat * glm::vec4(cameraPos,1));
+    glm::vec3 transformedLightPos =  glm::vec3(renderer->camera.viewmatrix() * glm::vec4(cameraPos,1));
     // glm::vec3 transformedLightPos = glm::vec3(transformedLightPos1[0],transformedLightPos1[1],transformedLightPos1[2]);
     printVector("transformedLightPos",transformedLightPos);
 
     glm::vec3 transformedCameraPos = transformedLightPos;
     printVector("transformedCameraPos",transformedCameraPos);
     
-    glm::vec3 transformedVp = glm::vec3(viewrendermat * glm::vec4(glm::vec3(0.24,0,0),1));
+    glm::vec3 transformedVp = glm::vec3(renderer->camera.viewmatrix() * glm::vec4(glm::vec3(0.24,0,0),1));
     printVector("transformedVp",transformedVp);
     
     glm::vec3 transformedNormal = glm::normalize(glm::vec3(inv * glm::vec4(normal,0)));

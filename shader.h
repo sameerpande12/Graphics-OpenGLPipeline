@@ -24,6 +24,9 @@ public:
    void setMVinvmatrix(const GLfloat * mv){
       glUniformMatrix4fv(MVinvid, 1, GL_FALSE, mv);
    }
+   void setViewMatrix(const GLfloat * mv){
+      glUniformMatrix4fv(Viewid,1,GL_FALSE,mv);
+   }
 
    void setCameraPos(const GLfloat* camPos){
       glUniform3fv(cameraid,1,camPos);
@@ -34,6 +37,7 @@ protected:
    GLuint program;
    GLuint MVPid; // Every shader must have at least an MVP.
    GLuint MVid; // Every shader must have at least an MVP.
+   GLuint Viewid;
    GLuint lightPosid;
    GLuint cameraid;
    GLuint MVinvid;
