@@ -20,7 +20,7 @@ int main( int argc, char* args[] )
 
    Geom * floor = new Geom("xyPlaneVertices.csv",3);
    glm::mat4 floorTransform = glm::mat4(1.0f);
-   // floorTransform = glm::translate(floorTransform,glm::vec3(0,0,0));
+   floorTransform = glm::translate(floorTransform,glm::vec3(0,0,-2));
    floorTransform = glm::scale(floorTransform,glm::vec3(10,10,10));
    primaryScene->addchild(floor,floorTransform);
    
