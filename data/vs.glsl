@@ -9,14 +9,40 @@ out vec4 colorMultiply;
 
 uniform mat4 MVP;
 uniform mat4 MV;
+uniform mat4 MVinv;
 uniform vec3 LightPos;
+uniform vec3 CameraPos;
 void main() {
 
-   gl_Position =  MVP * vec4(vp,1.0);
-   vec3 newvp = vec3(MV*vec4(vp,1.0));
-   colorMultiply=vec4(1,1,1,1);
-   vcolor =    colorMultiply * inVertexColor;
-   
+    gl_Position =  MVP * vec4(vp,1.0);
+
+    // vec3 transformedLightPos = vec3(MV*vec4(LightPos,1));
+    // vec3 transformedCameraPos = vec3(MV*vec4(CameraPos,1));//zero
+    // vec3 transformedVp  = vec3(MV* vec4(CameraPos,1));
+
+    // vec3 transformedNormal = normalize(vec3(MVinv * vec4(normal,1)));
+
+    // // if(  dot(transformedNormal, transformedLightPos - transformedVp) * dot(normal, LightPos - vp) < 0)
+    //     // transformedNormal = -1 * transformedNormal;//correcting the orientation of normal
+
+    // vec3 l = normalize(transformedLightPos -transformedVp);
+    // vec3 v = normalize(transformedCameraPos - transformedVp);
+    // vec3 h = normalize(v+l);
+
+    // float s = 0.5;
+    // float diffCoeff = 0.5;
+    // float specCoeff = 0.5;
+
+    // float diffColor = diffCoeff* max(dot(l,-transformedNormal),0);
+    
+    // float specColor = specCoeff * pow(dot(h,-transformedNormal),s);
+    // if(dot(h,normal)<0)specColor = 0; 
+
+    // float finalCoeff = diffColor + specColor;
+    
+    // colorMultiply = vec4(finalCoeff,finalCoeff,finalCoeff,1);
+    colorMultiply = inVertexColor;
+    vcolor =     inVertexColor;
     TexCoord = texPos;
    
 }

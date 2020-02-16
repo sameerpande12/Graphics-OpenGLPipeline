@@ -2,7 +2,7 @@
 
 #include <GL/glew.h>
 #include <stdio.h>
-
+#include <glm/ext.hpp>
 class Shader {
 
 public:
@@ -21,6 +21,13 @@ public:
       glUniformMatrix4fv(MVid, 1, GL_FALSE, mv);
    }
 
+   void setMVinvmatrix(const GLfloat * mv){
+      glUniformMatrix4fv(MVinvid, 1, GL_FALSE, mv);
+   }
+
+   void setCameraPos(const GLfloat* camPos){
+      glUniform3fv(cameraid,1,camPos);
+   }
    Shader(const char *vsfile=NULL, const char *fsfile=NULL);
 
 protected:
@@ -28,7 +35,9 @@ protected:
    GLuint MVPid; // Every shader must have at least an MVP.
    GLuint MVid; // Every shader must have at least an MVP.
    GLuint lightPosid;
-   
+   GLuint cameraid;
+   GLuint MVinvid;
+
    void defaults();
    void makeProgram(GLuint vs, GLint fs);
    virtual void getUniformIDs();

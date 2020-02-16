@@ -179,7 +179,9 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     renderer->useShader(shader);
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
     shader->setMVmatrix((const GLfloat*)glm::value_ptr(viewrendermat));
+    shader->setMVinvmatrix((const GLfloat*)glm::value_ptr(glm::inverse(viewrendermat)));
     shader->setLightPos((const GLfloat*)glm::value_ptr(renderer->getCameraPosition()));
+    shader->setCameraPos((const GLfloat*)glm::value_ptr(renderer->getCameraPosition()));
 
     glBindVertexArray(vao);
     glBindTexture(GL_TEXTURE_2D,tex);
