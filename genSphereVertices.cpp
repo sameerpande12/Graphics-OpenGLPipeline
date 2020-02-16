@@ -36,10 +36,10 @@ int main(int argc, char**argv){
             std::vector<float> temp;
             temp.push_back(x);temp.push_back(y);temp.push_back(z);
 
-            // float texX = 0.5*(theta/(M_PI)+1);
-            // float texY = phi/M_PI + 0.5;
-            float texX = ( theta + thetaLimit)/(2*thetaLimit);
-            float texY = (phi+phiLimit)/(2*phiLimit);
+            float texX = 0.5*(theta/(M_PI)+1);
+            float texY = phi/M_PI + 0.5;
+            // float texX = ( theta + thetaLimit)/(2*thetaLimit);
+            // float texY = (phi+phiLimit)/(2*phiLimit);
             temp.push_back(texX);
             temp.push_back(texY);
 

@@ -17,13 +17,23 @@ from PIL import Image
 # image.save("sameer.jpg")
 
 snowtex = np.array(Image.open("snowtex.jpg"));
-smiley = np.array(Image.open("yellosmiley.jpg"));
+smiley = np.array(Image.open("smiley.jpg"));
 bg = smiley[1001][1001]
 
 for i in range(len(smiley)):
     for j in range(len(smiley[0])):
-        if( smiley[i][j][0]>20 and smiley[i][j][1]>20 and smiley[i][j][2]>20 ):
             smiley[i][j] = snowtex[ i % snowtex.shape[0]][j%snowtex.shape[1]]
+
+rect = np.array(Image.open("newsmiley.jpg"));
+
+be_x = 666
+be_y = 1000 - 167
+
+for i in range(666):
+    for j in range(333):
+        smiley[i+be_x][j+be_y] = rect[i][j]
+
+
 
 newimage = Image.fromarray(smiley)
 newimage.save("newim.jpg")
