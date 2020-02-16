@@ -23,8 +23,8 @@ int main(int argc, char**argv){
     points[id]= std::vector<float> {0,0,-R,0,0};
     id++;
 
-    double phiLimit = M_PI_4;
-    double thetaLimit = M_PI_4;
+    double phiLimit = M_PI/6;
+    double thetaLimit = M_PI/6;
 
     for(int i = 1; i<=numLatitudes-2;i++){
         phi = M_PI_2 * (   2* ((float)(i)/(float)(numLatitudes-1)) - 1);

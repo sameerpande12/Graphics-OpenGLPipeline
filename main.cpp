@@ -9,7 +9,6 @@
 #include <iostream>
 int main( int argc, char* args[] )
 {
-   std::cout<<argc<<" ;;\n";
    gWindow_GLFW window("Test"); // Create a window. Use default OpenGL settings.
 
    int M, m;
@@ -17,25 +16,33 @@ int main( int argc, char* args[] )
    glGetIntegerv(GL_MINOR_VERSION, &m);
    printf("OpenGL version: %d.%d\n", M, m);
 
-   Scene* baseScene = new Scene();                 // Should come from a file. Temporary scene, with default shader
-   
-   
-   Geom* base = new Geom("sphereVertices.csv",1);
+   Scene* primaryScene = new Scene();                 // Should come from a file. Temporary scene, with default shader
+
+   Geom* base = new Geom("sphereVertices.csv",2);
    glm::mat4 basetransform = glm::mat4(1.f);
-   basetransform = glm::scale(basetransform,glm::vec3(0.5,0.5,0.5));
+   
+   basetransform = glm::scale(basetransform,glm::vec3(1,1,1));
    basetransform = glm::translate(basetransform,glm::vec3(0,0,-1));
+   primaryScene->addchild(base,basetransform);
    
-   baseScene->addchild(base,basetransform);
-
-   Geom* torso = new Geom("sphereVertices.csv",2);
+   Geom* torso = new Geom("sphereVertices.csv",1);
    glm::mat4 torsotransform = glm::mat4(1.f);
+   
+   torsotransform = glm::translate(torsotransform,glm::vec3(0,0,0.1));
    torsotransform = glm::scale(torsotransform,glm::vec3(0.5,0.5,0.5));
-   torsotransform = glm::translate(torsotransform,glm::vec3(0,0,.5));
-   baseScene->addchild(torso,torsotransform);
+   primaryScene->addchild(torso,torsotransform);
+
+
+
+   Geom* head = new Geom("sphereVertices.csv",1);
+   glm::mat4 headtransform = glm::mat4(1.f);
+   headtransform = glm::translate(headtransform,glm::vec3(0,0,0.7));
+   headtransform = glm::scale(headtransform,glm::vec3(0.33,0.33,0.33));
+   primaryScene->addchild(head,headtransform);
    
 
 
-   Renderer renderer(window.Width(), window.Height(), baseScene); // Renderer renders scene from its camera
+   Renderer renderer(window.Width(), window.Height(), primaryScene); // Renderer renders scene from its camera
    UI_GLFW ui(&renderer, &window);	// User interface: intermediary between a renderer and a window
    window.renderloop(renderer);		// Keep rendering until an "End condition"
 }
