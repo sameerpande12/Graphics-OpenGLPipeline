@@ -204,7 +204,9 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     glm::vec3 transformedCameraPos = transformedLightPos;
     printVector("transformedCameraPos",transformedCameraPos);
     
-    glm::vec3 transformedVp = glm::vec3(renderer->camera.viewmatrix() * glm::vec4(glm::vec3(0.24,0,0),1));
+    glm::vec3 point = glm::vec3(0,-4,-2);
+    printVector("point",point);
+    glm::vec3 transformedVp = glm::vec3(viewrendermat * glm::vec4(point,1));
     printVector("transformedVp",transformedVp);
     
     glm::vec3 transformedNormal = glm::normalize(glm::vec3(inv * glm::vec4(normal,0)));
@@ -215,8 +217,8 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     glm::vec3 v = glm::normalize(transformedCameraPos - transformedVp);
     glm::vec3 h = glm::normalize( l  + v);
 
-    float diffCoeff = 0.5;
-    float diffColor = glm::dot(l,transformedNormal);
+    float diffCoeff = 1;
+    float diffColor = diffCoeff* glm::dot(l,transformedNormal);
     cout<<"diffColor:"<<diffColor<<"\n";
 
     if(id==3){

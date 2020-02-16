@@ -7,7 +7,7 @@
 using namespace std;
 int main(int argc, char**argv){//produces an xy plane
     unordered_map<int,std::vector<float>> points;
-    float len = 1.0;
+    float len = 10.0;
     int numPoints = 50;//including both the poles
     int id = 0;
 
@@ -19,7 +19,7 @@ int main(int argc, char**argv){//produces an xy plane
         for(int j = 0;j<numPoints;j++){
             float x = -len/2 + ((float)i/(float)(numPoints-1)) * len ;
             float y = -len/2 + ((float)j/(float)(numPoints-1)) * len ;
-            float z = 0;
+            float z = -2;
             float texX = (x+len/2)/len;
             float texY = (y + len/2)/len;
             float color[] = {0.984,0.851,0.329,1};

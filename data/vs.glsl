@@ -33,8 +33,8 @@ void main() {
     vec3 h = normalize(v+l);
 
     float s = 0.5;
-    float diffCoeff = 0.7;
-    float specCoeff = 0.5;
+    float diffCoeff = 1;
+    float specCoeff = 0;
 
     float diffColor = diffCoeff*dot(l,transformedNormal);
     
