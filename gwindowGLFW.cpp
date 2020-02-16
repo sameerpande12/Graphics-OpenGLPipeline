@@ -69,7 +69,7 @@ gWindow_GLFW::~gWindow_GLFW()
 
 int gWindow_GLFW::renderloop(Renderer &renderer)
 {
-   
+   glEnable(GL_CULL_FACE);
    while (!glfwWindowShouldClose(window))
    {
       if(! renderer.render())

@@ -60,8 +60,9 @@ int main(int argc, char**argv){
             for(int j = 0;j<numLongitudes;j++){
                 std::vector<int>temp;
                 temp.push_back(offset);
-                temp.push_back(offset+1+j);
+                
                 temp.push_back(offset+1 + (j+1)%numLongitudes);
+                temp.push_back(offset+1+j);
                 triangles.push_back(temp);
             }
             offset = offset + 1;
@@ -70,8 +71,9 @@ int main(int argc, char**argv){
             for(int j=0;j<numLongitudes;j++){
                 std::vector<int>temp;
                 temp.push_back(offset+j);
-                temp.push_back(offset+numLongitudes);
+                
                 temp.push_back(offset+(j+1)%numLongitudes);
+                temp.push_back(offset+numLongitudes);
                 triangles.push_back(temp);
                 
             }
@@ -83,14 +85,16 @@ int main(int argc, char**argv){
 
                 std::vector<int>temp2;
                 temp2.push_back(offset+j);
-                temp2.push_back(offset+numLongitudes +j );
+                
                 temp2.push_back(offset+numLongitudes+(j+1)%numLongitudes);
+                temp2.push_back(offset+numLongitudes +j );
                 triangles.push_back(temp2);
 
                 std::vector<int>temp1;
                 temp1.push_back(offset+j);
-                temp1.push_back(offset+numLongitudes+(j+1)%numLongitudes);
                 temp1.push_back(offset+ (j+1)%numLongitudes);
+                temp1.push_back(offset+numLongitudes+(j+1)%numLongitudes);
+                
                 triangles.push_back(temp1);
 
             }
