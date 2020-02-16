@@ -15,5 +15,6 @@ public:
 
 protected:
    GLuint vao;
+   GLuint tex;
    Shader *shader;
 }; 

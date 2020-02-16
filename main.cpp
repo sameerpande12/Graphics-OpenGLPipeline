@@ -23,6 +23,7 @@ int main( int argc, char* args[] )
    floorTransform = glm::translate(floorTransform,glm::vec3(0,0,-2));
    floorTransform = glm::scale(floorTransform,glm::vec3(10,10,10));
    primaryScene->addchild(floor,floorTransform);
+   
    Geom* base = new Geom("sphereVertices.csv",2);
    glm::mat4 basetransform = glm::mat4(1.f);
    

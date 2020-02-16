@@ -135,8 +135,8 @@ int Geom::read(const char *filename)
         glEnableVertexAttribArray(3);
         if(hasTex){
             
-                
-                unsigned int tex;
+                cout<<"id "<<id<<" fname:"<<imageFileName<<"\n";
+                // unsigned int tex;
                 glGenTextures(1,&tex);
                 glBindTexture(GL_TEXTURE_2D,tex);
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);	// set texture wrapping to GL_REPEAT (default wrapping method)
@@ -182,6 +182,7 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     shader->setLightPos((const GLfloat*)glm::value_ptr(renderer->getCameraPosition()));
 
     glBindVertexArray(vao);
+    glBindTexture(GL_TEXTURE_2D,tex);
     // cout<<id<<" "<<vao<<"\n";
     if(numIndices>0 && useDrawElements)
     {    
