@@ -69,6 +69,7 @@ gWindow_GLFW::~gWindow_GLFW()
 
 int gWindow_GLFW::renderloop(Renderer &renderer)
 {
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
    while (!glfwWindowShouldClose(window))
    {
       if(! renderer.render())

@@ -17,7 +17,7 @@ int main(int argc, char**argv){
     int id = 0;
 
     ofstream outputfile;
-    outputfile.open("vertices.csv");
+    outputfile.open("sphereVertices.csv");
     
     // points[id]= std::vector<float> {0,0,-R};
     points[id]= std::vector<float> {0,0,-R,0,0};

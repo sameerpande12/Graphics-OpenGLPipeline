@@ -157,13 +157,15 @@ int Geom::read(const char *filename)
 
 int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrendermat) const//view render mat is same as render mat except projection matrix is not applied
 {
+    if(numIndices<=0 )return glGetError();
+    // cout<<id<<"\n";
     renderer->useShader(shader);
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
     shader->setMVmatrix((const GLfloat*)glm::value_ptr(viewrendermat));
     shader->setLightPos((const GLfloat*)glm::value_ptr(renderer->getCameraPosition()));
 
     glBindVertexArray(vao);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // cout<<id<<" "<<vao<<"\n";
     if(numIndices>0 && useDrawElements)
     {    
         glDrawElements(GL_TRIANGLES,numIndices,GL_UNSIGNED_INT,0);

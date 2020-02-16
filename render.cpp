@@ -6,7 +6,6 @@
 #include "shader.h"
 #include "scene.h"
 #include "render.h"
-
 void Renderer::useShader(Shader *shader)
 {
    if(shader != current_shader)
@@ -42,7 +41,7 @@ int Renderer::update()
 
 int Renderer::render(float *mat)
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     if(mat != NULL)
         rendermat = mat;
     return scene->render(this, camera, rendermat);
