@@ -72,10 +72,11 @@ int gWindow_GLFW::renderloop(Renderer &renderer)
    glEnable(GL_CULL_FACE);
    while (!glfwWindowShouldClose(window))
    {
+       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
       if(! renderer.render())
         QUIT("renderloop", "Renderer refused to continue");
       glfwSwapBuffers(window);
-      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+      
     
       glfwWaitEvents();
       // glfwPollEvents();

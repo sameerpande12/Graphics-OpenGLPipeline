@@ -37,6 +37,7 @@ void UI::handleKeys(int key, float x, float y )
             _quit = true;
             break;
       case KEYDEF(LEFT):
+            std::cout<<"Pressed left"<<"\n";
             break;
       case KEYDEF(RIGHT):
             break;
