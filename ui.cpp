@@ -48,7 +48,7 @@ void UI::handleKeys(int key, float x, float y )
             _quit = true;
             break;
       case KEYDEF(LEFT):
-            std::cout<<"Pressed left"<<"\n";
+            // std::cout<<"Pressed left"<<"\n";
             break;
       case KEYDEF(RIGHT):
             break;
@@ -57,9 +57,11 @@ void UI::handleKeys(int key, float x, float y )
       case KEYDEF(DOWN):
             break;
       case KEYDEF(LEFT_SHIFT):
-            std::cout<<"pressed left shift\n";
+            // std::cout<<"pressed left shift\n";
+            break;
       case KEYDEF(RIGHT_SHIFT):
-            std::cout<<"right shift is pressed\n";
+            break;
+            // std::cout<<"right shift is pressed\n";
    }
 }
 
@@ -106,6 +108,11 @@ void UI::handleMouseDrag(float x, float y){
 
       }
    }
+   else if(selectedObjectId == baseId){
+
+   }
+   
+
    lastx = x;
    lasty = y;
 //  std::cout<<y<<"\n";

@@ -14,8 +14,12 @@ public:
    virtual float getIntersectionTValue(glm::vec3 rayOrigin, glm::vec3 rayDir)=0;
    void attachshader(Shader *shad) { shader = shad; }
    int id;
+   glm::mat4 getModelMatrix(){return modelMatrix;}
+   void setModelMatrix(glm::mat4 model){modelMatrix = model;}
+
 protected:
    GLuint vao;
    GLuint tex;
    Shader *shader;
+   glm::mat4 modelMatrix;
 }; 

@@ -33,6 +33,10 @@ public:
         void unSelectAllObjects(){selectedObjectId = -1;}
         bool selectedSomeObject(){return selectedObjectId >=0;}
 
+        void setHeadId(int hid){headId = hid;}
+        void setTorsoId(int torId){torsoId=torId;}
+        void setBaseId(int bid){baseId = bid;}
+
 protected:
         virtual gWindow* getwindow() = 0; // May return an extension of gWindow
 	bool _quit;
@@ -42,4 +46,7 @@ protected:
         bool mousePressed;
         int numShiftsPressed = 0;
         int selectedObjectId = -1;
+        int baseId;
+        int torsoId;
+        int headId;
 };

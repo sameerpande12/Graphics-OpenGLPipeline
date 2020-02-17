@@ -112,5 +112,8 @@ int main( int argc, char* args[] )
    renderer.objectMap = objects;
 
    UI_GLFW ui(&renderer, &window);	// User interface: intermediary between a renderer and a window
+   ui.setBaseId(base->id);
+   ui.setTorsoId(torso->id);
+   ui.setHeadId(head->id);
    window.renderloop(renderer);		// Keep rendering until an "End condition"
 }

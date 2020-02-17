@@ -9,9 +9,6 @@ public:
    int render(Renderer *renderer, glm::mat4 rendermat,glm::mat4 viewrendermat,bool selectionMode) const;
    
    Geom(int *idptr, const char *filename=NULL,bool sphere=true) {id = *idptr; *idptr = *idptr + 1;read(filename);isSphere = sphere;}
-   glm::mat4 getModelMatrix(){return modelMatrix;}
-   
-   void setModelMatrix(glm::mat4 model){modelMatrix = model;}
    
    
    float getIntersectionTValue(glm::vec3 rayOrigin, glm::vec3 rayDir);
@@ -26,6 +23,6 @@ public:
 private:
    bool useDrawElements;
    int numIndices=-1;
-   glm::mat4 modelMatrix;
+   
 };
 
