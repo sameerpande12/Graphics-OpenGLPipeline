@@ -25,21 +25,23 @@ int main( int argc, char* args[] )
    glm::mat4 floorTransform = glm::mat4(1.0f);
    floorTransform = glm::translate(floorTransform,baseCentre+ glm::vec3(0,0,-1));
    floorTransform = glm::scale(floorTransform,glm::vec3(10,10,10));
-   primaryScene->addchild(floor,floorTransform);
+   floor->setModelMatrix(floorTransform);
+   primaryScene->addchild(floor,floor->getModelMatrix());
    
    Geom* base = new Geom("sphereVertices.csv",2);
    glm::mat4 basetransform = glm::mat4(1.f);
-   
    basetransform = glm::scale(basetransform,glm::vec3(1,1,1));
    basetransform = glm::translate(basetransform,baseCentre);
-   primaryScene->addchild(base,basetransform);
+   base->setModelMatrix(basetransform);
+   primaryScene->addchild(base,base->getModelMatrix());
    
    Geom* torso = new Geom("sphereVertices.csv",1);
    glm::mat4 torsotransform = glm::mat4(1.f);
    
    torsotransform = glm::translate(torsotransform,baseCentre+ glm::vec3(0,0,1.1));
    torsotransform = glm::scale(torsotransform,glm::vec3(0.5,0.5,0.5));
-   primaryScene->addchild(torso,torsotransform);
+   torso->setModelMatrix(torsotransform);
+   primaryScene->addchild(torso,torso->getModelMatrix());
 
 
 
@@ -47,7 +49,8 @@ int main( int argc, char* args[] )
    glm::mat4 headtransform = glm::mat4(1.f);
    headtransform = glm::translate(headtransform,baseCentre + glm::vec3(0,0,1.7));
    headtransform = glm::scale(headtransform,glm::vec3(0.33,0.33,0.33));
-   primaryScene->addchild(head,headtransform);
+   head->setModelMatrix(headtransform);
+   primaryScene->addchild(head,head->getModelMatrix());
    
    Geom** spheres = new Geom*[12];
    for(int i =0 ;i<12;i++){
@@ -62,7 +65,8 @@ int main( int argc, char* args[] )
       newCentre = newCentre + glm::vec3(largeRadius*cos(angle),largeRadius*sin(angle),0);
       sphereTransform = glm::translate(sphereTransform,newCentre);
       sphereTransform = glm::scale(sphereTransform,glm::vec3(radius,radius,radius));
-      primaryScene->addchild(sphere,sphereTransform);
+      sphere->setModelMatrix(sphereTransform);
+      primaryScene->addchild(sphere,sphere->getModelMatrix());
    }
 
 
