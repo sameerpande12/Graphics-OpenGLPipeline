@@ -7,11 +7,13 @@
 #include "scene.h"
 #include <glm/ext.hpp>
 #include <iostream>
+#include "unordered_map"
 
 int main( int argc, char* args[] )
 {
    gWindow_GLFW window("Test"); // Create a window. Use default OpenGL settings.
 
+   std::unordered_map<int,Geom*> objects;
    int M, m;
    glGetIntegerv(GL_MAJOR_VERSION, &M);
    glGetIntegerv(GL_MINOR_VERSION, &m);
@@ -33,6 +35,8 @@ int main( int argc, char* args[] )
    
    floorTransform = glm::scale(floorTransform,glm::vec3(10,10,10));
    floor->setModelMatrix(floorTransform);
+
+   objects[floor->id]=floor;
    primaryScene->addchild(floor,floor->getModelMatrix());
    
    Geom* base = new Geom(&id,"sphereVertices.csv"/*,id++*/);
@@ -43,6 +47,7 @@ int main( int argc, char* args[] )
    base->featureValue = 1;
    base->featureVec = baseCentre;
    base->setModelMatrix(basetransform);
+   objects[base->id]=base;
    primaryScene->addchild(base,base->getModelMatrix());
    
    Geom* torso = new Geom(&id,"sphereVertices.csv"/*,id++*/);
@@ -54,6 +59,7 @@ int main( int argc, char* args[] )
    torso->featureValue = 0.5;
    torso->featureVec = torsoCentre;
    torso->setModelMatrix(torsotransform);
+   objects[torso->id]=torso;
    primaryScene->addchild(torso,torso->getModelMatrix());
 
 
@@ -67,6 +73,7 @@ int main( int argc, char* args[] )
    head->featureValue = 0.33;
    head->featureVec = headCentre;
    head->setModelMatrix(headtransform);
+   objects[head->id]=head;
    primaryScene->addchild(head,head->getModelMatrix());
    
    Geom** spheres = new Geom*[12];
@@ -85,12 +92,15 @@ int main( int argc, char* args[] )
 
       sphere->featureValue = radius;
       sphere->featureVec = newCentre;
+      objects[sphere->id] = sphere;
       sphere->setModelMatrix(sphereTransform);
       primaryScene->addchild(sphere,sphere->getModelMatrix());
    }
 
 
    Renderer renderer(window.Width(), window.Height(), primaryScene); // Renderer renders scene from its camera
+   renderer.objectMap = objects;
+
    UI_GLFW ui(&renderer, &window);	// User interface: intermediary between a renderer and a window
    window.renderloop(renderer);		// Keep rendering until an "End condition"
 }

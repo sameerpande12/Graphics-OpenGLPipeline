@@ -4,7 +4,7 @@ Camera::Camera(int width, int height, float fov, float near, float far)
 {
     // projection = glm::perspective(glm::radians(45.0f), (float) width / (float)height, 0.1f, 100.0f);
     projection(width, height, fov, near, far); 
-    position(4,0,0, true);
+    position(10,0,0, true);
     lookat(0, 0, 0, true);
     upward(0, 0, 1, true);
 
