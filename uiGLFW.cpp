@@ -2,12 +2,7 @@
 #include "uiGLFW.h"
 
 #include <iostream>
-struct Color{
-    GLfloat r;
-    GLfloat g;
-    GLfloat b;
-    GLfloat a;
-};
+
 //========================================================================
 // Handle key strokes
 //========================================================================
@@ -54,15 +49,8 @@ void UI_GLFW::handleMouseClickGLFW(GLFWwindow* window, int button, int action, i
     {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         glfwGetCursorPos(window, &cursorX, &cursorY);
-        std::cout<<cursorX<<" "<<cursorY<<"\n";
-        Color color;
-        std::cout<<"begin reading color\n";
-        int width,height;
-        glfwGetWindowSize(window,&width,&height);
-        std::cout<<"window width= "<<width<<" height = "<<height<<"\n";
-        glReadPixels(width -cursorX - 1,height - cursorY - 1,1,1,GL_RGBA,GL_FLOAT,&color);
-        std::cout<<color.r<<","<<color.g<<","<<color.b<<","<<color.a<<"\n";
         currentUI->UI::handleMouseDown(button, cursorX, cursorY);
+        currentUI->UI::getSelectionId(window,button,cursorX,cursorY);
     }
     else
     {

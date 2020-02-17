@@ -181,7 +181,7 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     if(numIndices<=0 )return glGetError();
     renderer->useShader(shader);
     glm::vec3 cameraPos = renderer->camera.getPosition();
-    cout<<id<<'\n';
+    // cout<<id<<'\n';
    
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
     shader->setMVmatrix((const GLfloat*)glm::value_ptr(viewrendermat));

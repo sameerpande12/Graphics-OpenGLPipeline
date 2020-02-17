@@ -3,6 +3,13 @@
 #include "gwindow.h"
 #include "uiConstants.h"
 #include <iostream>
+
+struct Color{
+    GLfloat r;
+    GLfloat g;
+    GLfloat b;
+    GLfloat a;
+};
 UI::UI(Renderer *renderer, gWindow *window)
 {
   _quit = false;
@@ -70,4 +77,16 @@ void UI::handleMouseMotion(float x, float y)
 void UI::handleResize(int width, int height)
 {
     renderer->resize(width, height);
+}
+
+int UI::getSelectionId(GLFWwindow* window,int button,double cursorX,double cursorY){
+   std::cout<<cursorX<<" "<<cursorY<<"\n";
+        Color color;
+        std::cout<<"begin reading color\n";
+        int width,height;
+        glfwGetWindowSize(window,&width,&height);
+        std::cout<<"window width= "<<width<<" height = "<<height<<"\n";
+        glReadPixels(width -cursorX - 1,height - cursorY - 1,1,1,GL_RGBA,GL_FLOAT,&color);
+        std::cout<<color.r<<","<<color.g<<","<<color.b<<","<<color.a<<"\n";
+      return 0;       
 }

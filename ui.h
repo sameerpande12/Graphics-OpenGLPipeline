@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdlib.h>
+#include "gwindowGLFW.h"
 
 class Renderer;
 class gWindow;
@@ -20,7 +21,7 @@ public:
 
         void attach(Renderer *renderer);
    	void attach(gWindow *window);
-
+        int getSelectionId(GLFWwindow* window,int button,double cursorX,double cursorY);
 
 protected:
         virtual gWindow* getwindow() = 0; // May return an extension of gWindow
