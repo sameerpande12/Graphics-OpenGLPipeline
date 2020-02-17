@@ -19,7 +19,7 @@ int SceneBase::render(Renderer *renderer, const Camera &camera, glm::mat4 mat,bo
    object->render(renderer, camera.matrix(nextmat),camera.viewmatrix(nextmat),selectionMode);
    bool result = true;
    for(SceneBase* cur = firstchild; cur != NULL; cur = cur->sibling) {
-      result &= cur->render(renderer, camera, nextmat);
+      result &= cur->render(renderer, camera, nextmat,selectionMode);
    }
    return result;
 }

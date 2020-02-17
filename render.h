@@ -11,7 +11,7 @@ public:
    Renderer(int width, int height, Scene *scene, float fov = FOV_DEFAULT, float near = NEAR_DEFAULT, float far = FAR_DEFAULT);
    bool init(int width, int height, Scene *scene, float fov, float, float far);
    int update();
-   int render(float *mat = NULL);
+   int render(float *mat = NULL,bool selectionMode=false);
    void resize(int width, int height);
    void setMat(float *mat) { rendermat = mat; }
    void useShader(Shader *shader);

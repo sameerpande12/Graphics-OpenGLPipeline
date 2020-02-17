@@ -39,12 +39,11 @@ int Renderer::update()
    return true;
 }
 
-int Renderer::render(float *mat)
+int Renderer::render(float *mat,bool selectionMode)
 {
-    // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     if(mat != NULL)
         rendermat = mat;
-    return scene->render(this, camera, rendermat);
+    return scene->render(this, camera, rendermat,selectionMode);
 }
 
 

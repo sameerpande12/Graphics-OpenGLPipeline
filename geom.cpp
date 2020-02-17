@@ -179,9 +179,12 @@ void printVector(std::string str,glm::vec3 vec){
 int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrendermat,bool selectionMode) const//view render mat is same as render mat except projection matrix is not applied
 {
     if(numIndices<=0 )return glGetError();
+
+    if(selectionMode){
+        glLoadName(id);
+    }
     renderer->useShader(shader);
     glm::vec3 cameraPos = renderer->camera.getPosition();
-    // cout<<id<<'\n';
    
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
     shader->setMVmatrix((const GLfloat*)glm::value_ptr(viewrendermat));
