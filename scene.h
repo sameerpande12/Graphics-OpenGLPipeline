@@ -8,11 +8,11 @@
 
 class Scene : public SceneBase {
 public:
-   Scene(const char *filename=NULL) { // Read scene from filename
+   Scene(int *id, const char *filename=NULL) { // Read scene from filename
       if(filename == NULL) {
-        Scene::init(new Geom(), glm::mat4(1.0f), NULL, NULL); // I have a temporary scene generator
+        Scene::init(new Geom(id), glm::mat4(1.0f), NULL, NULL); // I have a temporary scene generator
       } else {
-        Scene::init(new Geom(filename), glm::mat4(1.0f), NULL, NULL);
+        Scene::init(new Geom(id,filename), glm::mat4(1.0f), NULL, NULL);
       }
    }
 };

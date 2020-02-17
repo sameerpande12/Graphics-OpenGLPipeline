@@ -179,20 +179,21 @@ void printVector(std::string str,glm::vec3 vec){
 int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrendermat,bool selectionMode) const//view render mat is same as render mat except projection matrix is not applied
 {
     if(numIndices<=0 )return glGetError();
-    // cout<<id<<"\n";
     renderer->useShader(shader);
     glm::vec3 cameraPos = renderer->camera.getPosition();
-    // printVector("cameraPos",cameraPos);
-
+    cout<<id<<'\n';
+   
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
     shader->setMVmatrix((const GLfloat*)glm::value_ptr(viewrendermat));
-    // shader->setMVinvmatrix((const GLfloat*)glm::value_ptr((viewrendermat)));
     shader->setViewMatrix((const GLfloat*)glm::value_ptr(renderer->camera.viewmatrix()));
     shader->setLightPos((const GLfloat*)glm::value_ptr(cameraPos));
     shader->setCameraPos((const GLfloat*)glm::value_ptr(cameraPos));
+   
+   
     glBindVertexArray(vao);
     glBindTexture(GL_TEXTURE_2D,tex);
-    // cout<<id<<" "<<vao<<"\n";
+   
+   
     if(numIndices>0 && useDrawElements)
     {    
         glDrawElements(GL_TRIANGLES,numIndices,GL_UNSIGNED_INT,0);

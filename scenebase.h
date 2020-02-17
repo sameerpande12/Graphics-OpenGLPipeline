@@ -20,7 +20,7 @@ public:
    SceneBase(const GeomBase *obj, glm::mat4 mat = glm::mat4(1.0f),
              SceneBase *next=NULL, SceneBase *child=NULL);
    void init(const GeomBase *obj, glm::mat4 mat, SceneBase *next, SceneBase *child);
-   int render(Renderer *renderer, const Camera &camera, const glm::mat4 mat = glm::mat4(1.0f));
-   int render(Renderer *renderer, const Camera &camera, const float *mat=NULL);
+   int render(Renderer *renderer, const Camera &camera, const glm::mat4 mat = glm::mat4(1.0f),bool selectionMode=false);
+   int render(Renderer *renderer, const Camera &camera, const float *mat=NULL,bool selectionMode=false);
    SceneBase* addchild(const GeomBase *obj, glm::mat4 mat = glm::mat4(1.0f));
 };

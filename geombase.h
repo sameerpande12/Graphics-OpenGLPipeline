@@ -12,7 +12,6 @@ public:
    virtual int render(Renderer *renderer, glm::mat4 rendermat,glm::mat4 viewrendermat,bool selectionMode) const = 0;
    virtual int read(const char *filename) = 0;
    void attachshader(Shader *shad) { shader = shad; }
-
 protected:
    GLuint vao;
    GLuint tex;
