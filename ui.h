@@ -28,6 +28,10 @@ public:
         void releaseShift(){numShiftsPressed--;}
         int getNumShiftsPressed(){return numShiftsPressed;}
         bool getShiftPressedStatus(){return (numShiftsPressed>0);}
+        void selectObject(int objectId){ selectedObjectId = objectId;}
+        int  getSelectedObjectId(){return selectedObjectId;}
+        void unSelectAllObjects(){selectedObjectId = -1;}
+        bool selectedSomeObject(){return selectedObjectId >=0;}
 
 protected:
         virtual gWindow* getwindow() = 0; // May return an extension of gWindow
@@ -37,4 +41,5 @@ protected:
         float lastx, lasty;
         bool mousePressed;
         int numShiftsPressed = 0;
+        int selectedObjectId = -1;
 };

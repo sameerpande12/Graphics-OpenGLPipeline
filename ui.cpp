@@ -88,15 +88,27 @@ void UI::handleResize(int width, int height)
 }
 
 void UI::handleMouseDrag(float x, float y){
-    if(getShiftPressedStatus()){
-       glm::vec3 camNegZ = glm::normalize(renderer->camera.at - renderer->camera.pos);
-       float dy = (lasty - y)/(float)(gwindow->Height());
-       float dx = (x - lastx)/(float(gwindow->Width()));
-       renderer->setCameraPosition(renderer->camera.pos + camNegZ * dy);
-    }
-    lastx = x;
-    lasty = y;
-   //  std::cout<<y<<"\n";
+   float dy = (lasty - y)/(float)(gwindow->Height());
+   float dx = (x - lastx)/(float(gwindow->Width()));
+   
+   if(!selectedSomeObject()){
+      if(getShiftPressedStatus()){
+         glm::vec3 camNegZ = glm::normalize(renderer->camera.at - renderer->camera.pos);
+         renderer->setCameraPosition(renderer->camera.pos + camNegZ * dy);
+      }
+      else{
+         // std::cout<<dy<<"\n";
+         glm::mat4 viewmat = renderer->camera.viewmatrix();
+         glm::vec3 right = glm::vec3(viewmat[0][0],viewmat[1][0],viewmat[2][0]);
+         glm::vec3 up = glm::vec3(viewmat[0][1],viewmat[1][1],viewmat[2][1]);
+         renderer->setCameraPosition(renderer->camera.pos - up * dy);
+         renderer->setCameraPosition(renderer->camera.pos - right * dx);
+
+      }
+   }
+   lastx = x;
+   lasty = y;
+//  std::cout<<y<<"\n";
 
 }
 

@@ -57,21 +57,25 @@ void UI_GLFW::handleMouseClickGLFW(GLFWwindow* window, int button, int action, i
     double cursorX, cursorY;
     if (action == GLFW_PRESS)
     {
-        if(button == GLFW_MOUSE_BUTTON_LEFT){
         
-            currentUI->UI::setMousePressed(true);   
-        }
 
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         glfwGetCursorPos(window, &cursorX, &cursorY);
         currentUI->UI::handleMouseDown(button, cursorX, cursorY);
-        currentUI->UI::getSelectionId(window,button,cursorX,cursorY);
+        if(button == GLFW_MOUSE_BUTTON_LEFT){
+        
+            int selectedObject = currentUI->UI::getSelectionId(window,button,cursorX,cursorY);
+            currentUI->UI::selectObject(selectedObject);
+            currentUI->UI::setMousePressed(true);   
+        }
+        
+        
     }
     else
     {
         if(button == GLFW_MOUSE_BUTTON_LEFT){
             currentUI->UI::setMousePressed(false);
-
+            currentUI->UI::unSelectAllObjects();
         }
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         glfwGetCursorPos(window, &cursorX, &cursorY);
