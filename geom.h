@@ -5,7 +5,7 @@ class Renderer;
 class Geom : public GeomBase {
 public:
    int read(const char *filename);
-   int render(Renderer *renderer, glm::mat4 rendermat,glm::mat4 viewrendermat) const;
+   int render(Renderer *renderer, glm::mat4 rendermat,glm::mat4 viewrendermat,bool selectionMode) const;
    Geom(const char *filename=NULL,int idV = 0) {id = idV;read(filename); }
    int id;
    glm::mat4 getModelMatrix(){return modelMatrix;}

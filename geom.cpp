@@ -176,7 +176,7 @@ void printVector(std::string str,glm::vec3 vec){
     cout<<str<<" ";
     cout<<vec[0]<<","<<vec[1]<<","<<vec[2]<<"\n";
 }
-int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrendermat) const//view render mat is same as render mat except projection matrix is not applied
+int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrendermat,bool selectionMode) const//view render mat is same as render mat except projection matrix is not applied
 {
     if(numIndices<=0 )return glGetError();
     // cout<<id<<"\n";
