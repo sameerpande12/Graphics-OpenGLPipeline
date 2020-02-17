@@ -109,11 +109,11 @@ int UI::getSelectionId(GLFWwindow* window,int button,double cursorX,double curso
       glm::vec3 cameraPosInWorld = renderer->camera.getPosition();
 
 
-      printVec("ray Direction ",rayInWorld);
-      printVec("ray Origin ", cameraPosInWorld);
+      // printVec("ray Direction ",rayInWorld);
+      // printVec("ray Origin ", cameraPosInWorld);
 
       int id = renderer->getClosestIntersectionObject(cameraPosInWorld,rayInWorld);
-      std::cout<<"objid ="<<id<<"\n\n";
+      std::cout<<"objid ="<<id<<"\n";
       
       return 0;       
 }

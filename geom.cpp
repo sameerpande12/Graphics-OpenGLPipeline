@@ -197,13 +197,14 @@ float Geom::getIntersectionTValue(glm::vec3 rayOrigin, glm::vec3 rayDir){
             c = glm::dot(centreToRayOrg,centreToRayOrg) - featureValue*featureValue;
 
             double discriminant = b*b - 4*a*c;
-            cout<<"discriminant "<<discriminant<<"\n";
+            // cout<<"discriminant "<<discriminant<<"\n";
             int numRoots = 0;
             if(discriminant < 0){
-                cout<<tmin<<" <- sphereTmin "<<"\n";
-                numRoots= numRoots + 2 ;
+                // cout<<tmin<<" <- sphereTmin "<<" discrimi < 0\n";
+                
                 return (float)tmin;
             }
+            numRoots= numRoots + 2 ;
 
             std::vector<double> roots;
             double root1 = (-b + sqrt(discriminant))/(2*a);
@@ -217,7 +218,7 @@ float Geom::getIntersectionTValue(glm::vec3 rayOrigin, glm::vec3 rayDir){
                     tmin = roots[i];
                 }
             }
-            cout<<tmin<<" <- sphereTmin\n";
+            
             return (float)tmin;
     }
     else{
@@ -226,9 +227,16 @@ float Geom::getIntersectionTValue(glm::vec3 rayOrigin, glm::vec3 rayDir){
 
         double tempTvalue = ( featureValue - glm::dot(featureVec,rayOrigin))/(glm::dot(featureVec,rayDir));
         if(tempTvalue>=0 && tempTvalue < tmin){
-            tmin = tempTvalue;
+
+            glm::vec3 location = rayOrigin + (float)tempTvalue * rayDir;
+            if( location[0] >= minBounds[0] && location[1]>=minBounds[1] && location[2] >= minBounds[2] 
+            &&  location[0] <= maxBounds[0] && location[1]<=maxBounds[1] && location[2] <=maxBounds[2]){
+                
+                
+                tmin = tempTvalue;
+            }
         }
-        cout<<tmin<<" <- planeTmin\n";
+        
             return (float)tmin;   
     }
 };

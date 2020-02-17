@@ -20,6 +20,9 @@ public:
    float featureValue;//serves as radius for sphere and dVal for plane
    glm::vec3 featureVec;//serves as centre for sphere and normal for plane
 
+   glm::vec3 minBounds;//useful in case of intersection with plane
+   glm::vec3 maxBounds;//useful in case of intersection with plane
+
 private:
    bool useDrawElements;
    int numIndices=-1;
