@@ -27,7 +27,7 @@ include $(DEPFILE)
 $(BUILDDIR)/%.o : %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-EXTLIB=-lglut -lglfw -Wall -lGL -ldl -lGLEW -fopenmp -O3
+EXTLIB=-lglut -lglfw -Wall -lGL -ldl -lGLEW -fopenmp -O3 -lGLU
 
 $(BUILDDIR)/main: $(OBJS)
 	$(CC) $(DEBUG) -o $@ $^ -L$(EXTDIR)/lib $(EXTLIB)
