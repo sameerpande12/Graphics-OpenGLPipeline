@@ -85,3 +85,23 @@ const glm::vec3 Camera::getPosition()const
 {
    return pos;
 }
+
+glm::vec3 Camera::viewPortToWorldRayDirection(double cursorX, double cursorY, int width, int height){
+//http://antongerdelan.net/opengl/raycasting.html <- theory source for this function 
+
+
+      float xNdc = (2.0 * cursorX)/(float)(width) - 1;
+      float yNdc = 1 - (2.0 * cursorY)/(float)(height);
+      float zNdc = -1;
+      glm::vec3 rayInNdc = glm::vec3(xNdc,yNdc,zNdc);
+
+      glm::vec4 rayInClip = glm::vec4(rayInNdc[0], rayInNdc[1],-1.0f,1.0f);
+      glm::vec4 rayInCam = glm::inverse(getProjectionMatrix()) * rayInClip;
+      rayInCam = glm::vec4(rayInCam[0],rayInCam[1],-1,0);//since it is a ray
+
+      glm::vec4 rayInWorld4d = glm::inverse(viewmatrix())*rayInCam;
+      glm::vec3 rayInWorld = glm::vec3(rayInWorld4d[0],rayInWorld4d[1],rayInWorld4d[2]);
+
+      rayInWorld = glm::normalize(rayInWorld);
+      return rayInWorld;
+}

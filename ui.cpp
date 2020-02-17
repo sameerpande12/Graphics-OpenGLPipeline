@@ -88,30 +88,10 @@ void printVec(std::string str,glm::vec3 vec){
          std::cout<<vec[0]<<","<<vec[1]<<","<<vec[2]<<"\n";
 }
 int UI::getSelectionId(GLFWwindow* window,int button,double cursorX,double cursorY){
-//http://antongerdelan.net/opengl/raycasting.html
       int width,height;
       glfwGetWindowSize(window,&width,&height);
-
-      float xNdc = (2.0 * cursorX)/(float)(width) - 1;
-      float yNdc = 1 - (2.0 * cursorY)/(float)(height);
-      float zNdc = -1;
-      glm::vec3 rayInNdc = glm::vec3(xNdc,yNdc,zNdc);
-
-      glm::vec4 rayInClip = glm::vec4(rayInNdc[0], rayInNdc[1],-1.0f,1.0f);
-      glm::vec4 rayInCam = glm::inverse(renderer->camera.getProjectionMatrix()) * rayInClip;
-      rayInCam = glm::vec4(rayInCam[0],rayInCam[1],-1,0);//since it is a ray
-
-      glm::vec4 rayInWorld4d = glm::inverse(renderer->camera.viewmatrix())*rayInCam;
-      glm::vec3 rayInWorld = glm::vec3(rayInWorld4d[0],rayInWorld4d[1],rayInWorld4d[2]);
-
-      rayInWorld = glm::normalize(rayInWorld);
-
+      glm::vec3 rayInWorld = renderer->camera.viewPortToWorldRayDirection(cursorX,cursorY,width,height);
       glm::vec3 cameraPosInWorld = renderer->camera.getPosition();
-
-
-      // printVec("ray Direction ",rayInWorld);
-      // printVec("ray Origin ", cameraPosInWorld);
-
       int id = renderer->getClosestIntersectionObject(cameraPosInWorld,rayInWorld);
       std::cout<<"objid ="<<id<<"\n";
       
