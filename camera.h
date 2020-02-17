@@ -22,7 +22,8 @@ public:
     const glm::mat4 matrix(const glm::mat4 modelmat) const;
     const glm::mat4 matrix() const;
     const glm::vec3 getPosition()const;
-
+    glm::mat4 getProjectionMatrix(){return projmat;};
+    float zFar,zNear;
 // private:
     glm::mat4 projmat;
     glm::mat4 viewmat;
