@@ -69,7 +69,7 @@ gWindow_GLFW::~gWindow_GLFW()
 
 int gWindow_GLFW::renderloop(Renderer &renderer)
 {
-   glEnable(GL_CULL_FACE);
+//    glEnable(GL_CULL_FACE);
    while (!glfwWindowShouldClose(window))
    {
        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

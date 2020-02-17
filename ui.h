@@ -5,7 +5,6 @@
 
 class Renderer;
 class gWindow;
-
 class UI {
 
 public:

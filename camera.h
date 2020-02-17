@@ -23,9 +23,10 @@ public:
     const glm::mat4 matrix() const;
     const glm::vec3 getPosition()const;
 
-private:
+// private:
     glm::mat4 projmat;
     glm::mat4 viewmat;
     glm::mat4 pvmat;
     glm::vec3 pos, at, up;
+    float camFov;
 };

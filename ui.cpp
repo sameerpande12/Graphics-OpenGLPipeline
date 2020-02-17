@@ -3,14 +3,17 @@
 #include "gwindow.h"
 #include "uiConstants.h"
 #include <iostream>
+#include "GL/glut.h"
+#include "GL/glew.h"
 #define BUFSIZE 1024
+
 struct Color{
     GLfloat r;
     GLfloat g;
     GLfloat b;
     GLfloat a;
 };
-void processHits (GLint hits, GLuint buffer[]);
+
 
 UI::UI(Renderer *renderer, gWindow *window)
 {
@@ -81,60 +84,36 @@ void UI::handleResize(int width, int height)
     renderer->resize(width, height);
 }
 
+void printVec(std::string str,glm::vec3 vec){
+         std::cout<<str<<" ";
+         std::cout<<vec[0]<<","<<vec[1]<<","<<vec[2]<<"\n";
+}
 int UI::getSelectionId(GLFWwindow* window,int button,double cursorX,double cursorY){
-      std::cout<<"cursor Pos:("<<cursorX<<" "<<cursorY<<")\n";
+      // std::cout<<"cursor Pos:("<<cursorX<<" "<<cursorY<<")\n";
       Color color;
       int width,height;
       glfwGetWindowSize(window,&width,&height);
       // std::cout<<"window width= "<<width<<" height = "<<height<<"\n";
-      std::cout<<"pixel pos: ("<<cursorX<<" ,"<<height-cursorY - 1<<")\n";
-      glReadPixels(cursorX ,height - cursorY - 1,1,1,GL_RGBA,GL_FLOAT,&color);
-      std::cout<<"color : ("<<color.r<<","<<color.g<<","<<color.b<<","<<color.a<<")\n\n";
+      // std::cout<<"pixel pos: ("<<cursorX<<" ,"<<height-cursorY - 1<<")\n";
+      // glReadPixels(cursorX ,height - cursorY - 1,1,1,GL_RGBA,GL_FLOAT,&color);
+      // std::cout<<"color : ("<<color.r<<","<<color.g<<","<<color.b<<","<<color.a<<")\n\n";
 
-      //https://www.glprogramming.com/red/chapter13.html
-      GLuint selectBuf[BUFSIZE];
-      GLuint hits;
-      GLint viewport[4];
-      glGetIntegerv(GL_VIEWPORT, viewport);
-      glSelectBuffer(BUFSIZE, selectBuf);
-      (void) glRenderMode(GL_SELECT);
+      float screenX = cursorX/width - 0.5;
+      float screenY = (height-cursorY-1)/height - 0.5;
+      // std::cout<<viewPortX<<","<<viewPortY<<"\n";
+      glm::mat4 viewmatrix = renderer->camera.viewmatrix();
+      glm::vec3 right = glm::vec3(viewmatrix[0][0],viewmatrix[1][0],viewmatrix[2][0]);//in world coordinate
+      glm::vec3 up = glm::vec3(viewmatrix[0][1],viewmatrix[1][1],viewmatrix[2][1]);//in world coordinate
+      glm::vec3 forward = glm::vec3(viewmatrix[0][2],viewmatrix[1][2],viewmatrix[2][2]);
 
-
-      glInitNames();
-      glPushName(0);
-
-      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-      // std::cout<<"getSelectionId be"<<"\n";
-      renderer->render(NULL,true);
-      // std::cout<<"getSelectionId end"<<"\n";
+      printVec("right",right);
+      printVec("up",up);
+      printVec("forward",forward);
+      float tanVal = tan(renderer->camera.camFov/2);
+      float aspectRatio = width/height;
+      glm::vec3 rayDirection = glm::normalize((tanVal* aspectRatio *  screenX * right +  tanVal * screenY * up)  - forward);
+      Scene* scene = renderer->scene;
+      // int id = scene->getClosestIntersectionObject();
       
-      hits = glRenderMode(GL_RENDER);
-      processHits(hits,selectBuf);
-
       return 0;       
-}
-void processHits (GLint hits, GLuint buffer[])////https://www.glprogramming.com/red/chapter13.html
-{
-   unsigned int i, j;
-   GLuint ii, jj, names, *ptr;
-
-   printf ("hits = %d\n", hits);
-   ptr = (GLuint *) buffer;
-   for (i = 0; i < hits; i++) { /*  for each hit  */
-      names = *ptr;
-      printf (" number of names for this hit = %d\n", names);
-         ptr++;
-      printf("  z1 is %g;", (float) *ptr/0x7fffffff); ptr++;
-      printf(" z2 is %g\n", (float) *ptr/0x7fffffff); ptr++;
-      printf ("   names are ");
-      for (j = 0; j < names; j++) { /*  for each name */
-         printf ("%d ", *ptr);
-         if (j == 0)  /*  set row and column  */
-            ii = *ptr;
-         else if (j == 1)
-            jj = *ptr;
-         ptr++;
-      }
-      printf ("\n");
-   }
 }

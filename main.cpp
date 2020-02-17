@@ -7,6 +7,7 @@
 #include "scene.h"
 #include <glm/ext.hpp>
 #include <iostream>
+
 int main( int argc, char* args[] )
 {
    gWindow_GLFW window("Test"); // Create a window. Use default OpenGL settings.
@@ -22,9 +23,14 @@ int main( int argc, char* args[] )
 
    
 
-   Geom * floor = new Geom(&id,"xyPlaneVertices.csv"/*,id++*/);
+   Geom * floor = new Geom(&id,"xyPlaneVertices.csv",false/*,id++*/);
    glm::mat4 floorTransform = glm::mat4(1.0f);
+
    floorTransform = glm::translate(floorTransform,baseCentre+ glm::vec3(0,0,-1));
+   floor->featureValue = -1;
+   floor->featureVec = glm::vec3(0,0,1);
+   
+   
    floorTransform = glm::scale(floorTransform,glm::vec3(10,10,10));
    floor->setModelMatrix(floorTransform);
    primaryScene->addchild(floor,floor->getModelMatrix());
@@ -33,14 +39,20 @@ int main( int argc, char* args[] )
    glm::mat4 basetransform = glm::mat4(1.f);
    basetransform = glm::scale(basetransform,glm::vec3(1,1,1));
    basetransform = glm::translate(basetransform,baseCentre);
+
+   base->featureValue = 1;
+   base->featureVec = baseCentre;
    base->setModelMatrix(basetransform);
    primaryScene->addchild(base,base->getModelMatrix());
    
    Geom* torso = new Geom(&id,"sphereVertices.csv"/*,id++*/);
    glm::mat4 torsotransform = glm::mat4(1.f);
-   
-   torsotransform = glm::translate(torsotransform,baseCentre+ glm::vec3(0,0,1.1));
+   glm::vec3 torsoCentre = baseCentre+ glm::vec3(0,0,1.1);
+   torsotransform = glm::translate(torsotransform,torsoCentre);
    torsotransform = glm::scale(torsotransform,glm::vec3(0.5,0.5,0.5));
+
+   torso->featureValue = 0.5;
+   torso->featureVec = torsoCentre;
    torso->setModelMatrix(torsotransform);
    primaryScene->addchild(torso,torso->getModelMatrix());
 
@@ -48,8 +60,12 @@ int main( int argc, char* args[] )
 
    Geom* head = new Geom(&id,"sphereVertices.csv"/*,id++*/);
    glm::mat4 headtransform = glm::mat4(1.f);
-   headtransform = glm::translate(headtransform,baseCentre + glm::vec3(0,0,1.7));
+   glm::vec3 headCentre = baseCentre + glm::vec3(0,0,1.7);
+   headtransform = glm::translate(headtransform,headCentre);
    headtransform = glm::scale(headtransform,glm::vec3(0.33,0.33,0.33));
+
+   head->featureValue = 0.33;
+   head->featureVec = headCentre;
    head->setModelMatrix(headtransform);
    primaryScene->addchild(head,head->getModelMatrix());
    
@@ -66,6 +82,9 @@ int main( int argc, char* args[] )
       newCentre = newCentre + glm::vec3(largeRadius*cos(angle),largeRadius*sin(angle),0);
       sphereTransform = glm::translate(sphereTransform,newCentre);
       sphereTransform = glm::scale(sphereTransform,glm::vec3(radius,radius,radius));
+
+      sphere->featureValue = radius;
+      sphere->featureVec = newCentre;
       sphere->setModelMatrix(sphereTransform);
       primaryScene->addchild(sphere,sphere->getModelMatrix());
    }

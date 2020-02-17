@@ -8,7 +8,7 @@ using namespace std;
 int main(int argc, char**argv){//produces an xy plane
     unordered_map<int,std::vector<float>> points;
     float len = 1.0;
-    int numPoints = 50;//including both the poles
+    int numPoints = 25;//including both the poles
     int id = 0;
 
     ofstream outputfile;

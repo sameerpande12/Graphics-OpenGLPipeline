@@ -5,6 +5,8 @@
 #include "render.h"
 #include "shader.h"
 #include <iostream>
+#include "limits"
+#define INF std::numeric_limits<double>::infinity();
 #define cout std::cout
 #define endl std::endl
 
@@ -176,13 +178,53 @@ void printVector(std::string str,glm::vec3 vec){
     cout<<str<<" ";
     cout<<vec[0]<<","<<vec[1]<<","<<vec[2]<<"\n";
 }
+
+float Geom::getIntersectionTValue(glm::vec3 rayOrigin, glm::vec3 rayDir){
+    if(isSphere){
+
+            double tmin = INF;
+            double a,b,c;
+            a = 1.0;
+            b = 2* glm::dot(rayDir,rayOrigin-featureVec);
+            c = glm::length(rayOrigin - featureVec);
+            c = c*c - featureValue*featureValue;
+
+            double discriminant = b*b - 4*a*c;
+            int numRoots = 0;
+            if(discriminant < 0){
+                numRoots= numRoots + 2 ;
+                return (float)tmin;
+            }
+
+            std::vector<double> roots;
+            double root1 = (-b + sqrt(discriminant))/(2*a);
+            double root2 = (-b - sqrt(discriminant))/(2*a);
+
+            roots.push_back(root1);
+            roots.push_back(root2);
+
+            for(int i =0 ;i<numRoots;i++){
+                if(roots[i]>=0 && roots[i]<=tmin){
+                    tmin = roots[i];
+                }
+            }
+            return (float)tmin;
+    }
+    else{
+        double tmin = INF;
+            if( glm::dot(featureVec,rayDir)==0)return (float)tmin;
+
+            double tempTvalue = ( featureValue - glm::dot(featureVec,rayOrigin))/(glm::dot(featureVec,rayDir));
+            if(tempTvalue>=0 && tempTvalue < tmin){
+                tmin = tempTvalue;
+            }
+            return (float)tmin;   
+    }
+};
 int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrendermat,bool selectionMode) const//view render mat is same as render mat except projection matrix is not applied
 {
     if(numIndices<=0 )return glGetError();
 
-    if(selectionMode){
-        glLoadName(id);
-    }
     renderer->useShader(shader);
     glm::vec3 cameraPos = renderer->camera.getPosition();
    
@@ -195,7 +237,6 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
    
     glBindVertexArray(vao);
     glBindTexture(GL_TEXTURE_2D,tex);
-   
    
     if(numIndices>0 && useDrawElements)
     {    

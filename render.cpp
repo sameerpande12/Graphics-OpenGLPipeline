@@ -65,3 +65,7 @@ void Renderer::setCameraPosition(glm::vec3 pos){
     camera.position(pos[0],pos[1],pos[2]);
 
 }
+
+int Renderer::getClosestIntersectionObject(glm::vec3 origin,glm::vec3 Direction){
+    
+};
