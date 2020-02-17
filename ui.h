@@ -15,6 +15,7 @@ public:
         void handleMouseUp ( int button, float x, float y );
         void handleMouseDown(int button, float x, float y );
         void handleMouseMotion( float dx, float dy );
+        void handleMouseDrag(float x, float y);
         void handleResize(int width, int height);
         int render();
 

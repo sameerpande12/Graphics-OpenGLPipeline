@@ -87,6 +87,19 @@ void UI::handleResize(int width, int height)
     renderer->resize(width, height);
 }
 
+void UI::handleMouseDrag(float x, float y){
+    if(getShiftPressedStatus()){
+       glm::vec3 camNegZ = glm::normalize(renderer->camera.at - renderer->camera.pos);
+       float dy = (lasty - y)/(float)(gwindow->Height());
+       float dx = (x - lastx)/(float(gwindow->Width()));
+       renderer->setCameraPosition(renderer->camera.pos + camNegZ * dy);
+    }
+    lastx = x;
+    lasty = y;
+   //  std::cout<<y<<"\n";
+
+}
+
 void printVec(std::string str,glm::vec3 vec){
          std::cout<<str<<" ";
          std::cout<<vec[0]<<","<<vec[1]<<","<<vec[2]<<"\n";
