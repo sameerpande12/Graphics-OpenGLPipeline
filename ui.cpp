@@ -114,46 +114,6 @@ int UI::getSelectionId(GLFWwindow* window,int button,double cursorX,double curso
 
       int id = renderer->getClosestIntersectionObject(cameraPosInWorld,rayInWorld);
       std::cout<<"objid ="<<id<<"\n\n";
-      // // std::cout<<"cursor Pos:("<<cursorX<<" "<<cursorY<<")\n";
-      // Color color;
-      
-      // // std::cout<<"window width= "<<width<<" height = "<<height<<"\n";
-      // // std::cout<<"pixel pos: ("<<cursorX<<" ,"<<height-cursorY - 1<<")\n";
-      // // glReadPixels(cursorX ,height - cursorY - 1,1,1,GL_RGBA,GL_FLOAT,&color);
-      // float zBuf;
-      // glReadPixels(cursorX,height-cursorY-1,1,1,GL_DEPTH_COMPONENT,GL_FLOAT,&zBuf );
-      // float zNear = renderer->camera.zNear;
-      // float zFar = renderer->camera.zFar;
-      // // std::cout<<"zbuf value "<<zBuf<<'\n';
-
-      // // std::cout<<"color : ("<<color.r<<","<<color.g<<","<<color.b<<","<<color.a<<")\n\n";
-
-      // float screenX = cursorX/width - 0.5;
-      // float screenY = (height-cursorY-1)/height - 0.5;
-      // std::cout<<"screenCoordinate "<<screenX<<","<<screenY<<"\n";
-      // glm::mat4 viewmatrix = renderer->camera.viewmatrix();
-      // glm::vec3 right = glm::vec3(viewmatrix[0][0],viewmatrix[1][0],viewmatrix[2][0]);//in world coordinate
-      // glm::vec3 up = glm::vec3(viewmatrix[0][1],viewmatrix[1][1],viewmatrix[2][1]);//in world coordinate
-      // glm::vec3 forward = glm::vec3(viewmatrix[0][2],viewmatrix[1][2],viewmatrix[2][2]);
-
-      // // printVec("right",right);
-      // // printVec("up",up);
-      // // printVec("forward",forward);
-
-
-      // float tanVal = tan(  M_PI/180*   renderer->camera.camFov/2);
-      // float aspectRatio = width/height;
-      // glm::vec3 rayDirection = glm::normalize(  tanVal *aspectRatio *  screenX * right +   tanVal * screenY * up  - forward );
-      // glm::vec3 rayOrigin = renderer->camera.pos;
-      
-      
-      // // printVec("rayDir in WorldSpace:",rayDirection);
-      // // printVec("ray Origin in World Space: ",rayOrigin);
-      // int id = renderer->getClosestIntersectionObject(rayOrigin,rayDirection);
-      
-      // std::cout<<"objId = "<<id<<"\n\n\n";
-
-      
       
       return 0;       
 }
