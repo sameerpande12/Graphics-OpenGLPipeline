@@ -21,6 +21,12 @@ public:
         void attach(Renderer *renderer);
    	void attach(gWindow *window);
         int getSelectionId(GLFWwindow* window,int button,double cursorX,double cursorY);
+        void setMousePressed(bool val){mousePressed = val;}
+        bool getMousePressStatus(){return mousePressed;}
+        void pressShift(){numShiftsPressed++;}
+        void releaseShift(){numShiftsPressed--;}
+        int getNumShiftsPressed(){return numShiftsPressed;}
+        bool getShiftPressedStatus(){return (numShiftsPressed>0);}
 
 protected:
         virtual gWindow* getwindow() = 0; // May return an extension of gWindow
@@ -28,4 +34,6 @@ protected:
 	Renderer *renderer;
 	gWindow  *gwindow;
         float lastx, lasty;
+        bool mousePressed;
+        int numShiftsPressed = 0;
 };

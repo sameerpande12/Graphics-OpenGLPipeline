@@ -56,6 +56,10 @@ void UI::handleKeys(int key, float x, float y )
             break;
       case KEYDEF(DOWN):
             break;
+      case KEYDEF(LEFT_SHIFT):
+            std::cout<<"pressed left shift\n";
+      case KEYDEF(RIGHT_SHIFT):
+            std::cout<<"right shift is pressed\n";
    }
 }
 
@@ -92,8 +96,7 @@ int UI::getSelectionId(GLFWwindow* window,int button,double cursorX,double curso
       glfwGetWindowSize(window,&width,&height);
       glm::vec3 rayInWorld = renderer->camera.viewPortToWorldRayDirection(cursorX,cursorY,width,height);
       glm::vec3 cameraPosInWorld = renderer->camera.getPosition();
-      int id = renderer->getClosestIntersectionObject(cameraPosInWorld,rayInWorld);
-      std::cout<<"objid ="<<id<<"\n";
-      
-      return 0;       
+      int id = renderer->getClosestIntersectionObject(cameraPosInWorld,rayInWorld);      
+      std::cout<<"Selected Object = "<<id<<"\n";
+      return id;
 }
