@@ -192,6 +192,7 @@ float Geom::getIntersectionTValue(glm::vec3 rayOrigin, glm::vec3 rayDir){
             double discriminant = b*b - 4*a*c;
             int numRoots = 0;
             if(discriminant < 0){
+                cout<<tmin<<" <- sphereTmin\n";
                 numRoots= numRoots + 2 ;
                 return (float)tmin;
             }
@@ -208,16 +209,18 @@ float Geom::getIntersectionTValue(glm::vec3 rayOrigin, glm::vec3 rayDir){
                     tmin = roots[i];
                 }
             }
+            cout<<tmin<<" <- sphereTmin\n";
             return (float)tmin;
     }
     else{
         double tmin = INF;
-            if( glm::dot(featureVec,rayDir)==0)return (float)tmin;
+        if( glm::dot(featureVec,rayDir)==0)return (float)tmin;
 
-            double tempTvalue = ( featureValue - glm::dot(featureVec,rayOrigin))/(glm::dot(featureVec,rayDir));
-            if(tempTvalue>=0 && tempTvalue < tmin){
-                tmin = tempTvalue;
-            }
+        double tempTvalue = ( featureValue - glm::dot(featureVec,rayOrigin))/(glm::dot(featureVec,rayDir));
+        if(tempTvalue>=0 && tempTvalue < tmin){
+            tmin = tempTvalue;
+        }
+        cout<<tmin<<" <- planeTmin\n";
             return (float)tmin;   
     }
 };

@@ -5,7 +5,6 @@
 #include <iostream>
 #include "GL/glut.h"
 #include "GL/glew.h"
-#define BUFSIZE 1024
 
 struct Color{
     GLfloat r;
@@ -100,7 +99,7 @@ int UI::getSelectionId(GLFWwindow* window,int button,double cursorX,double curso
 
       float screenX = cursorX/width - 0.5;
       float screenY = (height-cursorY-1)/height - 0.5;
-      // std::cout<<viewPortX<<","<<viewPortY<<"\n";
+      std::cout<<"screenCoordinate "<<screenX<<","<<screenY<<"\n";
       glm::mat4 viewmatrix = renderer->camera.viewmatrix();
       glm::vec3 right = glm::vec3(viewmatrix[0][0],viewmatrix[1][0],viewmatrix[2][0]);//in world coordinate
       glm::vec3 up = glm::vec3(viewmatrix[0][1],viewmatrix[1][1],viewmatrix[2][1]);//in world coordinate
@@ -109,11 +108,21 @@ int UI::getSelectionId(GLFWwindow* window,int button,double cursorX,double curso
       printVec("right",right);
       printVec("up",up);
       printVec("forward",forward);
-      float tanVal = tan(renderer->camera.camFov/2);
+
+
+      // float tanVal = tan(renderer->camera.camFov/2);
       float aspectRatio = width/height;
-      glm::vec3 rayDirection = glm::normalize((tanVal* aspectRatio *  screenX * right +  tanVal * screenY * up)  - forward);
-      Scene* scene = renderer->scene;
-      // int id = scene->getClosestIntersectionObject();
+      glm::vec3 rayDirection = glm::normalize(  aspectRatio *  screenX * right +   screenY * up  - forward);
+      glm::vec3 rayOrigin = renderer->camera.pos;
+      
+      
+      printVec("rayDir in WorldSpace:",rayDirection);
+      printVec("ray Origin in World Space: ",rayOrigin);
+      int id = renderer->getClosestIntersectionObject(rayOrigin,rayDirection);
+      
+      std::cout<<"objId = "<<id<<"\n\n\n";
+
+      
       
       return 0;       
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "geombase.h"
+#include "render.h"
 
-class Renderer;
 
 class Geom : public GeomBase {
 public:

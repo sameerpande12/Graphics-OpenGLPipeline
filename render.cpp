@@ -1,6 +1,8 @@
 #include <GL/glew.h>
 //#include "glm/glm.hpp"
 //#include "glm/gtc/type_ptr.hpp"
+#include "limits"
+#define INF std::numeric_limits<double>::infinity();
 
 #include "ui.h"
 #include "shader.h"
@@ -67,5 +69,15 @@ void Renderer::setCameraPosition(glm::vec3 pos){
 }
 
 int Renderer::getClosestIntersectionObject(glm::vec3 origin,glm::vec3 Direction){
+    double tmin = INF;
+    int objId = -1;
+    for(auto i = objectMap.begin();i!=objectMap.end();i++){
+        double tVal = objectMap[i->first]->getIntersectionTValue(origin,Direction);
+        if(tVal >= 0 && tVal < tmin){
+            tmin = tVal;
+            objId = i->first;
+        }
+    }
+    return objId;
     
 };
