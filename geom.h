@@ -23,6 +23,6 @@ public:
 private:
    bool useDrawElements;
    int numIndices=-1;
-   
+   float delta = 0.0001;
 };
 
