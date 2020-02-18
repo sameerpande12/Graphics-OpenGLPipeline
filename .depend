@@ -1,0 +1,16 @@
+./build/main.o: main.cpp uiGLFW.h ui.h gwindowGLFW.h gwindow.h glConstants.h \
+ render.h camera.h scene.h scenebase.h geom.h geombase.h
+./build/geom.o: geom.cpp geom.h geombase.h render.h glConstants.h camera.h \
+ shader.h stb_image.h
+./build/render.o: render.cpp ui.h gwindowGLFW.h gwindow.h glConstants.h shader.h \
+ scene.h scenebase.h geom.h geombase.h render.h camera.h
+./build/shader.o: shader.cpp shader.h
+./build/ui.o: ui.cpp ui.h gwindowGLFW.h gwindow.h glConstants.h render.h camera.h \
+ uiConstants.h
+./build/uiGLFW.o: uiGLFW.cpp uiConstants.h uiGLFW.h ui.h gwindowGLFW.h gwindow.h \
+ glConstants.h
+./build/camera.o: camera.cpp camera.h
+./build/gwindowGLFW.o: gwindowGLFW.cpp gwindowGLFW.h gwindow.h glConstants.h ui.h \
+ render.h camera.h
+./build/scenebase.o: scenebase.cpp scenebase.h camera.h geombase.h render.h \
+ glConstants.h
