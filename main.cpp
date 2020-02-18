@@ -115,5 +115,8 @@ int main( int argc, char* args[] )
    ui.setBaseId(base->id);
    ui.setTorsoId(torso->id);
    ui.setHeadId(head->id);
+
+   Scene* refScene = primaryScene->getAllDescendantScene()[0];
+   refScene->set(glm::translate(basetransform,glm::vec3(-10,0,1)));
    window.renderloop(renderer);		// Keep rendering until an "End condition"
 }
