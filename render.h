@@ -27,6 +27,7 @@ public:
    void translateObject(int id,glm::vec3 displacment);
    void rotateObject(int id, float angle, glm::vec3 axis);
    void moveSpheretOnFloor(int id, float x, float y,int width,int height);
+   void setCameraLookAt(glm::vec3 lookat);
 private:
    float fov, near, far; // Should I bother remembering? May be useful later for UI purpose.?
    

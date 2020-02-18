@@ -67,6 +67,9 @@ void Renderer::setCameraPosition(glm::vec3 pos){
     camera.position(pos[0],pos[1],pos[2]);
 
 }
+void Renderer::setCameraLookAt(glm::vec3 look){
+    camera.lookat(look[0],look[1],look[2]);
+}
 
 int Renderer::getClosestIntersectionObject(glm::vec3 origin,glm::vec3 Direction){
     double tmin = INF;
@@ -115,8 +118,10 @@ void Renderer::moveSpheretOnFloor(int id, float cursorX, float cursorY,int width
 
     glm::vec3 newPosition = rayOrigin + t * rayDirectionWorld ;
 
+    // std::cout<<"old Position"<<sphere->featureVec[0]<<" "<<sphere->featureVec[1]<<" "<<newPosition[2]<<"\n";
     glm::vec3 translation = newPosition - sphere->featureVec;
     sphere->featureVec = newPosition;
+    std::cout<<"new Position"<<newPosition[0]<<" "<<newPosition[1]<<" "<<newPosition[2]<<"\n";
 
     translateObject(id,translation);
 }

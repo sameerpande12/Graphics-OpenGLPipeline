@@ -255,6 +255,6 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     }
     else    
         glDrawArrays(GL_TRIANGLES, 0, 0);
-    
+    // if(isSphere)printVector("feature Vec",featureVec);
     return glGetError();
 }
