@@ -131,7 +131,7 @@ int UI::getSelectionId(GLFWwindow* window,int button,double cursorX,double curso
       glm::vec3 rayInWorld = renderer->camera.viewPortToWorldRayDirection(cursorX,cursorY,width,height);
       glm::vec3 cameraPosInWorld = renderer->camera.getPosition();
       int id = renderer->getClosestIntersectionObject(cameraPosInWorld,rayInWorld);
-      renderer->translateObject(id,glm::vec3(1,0,0));
+      renderer->rotateObject(id,M_PI/4,glm::vec3(0,0,1));
       std::cout<<"Selected Object = "<<id<<"\n";
       return id;
 }

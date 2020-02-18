@@ -33,5 +33,8 @@ public:
    void translate(glm::vec3 displacment){
       set(glm::translate(objmat,displacment));
    }
+   void rotate(float angle, glm::vec3 axis){
+      set(glm::rotate(objmat,angle,axis));
+   }
 
 };

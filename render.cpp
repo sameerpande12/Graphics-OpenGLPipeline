@@ -83,15 +83,22 @@ int Renderer::getClosestIntersectionObject(glm::vec3 origin,glm::vec3 Direction)
 };
 
 void Renderer::translateObject(int id,glm::vec3 displacment){
-    std::cout<<"Entererd translate Object\n";
     std::vector<SceneBase*> allScenes = scene->getAllDescendantScenes();
     for(int i =0 ;i<allScenes.size();i++){
         SceneBase* childScene = allScenes[i];
-        std::cout<<"Descendant id = "<<childScene->getObjectId()<<"\n";
         if(childScene->getObjectId()==id){
-            std::cout<<"Got Scene\n";
             childScene->translate(displacment);
         }
     }
 
 };
+
+void Renderer::rotateObject(int id, float angle, glm::vec3 axis){
+    std::vector<SceneBase*> allScenes = scene->getAllDescendantScenes();
+    for(int i =0 ;i<allScenes.size();i++){
+        SceneBase* childScene = allScenes[i];
+        if(childScene->getObjectId()==id){
+            childScene->rotate(angle,axis);
+        }
+    }
+}

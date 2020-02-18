@@ -25,6 +25,7 @@ public:
    std::unordered_map<int,Geom*> objectMap;
    int getClosestIntersectionObject(glm::vec3 origin,glm::vec3 Direction);
    void translateObject(int id,glm::vec3 displacment);
+   void rotateObject(int id, float angle, glm::vec3 axis);
 private:
    float fov, near, far; // Should I bother remembering? May be useful later for UI purpose.?
    
