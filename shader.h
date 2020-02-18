@@ -31,6 +31,12 @@ public:
    void setCameraPos(const GLfloat* camPos){
       glUniform3fv(cameraid,1,camPos);
    }
+   void setDiffusion(const GLfloat diff){
+      glUniform1f(diffuseId,diff);
+   }
+   void setShininess(const GLfloat shiniess){
+      glUniform1f(shineId,shiniess);
+   }
    Shader(const char *vsfile=NULL, const char *fsfile=NULL);
 
 protected:
@@ -40,6 +46,8 @@ protected:
    GLuint Viewid;
    GLuint lightPosid;
    GLuint cameraid;
+   GLuint diffuseId;
+   GLuint shineId;
    // GLuint MVinvid;
 
    void defaults();

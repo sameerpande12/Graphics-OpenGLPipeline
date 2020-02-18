@@ -13,6 +13,8 @@ uniform mat4 MV;
 uniform mat4 CamViewMatrix;
 uniform vec3 LightPos;
 uniform vec3 CameraPos;
+uniform float DiffusionCoefficient;
+uniform float Shininess;
 void main() {
 
     gl_Position =  MVP * vec4(vp,1.0);
@@ -33,8 +35,8 @@ void main() {
     vec3 h = normalize(v+l);
 
     float s = 0.5;
-    float diffCoeff = 1;
-    float specCoeff = 0;
+    float diffCoeff = DiffusionCoefficient;
+    float specCoeff = Shininess;
 
     float diffColor = diffCoeff*dot(l,transformedNormal);
     

@@ -252,6 +252,9 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     shader->setViewMatrix((const GLfloat*)glm::value_ptr(renderer->camera.viewmatrix()));
     shader->setLightPos((const GLfloat*)glm::value_ptr(cameraPos));
     shader->setCameraPos((const GLfloat*)glm::value_ptr(cameraPos));
+    shader->setDiffusion((GLfloat)diffuseness);
+    shader->setShininess((GLfloat)shininess);
+    
    
    
     glBindVertexArray(vao);
