@@ -182,25 +182,17 @@ void printVector(std::string str,glm::vec3 vec){
 float Geom::getIntersectionTValue(glm::vec3 rayOrigin, glm::vec3 rayDir){
     if(isSphere){
 
-            // cout<<"radius "<<featureValue<<"\n";
-            // printVector("centre ",featureVec);
-            // cout<<" check "<<glm::dot(rayDir,rayDir)<<"\n";
             double tmin = INF;
             double a,b,c;
-            // a = 1.0;
-            // b = 2* glm::dot(rayDir,rayOrigin-featureVec);
-            // c = glm::length(rayOrigin - featureVec);
-            // c = c*c - featureValue*featureValue;
+            
             glm::vec3 centreToRayOrg = rayOrigin - featureVec;
             a = glm::dot(rayDir,rayDir);
             b = 2* glm::dot(rayDir,centreToRayOrg);
             c = glm::dot(centreToRayOrg,centreToRayOrg) - featureValue*featureValue;
 
             double discriminant = b*b - 4*a*c;
-            // cout<<"discriminant "<<discriminant<<"\n";
             int numRoots = 0;
             if(discriminant < 0){
-                // cout<<tmin<<" <- sphereTmin "<<" discrimi < 0\n";
                 
                 return (float)tmin;
             }

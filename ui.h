@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 #include "gwindowGLFW.h"
-
+#include "unordered_set"
 class Renderer;
 class gWindow;
 class UI {
@@ -37,6 +37,14 @@ public:
         void setTorsoId(int torId){torsoId=torId;}
         void setBaseId(int bid){baseId = bid;}
 
+        void addSphereId(int sid){sphereIds.insert(sid);}
+        bool isSideBallId(int id){
+                return !(sphereIds.find(id)==sphereIds.end());
+        }
+        void setSphereIdSet(std::unordered_set<int> iset){
+                sphereIds = iset;
+        }
+
 protected:
         virtual gWindow* getwindow() = 0; // May return an extension of gWindow
 	bool _quit;
@@ -49,4 +57,6 @@ protected:
         int baseId=-1;
         int torsoId=-1;
         int headId=-1;
+        std::unordered_set<int> sphereIds;
+
 };

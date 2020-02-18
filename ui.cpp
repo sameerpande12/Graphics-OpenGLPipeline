@@ -122,6 +122,9 @@ void UI::handleMouseDrag(float x, float y){
    else if( selectedObjectId == headId){
       renderer->rotateObject(headId,dx*2 ,glm::vec3(0,0,1));
    }
+   else if(isSideBallId(selectedObjectId)){      
+      renderer->moveSpheretOnFloor(selectedObjectId,x,y,gwindow->Width(),gwindow->Height());
+   }
    
 
    lastx = x;

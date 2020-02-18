@@ -8,6 +8,7 @@
 #include <glm/ext.hpp>
 #include <iostream>
 #include "unordered_map"
+#include "unordered_set"
 #define cout std::cout
 #define STARTID 1
 int main( int argc, char* args[] )
@@ -86,6 +87,7 @@ int main( int argc, char* args[] )
    cout<<"head "<<head->id<<"\n";
    
    Geom** spheres = new Geom*[12];
+   std::unordered_set<int> sphereIdSet;
    for(int i =0 ;i<12;i++){
       Geom* sphere = new Geom(&id,"sphereVertices.csv"/*,id++*/);
       glm::mat4 sphereTransform = glm::mat4(1.f);
@@ -104,6 +106,7 @@ int main( int argc, char* args[] )
       objects[sphere->id] = sphere;
       sphere->setModelMatrix(sphereTransform);
       primaryScene->addchild(sphere,sphere->id,sphere->getModelMatrix());
+      sphereIdSet.insert(sphere->id);
 
       cout<<"sphere("<<i<<") "<<sphere->id<<"\n";
    }
@@ -116,5 +119,6 @@ int main( int argc, char* args[] )
    ui.setBaseId(base->id);
    ui.setTorsoId(torso->id);
    ui.setHeadId(head->id);
+   ui.setSphereIdSet(sphereIdSet);
    window.renderloop(renderer);		// Keep rendering until an "End condition"
 }

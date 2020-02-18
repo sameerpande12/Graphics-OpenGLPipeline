@@ -102,3 +102,21 @@ void Renderer::rotateObject(int id, float angle, glm::vec3 axis){
         }
     }
 }
+
+void Renderer::moveSpheretOnFloor(int id, float cursorX, float cursorY,int width, int height){//assumes id is sphere and x,y are mouse coordinates
+    Geom* sphere = objectMap[id];
+    float z = sphere->featureVec[2];
+    glm::vec3 rayDirectionWorld = camera.viewPortToWorldRayDirection(cursorX,cursorY,width,height);
+    if(rayDirectionWorld[2]==0)return;
+
+    glm::vec3 rayOrigin = camera.getPosition();
+    float t = (z - rayOrigin[2])/rayDirectionWorld[2];
+    if(t<0)return;
+
+    glm::vec3 newPosition = rayOrigin + t * rayDirectionWorld ;
+
+    glm::vec3 translation = newPosition - sphere->featureVec;
+    sphere->featureVec = newPosition;
+
+    translateObject(id,translation);
+}
