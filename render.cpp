@@ -106,14 +106,27 @@ void Renderer::rotateObject(int id, float angle, glm::vec3 axis){
     }
 }
 
+void printVe(std::string str,glm::vec3 vec){
+         std::cout<<str<<" ";
+         std::cout<<vec[0]<<","<<vec[1]<<","<<vec[2]<<"\n";
+};
 void Renderer::moveSpheretOnFloor(int id, float cursorX, float cursorY,int width, int height){//assumes id is sphere and x,y are mouse coordinates
     Geom* sphere = objectMap[id];
     float z = sphere->featureVec[2];
-    std::cout<<"z= "<<z<<'\n';
+    // std::cout<<"z= "<<z<<'\n';
     glm::vec3 rayDirectionWorld = camera.viewPortToWorldRayDirection(cursorX,cursorY,width,height);
+    
+    glm::vec3 rayOrigin = camera.getPosition();
+    
     if(rayDirectionWorld[2]==0)return;
 
-    glm::vec3 rayOrigin = camera.getPosition();
+       double check ;
+      check = (-0.75 - rayOrigin[2])/rayDirectionWorld[2];
+      glm::vec3 intersection = rayOrigin + rayDirectionWorld * (float)check;
+      std::cout<<"move cursorX "<<cursorX<<" cursorY"<<cursorY<<"\n";
+      printVe("move sphere intersection with z = -0.75->", intersection);
+    
+
     float t = (z - rayOrigin[2])/rayDirectionWorld[2];
     if(t<0)return;
 
@@ -122,7 +135,7 @@ void Renderer::moveSpheretOnFloor(int id, float cursorX, float cursorY,int width
     // std::cout<<"old Position"<<sphere->featureVec[0]<<" "<<sphere->featureVec[1]<<" "<<newPosition[2]<<"\n";
     glm::vec3 translation = newPosition - sphere->featureVec;
     sphere->featureVec = newPosition;
-    std::cout<<"new Position"<<newPosition[0]<<" "<<newPosition[1]<<" "<<newPosition[2]<<"\n";
+    std::cout<<"new Position"<<newPosition[0]<<" "<<newPosition[1]<<" "<<newPosition[2]<<"\n\n";
 
     translateObject(id,translation);
 }

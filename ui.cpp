@@ -143,11 +143,12 @@ int UI::getSelectionId(GLFWwindow* window,int button,double cursorX,double curso
       glm::vec3 rayInWorld = renderer->camera.viewPortToWorldRayDirection(cursorX,cursorY,width,height);
       glm::vec3 cameraPosInWorld = renderer->camera.getPosition();
       int id = renderer->getClosestIntersectionObject(cameraPosInWorld,rayInWorld);
-      std::cout<<"Selected Object = "<<id<<"\n";
+      // std::cout<<"Selected Object = "<<id<<"\n";
 
       double t ;
       t = (-0.75 - cameraPosInWorld[2])/rayInWorld[2];
       glm::vec3 intersection = cameraPosInWorld + rayInWorld * (float)t;
+      std::cout<<"getSelectionId cursorX "<<cursorX<<" cursorY"<<cursorY<<"\n";
       printVec("intersection with z = -0.75->", intersection);
 
       return id;

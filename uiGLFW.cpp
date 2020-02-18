@@ -59,7 +59,7 @@ void UI_GLFW::handleMouseClickGLFW(GLFWwindow* window, int button, int action, i
     {
         
 
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         glfwGetCursorPos(window, &cursorX, &cursorY);
         currentUI->UI::handleMouseDown(button, cursorX, cursorY);
         // std::cout<<"mouse down CursorX "<<cursorX<<" Cursor Y "<<cursorY<<"\n";
@@ -91,7 +91,8 @@ void UI_GLFW::handleMouseClickGLFW(GLFWwindow* window, int button, int action, i
 
 void UI_GLFW::handleMouseMotionGLFW(GLFWwindow* window, double x, double y)
 {
-    if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
+    // if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
+    if( currentUI->UI::getMousePressStatus())
     {
         // currentUI->UI::handleMouseMotion(x - currentUI->cursorX, y - currentUI->cursorY);
         // std::cout<<" numshifts pressed = "<<currentUI->getNumShiftsPressed()<<"\n";
