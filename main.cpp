@@ -9,6 +9,7 @@
 #include <iostream>
 #include "unordered_map"
 #define cout std::cout
+#define STARTID 1
 int main( int argc, char* args[] )
 {
    gWindow_GLFW window("Test"); // Create a window. Use default OpenGL settings.
@@ -19,7 +20,7 @@ int main( int argc, char* args[] )
    glGetIntegerv(GL_MINOR_VERSION, &m);
    printf("OpenGL version: %d.%d\n", M, m);
 
-   int id = 1;
+   int id = STARTID;
    Scene* primaryScene = new Scene(&id);                 // Should come from a file. Temporary scene, with default shader
    glm::vec3 baseCentre = glm::vec3(0,0,0);
 
