@@ -103,7 +103,11 @@ int Geom::read(const char *filename)
             hasTex = false;
 
         }
+        hasTex = hasTex && useTexture;
+        cout<<"id = "<<id<<" "<<" Texture"<<hasTex<<"\n";
+        
         if(!hasTex){
+         
             for(int i = 0;i<numVertices;i++){
                     points[i*vertStride+vertStride - 2]=-1;
                     points[i*vertStride + vertStride -1 ]=-1;
@@ -136,7 +140,7 @@ int Geom::read(const char *filename)
         glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, vertStride*sizeof(float), (void*)(10*sizeof(float)));        
         glEnableVertexAttribArray(3);
         if(hasTex){
-            
+                
                 // cout<<"id "<<id<<" fname:"<<imageFileName<<"\n";
                 // unsigned int tex;
                 glGenTextures(1,&tex);
@@ -250,11 +254,14 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
     shader->setMVmatrix((const GLfloat*)glm::value_ptr(viewrendermat));
     shader->setViewMatrix((const GLfloat*)glm::value_ptr(renderer->camera.viewmatrix()));
-    shader->setLightPos((const GLfloat*)glm::value_ptr(cameraPos));
+    shader->setLightPos1((const GLfloat*)glm::value_ptr(cameraPos));
+    shader->setLightPos2((const GLfloat*)glm::value_ptr(topLight));
+    
     shader->setCameraPos((const GLfloat*)glm::value_ptr(cameraPos));
+    
     shader->setDiffusion((GLfloat)diffuseness);
     shader->setShininess((GLfloat)shininess);
-    
+    shader->setSpecularCeoff((GLfloat)specularCoefficient);
    
    
     glBindVertexArray(vao);

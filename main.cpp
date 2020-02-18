@@ -14,7 +14,7 @@
 int main( int argc, char* args[] )
 {
    gWindow_GLFW window("Test"); // Create a window. Use default OpenGL settings.
-
+   glm::vec3 topLight = glm::vec3(0,0,3);
    std::unordered_map<int,Geom*> objects;
    int M, m;
    glGetIntegerv(GL_MAJOR_VERSION, &M);
@@ -47,7 +47,7 @@ int main( int argc, char* args[] )
    primaryScene->addchild(floor,floor->id,floor->getModelMatrix());
    cout<<"floor "<<floor->id<<"\n";
    
-   Geom* base = new Geom(&id,"sphereVertices.csv"/*,id++*/);
+   Geom* base = new Geom(&id,"sphereVertices.csv",true,topLight,1,0,0,true);
    glm::mat4 basetransform = glm::mat4(1.f);
    basetransform = glm::scale(basetransform,glm::vec3(1,1,1));
    basetransform = glm::translate(basetransform,baseCentre);
@@ -57,9 +57,9 @@ int main( int argc, char* args[] )
    base->setModelMatrix(basetransform);
    objects[base->id]=base;
    primaryScene->addchild(base,base->id,base->getModelMatrix());
-   cout<<"base "<<base->id<<"\n";
+   // cout<<"base "<<base->id<<"\n";
    
-   Geom* torso = new Geom(&id,"sphereVertices.csv"/*,id++*/);
+   Geom* torso = new Geom(&id,"sphereVertices.csv",true,topLight,1,0,0,true);
    glm::mat4 torsotransform = glm::mat4(1.f);
    glm::vec3 torsoCentre = baseCentre+ glm::vec3(0,0,1.1);
    torsotransform = glm::translate(torsotransform,torsoCentre);
@@ -70,26 +70,30 @@ int main( int argc, char* args[] )
    torso->setModelMatrix(torsotransform);
    objects[torso->id]=torso;
    primaryScene->addchild(torso,torso->id,torso->getModelMatrix());
-   cout<<"torso "<<torso->id<<"\n";
+   // cout<<"torso "<<torso->id<<"\n";
 
 
-   Geom* head = new Geom(&id,"sphereVertices.csv"/*,id++*/);
+   Geom* head = new Geom(&id,"sphereVertices.csv",true,topLight,1,0,0,true);
    glm::mat4 headtransform = glm::mat4(1.f);
    glm::vec3 headCentre = baseCentre + glm::vec3(0,0,1.7);
    headtransform = glm::translate(headtransform,headCentre);
    headtransform = glm::scale(headtransform,glm::vec3(0.33,0.33,0.33));
+   
 
    head->featureValue = 0.33;
    head->featureVec = headCentre;
    head->setModelMatrix(headtransform);
    objects[head->id]=head;
    primaryScene->addchild(head,head->id,head->getModelMatrix());
-   cout<<"head "<<head->id<<"\n";
+   // cout<<"head "<<head->id<<"\n";
    
    Geom** spheres = new Geom*[12];
    std::unordered_set<int> sphereIdSet;
+   
    for(int i =0 ;i<12;i++){
-      Geom* sphere = new Geom(&id,"sphereVertices.csv"/*,id++*/);
+      float shine = 1;
+      if(i%2==1)shine = 0;
+      Geom* sphere = new Geom(&id,"sphereVertices.csv",true,topLight,0,1,shine,false);
       glm::mat4 sphereTransform = glm::mat4(1.f);
       
       float radius = 0.25;
@@ -108,7 +112,7 @@ int main( int argc, char* args[] )
       primaryScene->addchild(sphere,sphere->id,sphere->getModelMatrix());
       sphereIdSet.insert(sphere->id);
 
-      cout<<"sphere("<<i<<") "<<sphere->id<<"\n";
+      // cout<<"sphere("<<i<<") "<<sphere->id<<"\n";
    }
 
 

@@ -43,12 +43,14 @@ void Shader::getUniformIDs()
 {
    // "MVP" as an arg is expected. Otherwise overwrite
    MVPid = glGetUniformLocation(program, "MVP");
-   lightPosid = glGetUniformLocation(program,"LightPos");
+   lightPosid1 = glGetUniformLocation(program,"LightPos1");
+   lightPosid2 = glGetUniformLocation(program,"LightPos2");
    MVid = glGetUniformLocation(program,"MV");
    cameraid = glGetUniformLocation(program,"CameraPos");
    Viewid = glGetUniformLocation(program,"CamViewMatrix");
    diffuseId = glGetUniformLocation(program,"DiffusionCoefficient");
    shineId = glGetUniformLocation(program,"Shininess");
+   specCoeffid = glGetUniformLocation(program,"SpecularCoefficient");
 }
 
 static bool isCompiled(const char *prefix, GLuint shader)

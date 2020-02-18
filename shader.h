@@ -13,10 +13,14 @@ public:
       glUniformMatrix4fv(MVPid, 1, GL_FALSE, mvp);
    }
 
-   void setLightPos(const GLfloat* lightpos){
-      glUniform3fv(lightPosid,1,lightpos);
+   void setLightPos1(const GLfloat* lightpos){
+      glUniform3fv(lightPosid1,1,lightpos);
    }
    
+   void setLightPos2(const GLfloat* lightpos){
+      glUniform3fv(lightPosid2,1,lightpos);
+   }
+
    void setMVmatrix(const GLfloat * mv){
       glUniformMatrix4fv(MVid, 1, GL_FALSE, mv);
    }
@@ -37,6 +41,9 @@ public:
    void setShininess(const GLfloat shiniess){
       glUniform1f(shineId,shiniess);
    }
+   void setSpecularCeoff(const GLfloat specCoef){
+      glUniform1f(specCoeffid,specCoef);
+   }
    Shader(const char *vsfile=NULL, const char *fsfile=NULL);
 
 protected:
@@ -44,10 +51,12 @@ protected:
    GLuint MVPid; // Every shader must have at least an MVP.
    GLuint MVid; // Every shader must have at least an MVP.
    GLuint Viewid;
-   GLuint lightPosid;
+   GLuint lightPosid1;
+   GLuint lightPosid2;
    GLuint cameraid;
    GLuint diffuseId;
    GLuint shineId;
+   GLuint specCoeffid;
    // GLuint MVinvid;
 
    void defaults();
