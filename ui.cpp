@@ -111,7 +111,16 @@ void UI::handleMouseDrag(float x, float y){
       }
    }
    else if(selectedObjectId == baseId){
-
+        renderer->rotateObject(baseId,dx*2 ,glm::vec3(0,0,1));
+        renderer->rotateObject(torsoId,dx*2 ,glm::vec3(0,0,1));
+        renderer->rotateObject(headId,dx*2 ,glm::vec3(0,0,1));
+   }
+   else if(selectedObjectId == torsoId){
+      renderer->rotateObject(torsoId,dx*2 ,glm::vec3(0,0,1));
+      renderer->rotateObject(headId,dx*2 ,glm::vec3(0,0,1));
+   }
+   else if( selectedObjectId == headId){
+      renderer->rotateObject(headId,dx*2 ,glm::vec3(0,0,1));
    }
    
 
@@ -131,7 +140,6 @@ int UI::getSelectionId(GLFWwindow* window,int button,double cursorX,double curso
       glm::vec3 rayInWorld = renderer->camera.viewPortToWorldRayDirection(cursorX,cursorY,width,height);
       glm::vec3 cameraPosInWorld = renderer->camera.getPosition();
       int id = renderer->getClosestIntersectionObject(cameraPosInWorld,rayInWorld);
-      renderer->rotateObject(id,M_PI/4,glm::vec3(0,0,1));
       std::cout<<"Selected Object = "<<id<<"\n";
       return id;
 }
