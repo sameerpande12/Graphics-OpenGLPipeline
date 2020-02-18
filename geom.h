@@ -8,7 +8,7 @@ public:
    int read(const char *filename);
    int render(Renderer *renderer, glm::mat4 rendermat,glm::mat4 viewrendermat,bool selectionMode) const;
    
-   Geom(int *idptr, const char *filename=NULL,bool sphere=true,glm::vec3 tlight = glm::vec3(0,0,3),float diff=1,float specularCoeff=0,float shine = 0,bool useTex = true) 
+   Geom(int *idptr, const char *filename=NULL,bool sphere=true,glm::vec3 tlight = glm::vec3(0,0,3),float diff=1,float specularCoeff=0,float shine = 0,bool useTex = true,glm::vec4 col=glm::vec4(1,1,1,1),bool useCol = false) 
    {
       id = *idptr; 
       *idptr = *idptr + 1;
@@ -18,6 +18,8 @@ public:
       specularCoefficient = specularCoeff;
       topLight = tlight;
       useTexture = useTex;
+      useDefaultColour = useCol;
+      color = col;
       read(filename);
       
    }
@@ -41,5 +43,7 @@ private:
    float specularCoefficient;
    glm::vec3 topLight;
    bool useTexture;
+   glm::vec4 color;
+   bool useDefaultColour;
 };
 

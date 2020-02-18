@@ -29,7 +29,7 @@ int main( int argc, char* args[] )
 
    Geom * floor = new Geom(&id,"xyPlaneVertices.csv",false/*,id++*/);
    glm::mat4 floorTransform = glm::mat4(1.0f);
-   float floorScale = 10;
+   float floorScale = 40;
    float floorHeight = -1;
    floorTransform = glm::translate(floorTransform,baseCentre+ glm::vec3(0,0,floorHeight));
    
@@ -90,10 +90,23 @@ int main( int argc, char* args[] )
    Geom** spheres = new Geom*[12];
    std::unordered_set<int> sphereIdSet;
    
+   glm::vec4 orange = glm::vec4(255.0/255.0,165/255.0,0,1);
+   glm::vec4 magenta = glm::vec4(1,0.712,0.756,1);
+   glm::vec4 cyan = glm::vec4(0,1,1,1);
    for(int i =0 ;i<12;i++){
-      float shine = 1;
-      if(i%2==1)shine = 0;
-      Geom* sphere = new Geom(&id,"sphereVertices.csv",true,topLight,0,1,shine,false);
+      float shine = 10;
+      float diffCoeff = 0.3;
+      float specCoeff = 1;
+      bool useTexture = true;
+      bool useColor = true;
+      if(i%2==1)shine = 5;
+
+      glm::vec4 color;
+      if(i%3==0)color = magenta;
+      else if(i%3==1)color = orange;
+      else color = cyan;
+
+      Geom* sphere = new Geom(&id,"sphereVertices.csv",true,topLight,diffCoeff,specCoeff,shine,useTexture,color,useColor);
       glm::mat4 sphereTransform = glm::mat4(1.f);
       
       float radius = 0.25;

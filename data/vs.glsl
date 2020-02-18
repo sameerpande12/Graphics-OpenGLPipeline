@@ -17,6 +17,8 @@ uniform vec3 CameraPos;
 uniform float DiffusionCoefficient;
 uniform float Shininess;
 uniform float SpecularCoefficient;
+
+#define M_PI 3.1415926535897932384626433832795
 void main() {
 
     gl_Position =  MVP * vec4(vp,1.0);
@@ -27,7 +29,7 @@ void main() {
 
     vec3 transformedVp  = vec3(MV* vec4(vp,1));
 
-    vec3 transformedNormal = normalize(vec3(MV * vec4(normal,0)));//since we are rotating the vector
+    vec3 transformedNormal = normalize(vec3((MV) * vec4(normal,0)));//since we are rotating the vector
 
 
     vec3 l1 = normalize(transformedLightPos1 - transformedVp);
@@ -39,17 +41,19 @@ void main() {
     vec3 h2 = normalize(v+l2);
 
     float s = Shininess;
-    float diffCoeff = 0.5* DiffusionCoefficient;
-    float specCoeff = SpecularCoefficient;
+    float diffCoeff = 2 *  DiffusionCoefficient;
+    float specCoeff = 2* SpecularCoefficient;
 
-    float diffColor =  diffCoeff*(  dot(l1,transformedNormal) + max(dot(l2,transformedNormal),0));
+    float diffColor =  diffCoeff*(  dot(l1,transformedNormal) + 0 * max(dot(l2,transformedNormal),0));
     
     float specColor = 0;
     if(dot(h1,transformedNormal)> 0)
         specColor = specCoeff * pow(dot(h1,transformedNormal),s);
     
-    if(dot(h2,transformedNormal)> 0)
-        specColor = specCoeff * pow(dot(h2,transformedNormal),s); 
+    // if(dot(h2,transformedNormal)> 0)
+    //     specColor = specCoeff * pow(dot(h2,transformedNormal),s);
+
+    specColor = specColor * ( 2.0 * M_PI * 1.0 /( s+1)); 
 
     float finalCoeff = diffColor+specColor;
     

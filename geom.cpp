@@ -114,6 +114,15 @@ int Geom::read(const char *filename)
             }   
         }
 
+        if(useDefaultColour){
+            for(int i  =0 ;i<numVertices;i++){
+                points[i*vertStride+6] = color[0];
+                points[i*vertStride+7] = color[1];
+                points[i*vertStride+8] = color[2];
+                points[i*vertStride+9] = color[3];
+            }
+        }
+
         GLuint vbo = 0;
         unsigned int ebo;
         
@@ -250,7 +259,7 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
 
     renderer->useShader(shader);
     glm::vec3 cameraPos = renderer->camera.getPosition();
-   
+    printVector("Camera Pos ",cameraPos);
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
     shader->setMVmatrix((const GLfloat*)glm::value_ptr(viewrendermat));
     shader->setViewMatrix((const GLfloat*)glm::value_ptr(renderer->camera.viewmatrix()));
