@@ -220,13 +220,13 @@ float Geom::getIntersectionTValue(glm::vec3 rayOrigin, glm::vec3 rayDir){
 
         double tempTvalue = ( featureValue - glm::dot(featureVec,rayOrigin))/(glm::dot(featureVec,rayDir));
 
-        cout<<"tempTvalue=="<<tempTvalue<<"\n";
+        // cout<<"tempTvalue=="<<tempTvalue<<"\n";
         if(tempTvalue>=0 && tempTvalue < tmin){
 
             glm::vec3 location = rayOrigin + (float)tempTvalue * rayDir;
-            printVector("location ",location);
-            printVector("minBound",minBounds);
-            printVector("maxBound",maxBounds);
+            // printVector("location ",location);
+            // printVector("minBound",minBounds);
+            // printVector("maxBound",maxBounds);
             if( location[0] >= minBounds[0]-delta && location[1]>=minBounds[1] -delta && location[2] >= minBounds[2]-delta 
             &&  location[0] <= maxBounds[0]+delta && location[1]<=maxBounds[1] +delta && location[2] <= maxBounds[2]+delta){
                 
@@ -235,7 +235,7 @@ float Geom::getIntersectionTValue(glm::vec3 rayOrigin, glm::vec3 rayDir){
             }
         }
 
-        cout<<"tmin=="<<tmin<<"\n\n";
+        // cout<<"tmin=="<<tmin<<"\n\n";
         
             return (float)tmin;   
     }

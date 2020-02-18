@@ -41,7 +41,7 @@ void UI_GLFW::handleKeysGLFW(GLFWwindow* window, int key, int scancode, int acti
     else if(action == GLFW_RELEASE){
         if(key==GLFW_KEY_LEFT_SHIFT || key==GLFW_KEY_RIGHT_SHIFT){
                currentUI->UI::releaseShift();
-               std::cout<<"Released shift"<<'\n';
+            //    std::cout<<"Released shift"<<'\n';
         }
     }
     if(currentUI->quit())
@@ -62,6 +62,7 @@ void UI_GLFW::handleMouseClickGLFW(GLFWwindow* window, int button, int action, i
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         glfwGetCursorPos(window, &cursorX, &cursorY);
         currentUI->UI::handleMouseDown(button, cursorX, cursorY);
+        // std::cout<<"mouse down CursorX "<<cursorX<<" Cursor Y "<<cursorY<<"\n";
         if(button == GLFW_MOUSE_BUTTON_LEFT){
         
             int selectedObject = currentUI->UI::getSelectionId(window,button,cursorX,cursorY);
@@ -80,6 +81,7 @@ void UI_GLFW::handleMouseClickGLFW(GLFWwindow* window, int button, int action, i
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         glfwGetCursorPos(window, &cursorX, &cursorY);
         currentUI->UI::handleMouseUp(button, cursorX, cursorY);
+        
     }
 }
 
@@ -97,6 +99,8 @@ void UI_GLFW::handleMouseMotionGLFW(GLFWwindow* window, double x, double y)
         currentUI->cursorX = x;
         currentUI->cursorY = y;
         currentUI->UI::handleMouseDrag(x,y);
+        currentUI->UI::setLastXyValues(x,y);
+        // std::cout<<"mouse up CursorX "<<x<<" Cursor Y "<<y<<"\n";
         // currentUI->UI::handleMouseMotion(x, y);
     }
 }

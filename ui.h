@@ -17,6 +17,7 @@ public:
         void handleMouseMotion( float dx, float dy );
         void handleMouseDrag(float x, float y);
         void handleResize(int width, int height);
+        void setLastXyValues(float x, float y){lastx = x; lasty = y;};
         int render();
 
         void attach(Renderer *renderer);

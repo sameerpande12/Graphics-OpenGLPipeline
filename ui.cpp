@@ -123,7 +123,7 @@ void UI::handleMouseDrag(float x, float y){
       renderer->rotateObject(headId,dx*2 ,glm::vec3(0,0,1));
    }
    else if(isSideBallId(selectedObjectId)){      
-      // renderer->moveSpheretOnFloor(selectedObjectId,x,y,gwindow->Width(),gwindow->Height());
+      renderer->moveSpheretOnFloor(selectedObjectId,x,y,gwindow->Width(),gwindow->Height());
    }
    
 
@@ -144,5 +144,11 @@ int UI::getSelectionId(GLFWwindow* window,int button,double cursorX,double curso
       glm::vec3 cameraPosInWorld = renderer->camera.getPosition();
       int id = renderer->getClosestIntersectionObject(cameraPosInWorld,rayInWorld);
       std::cout<<"Selected Object = "<<id<<"\n";
+
+      double t ;
+      t = (-0.75 - cameraPosInWorld[2])/rayInWorld[2];
+      glm::vec3 intersection = cameraPosInWorld + rayInWorld * (float)t;
+      printVec("intersection with z = -0.75->", intersection);
+
       return id;
 }

@@ -109,6 +109,7 @@ void Renderer::rotateObject(int id, float angle, glm::vec3 axis){
 void Renderer::moveSpheretOnFloor(int id, float cursorX, float cursorY,int width, int height){//assumes id is sphere and x,y are mouse coordinates
     Geom* sphere = objectMap[id];
     float z = sphere->featureVec[2];
+    std::cout<<"z= "<<z<<'\n';
     glm::vec3 rayDirectionWorld = camera.viewPortToWorldRayDirection(cursorX,cursorY,width,height);
     if(rayDirectionWorld[2]==0)return;
 
