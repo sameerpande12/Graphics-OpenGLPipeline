@@ -119,6 +119,7 @@ int main( int argc, char* args[] )
    ui.setBaseId(base->id);
    ui.setTorsoId(torso->id);
    ui.setHeadId(head->id);
+   ui.setFloorId(floor->id);
    ui.setSphereIdSet(sphereIdSet);
    window.renderloop(renderer);		// Keep rendering until an "End condition"
 }

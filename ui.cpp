@@ -92,40 +92,41 @@ void UI::handleResize(int width, int height)
 }
 
 void UI::handleMouseDrag(float x, float y){
-   float dy = (lasty - y)/(float)(gwindow->Height());
-   float dx = (x - lastx)/(float(gwindow->Width()));
-   
-   if(!selectedSomeObject()){
-      if(getShiftPressedStatus()){
-         glm::vec3 camNegZ = glm::normalize(renderer->camera.at - renderer->camera.pos);
-         renderer->setCameraPosition(renderer->camera.pos + camNegZ * dy);
-      }
-      else{
-         // std::cout<<dy<<"\n";
-         glm::mat4 viewmat = renderer->camera.viewmatrix();
-         glm::vec3 right = glm::vec3(viewmat[0][0],viewmat[1][0],viewmat[2][0]);
-         glm::vec3 up = glm::vec3(viewmat[0][1],viewmat[1][1],viewmat[2][1]);
-         renderer->setCameraLookAt(renderer->camera.at + up * dy);
-         renderer->setCameraLookAt(renderer->camera.at + right * dx);
+   if(getMousePressStatus()){
+      float dy = (lasty - y)/(float)(gwindow->Height());
+      float dx = (x - lastx)/(float(gwindow->Width()));
+      
+      if(!selectedSomeObject() || selectedObjectId == floorId){
+         if(getShiftPressedStatus()){
+            glm::vec3 camNegZ = glm::normalize(renderer->camera.at - renderer->camera.pos);
+            renderer->setCameraPosition(renderer->camera.pos + camNegZ * dy);
+         }
+         else{
+            // std::cout<<dy<<"\n";
+            glm::mat4 viewmat = renderer->camera.viewmatrix();
+            glm::vec3 right = glm::vec3(viewmat[0][0],viewmat[1][0],viewmat[2][0]);
+            glm::vec3 up = glm::vec3(viewmat[0][1],viewmat[1][1],viewmat[2][1]);
+            renderer->setCameraLookAt(renderer->camera.at + 2.0f * up * dy);
+            renderer->setCameraLookAt(renderer->camera.at + 2.0f * right * dx);
 
+         }
+      }
+      else if(selectedObjectId == baseId){
+         renderer->rotateObject(baseId,dx*2 ,glm::vec3(0,0,1));
+         renderer->rotateObject(torsoId,dx*2 ,glm::vec3(0,0,1));
+         renderer->rotateObject(headId,dx*2 ,glm::vec3(0,0,1));
+      }
+      else if(selectedObjectId == torsoId){
+         renderer->rotateObject(torsoId,dx*2 ,glm::vec3(0,0,1));
+         renderer->rotateObject(headId,dx*2 ,glm::vec3(0,0,1));
+      }
+      else if( selectedObjectId == headId){
+         renderer->rotateObject(headId,dx*2 ,glm::vec3(0,0,1));
+      }
+      else if(isSideBallId(selectedObjectId)){      
+         renderer->moveSpheretOnFloor(selectedObjectId,x,y,gwindow->Width(),gwindow->Height());
       }
    }
-   else if(selectedObjectId == baseId){
-        renderer->rotateObject(baseId,dx*2 ,glm::vec3(0,0,1));
-        renderer->rotateObject(torsoId,dx*2 ,glm::vec3(0,0,1));
-        renderer->rotateObject(headId,dx*2 ,glm::vec3(0,0,1));
-   }
-   else if(selectedObjectId == torsoId){
-      renderer->rotateObject(torsoId,dx*2 ,glm::vec3(0,0,1));
-      renderer->rotateObject(headId,dx*2 ,glm::vec3(0,0,1));
-   }
-   else if( selectedObjectId == headId){
-      renderer->rotateObject(headId,dx*2 ,glm::vec3(0,0,1));
-   }
-   else if(isSideBallId(selectedObjectId)){      
-      renderer->moveSpheretOnFloor(selectedObjectId,x,y,gwindow->Width(),gwindow->Height());
-   }
-   
 
    lastx = x;
    lasty = y;
@@ -148,8 +149,8 @@ int UI::getSelectionId(GLFWwindow* window,int button,double cursorX,double curso
       double t ;
       t = (-0.75 - cameraPosInWorld[2])/rayInWorld[2];
       glm::vec3 intersection = cameraPosInWorld + rayInWorld * (float)t;
-      std::cout<<"getSelectionId cursorX "<<cursorX<<" cursorY"<<cursorY<<"\n";
-      printVec("intersection with z = -0.75->", intersection);
+      // std::cout<<"getSelectionId cursorX "<<cursorX<<" cursorY"<<cursorY<<"\n";
+      // printVec("intersection with z = -0.75->", intersection);
 
       return id;
 }

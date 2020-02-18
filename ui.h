@@ -37,6 +37,7 @@ public:
         void setHeadId(int hid){headId = hid;}
         void setTorsoId(int torId){torsoId=torId;}
         void setBaseId(int bid){baseId = bid;}
+        void setFloorId(int fid){floorId = fid;}
 
         void addSphereId(int sid){sphereIds.insert(sid);}
         bool isSideBallId(int id){
@@ -52,12 +53,13 @@ protected:
 	Renderer *renderer;
 	gWindow  *gwindow;
         float lastx, lasty;
-        bool mousePressed;
+        bool mousePressed=false;
         int numShiftsPressed = 0;
         int selectedObjectId = -1;
         int baseId=-1;
         int torsoId=-1;
         int headId=-1;
+        int floorId = -1;
         std::unordered_set<int> sphereIds;
 
 };

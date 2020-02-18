@@ -85,12 +85,17 @@ int Renderer::getClosestIntersectionObject(glm::vec3 origin,glm::vec3 Direction)
     
 };
 
-void Renderer::translateObject(int id,glm::vec3 displacment){
+void Renderer::translateObject(int id,glm::vec3 displacment){//works consdering sphere
     std::vector<SceneBase*> allScenes = scene->getAllDescendantScenes();
     for(int i =0 ;i<allScenes.size();i++){
         SceneBase* childScene = allScenes[i];
         if(childScene->getObjectId()==id){
             childScene->translate(displacment);
+            Geom* object = objectMap[id];
+            if(object->isSphere){
+                glm::vec4 newPosition = childScene->applyObjMat(glm::vec4(0,0,0,1));
+                object->featureVec = glm::vec3(newPosition[0],newPosition[1],newPosition[2]);
+            }
         }
     }
 
@@ -113,7 +118,7 @@ void printVe(std::string str,glm::vec3 vec){
 void Renderer::moveSpheretOnFloor(int id, float cursorX, float cursorY,int width, int height){//assumes id is sphere and x,y are mouse coordinates
     Geom* sphere = objectMap[id];
     float z = sphere->featureVec[2];
-    // std::cout<<"z= "<<z<<'\n';
+    
     glm::vec3 rayDirectionWorld = camera.viewPortToWorldRayDirection(cursorX,cursorY,width,height);
     
     glm::vec3 rayOrigin = camera.getPosition();
@@ -123,19 +128,15 @@ void Renderer::moveSpheretOnFloor(int id, float cursorX, float cursorY,int width
        double check ;
       check = (-0.75 - rayOrigin[2])/rayDirectionWorld[2];
       glm::vec3 intersection = rayOrigin + rayDirectionWorld * (float)check;
-      std::cout<<"move cursorX "<<cursorX<<" cursorY"<<cursorY<<"\n";
-      printVe("move sphere intersection with z = -0.75->", intersection);
-    
+      
+      
 
     float t = (z - rayOrigin[2])/rayDirectionWorld[2];
     if(t<0)return;
 
     glm::vec3 newPosition = rayOrigin + t * rayDirectionWorld ;
 
-    // std::cout<<"old Position"<<sphere->featureVec[0]<<" "<<sphere->featureVec[1]<<" "<<newPosition[2]<<"\n";
-    glm::vec3 translation = newPosition - sphere->featureVec;
-    sphere->featureVec = newPosition;
-    std::cout<<"new Position"<<newPosition[0]<<" "<<newPosition[1]<<" "<<newPosition[2]<<"\n\n";
-
+    glm::vec3 translation = newPosition - sphere->featureVec;    
     translateObject(id,translation);
+
 }

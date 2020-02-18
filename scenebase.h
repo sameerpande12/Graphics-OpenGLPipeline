@@ -36,5 +36,8 @@ public:
    void rotate(float angle, glm::vec3 axis){
       set(glm::rotate(objmat,angle,axis));
    }
+   glm::vec4 applyObjMat(glm::vec4 inputVector){
+      return objmat * inputVector;
+   }
 
 };
