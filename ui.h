@@ -46,7 +46,7 @@ protected:
         bool mousePressed;
         int numShiftsPressed = 0;
         int selectedObjectId = -1;
-        int baseId;
-        int torsoId;
-        int headId;
+        int baseId=-1;
+        int torsoId=-1;
+        int headId=-1;
 };
