@@ -61,7 +61,7 @@ int main( int argc, char* args[] )
    
    Geom* torso = new Geom(&id,"sphereVertices.csv",true,topLight,1,0,0,true);
    glm::mat4 torsotransform = glm::mat4(1.f);
-   glm::vec3 torsoCentre = baseCentre+ glm::vec3(0,0,1.1);
+   glm::vec3 torsoCentre = baseCentre+ glm::vec3(0,0,1.15);
    torsotransform = glm::translate(torsotransform,torsoCentre);
    torsotransform = glm::scale(torsotransform,glm::vec3(0.5,0.5,0.5));
 
@@ -75,7 +75,7 @@ int main( int argc, char* args[] )
 
    Geom* head = new Geom(&id,"sphereVertices.csv",true,topLight,1,0,0,true);
    glm::mat4 headtransform = glm::mat4(1.f);
-   glm::vec3 headCentre = baseCentre + glm::vec3(0,0,1.7);
+   glm::vec3 headCentre = baseCentre + glm::vec3(0,0,1.75);
    headtransform = glm::translate(headtransform,headCentre);
    headtransform = glm::scale(headtransform,glm::vec3(0.33,0.33,0.33));
    
@@ -96,7 +96,7 @@ int main( int argc, char* args[] )
    for(int i =0 ;i<12;i++){
       float shine = 10;
       float diffCoeff = 0.3;
-      float specCoeff = 1;
+      float specCoeff = 0.7;
       bool useTexture = true;
       bool useColor = true;
       if(i%2==1)shine = 5;

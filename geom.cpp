@@ -104,7 +104,7 @@ int Geom::read(const char *filename)
 
         }
         hasTex = hasTex && useTexture;
-        cout<<"id = "<<id<<" "<<" Texture"<<hasTex<<"\n";
+        // cout<<"id = "<<id<<" "<<" Texture"<<hasTex<<"\n";
         
         if(!hasTex){
          
@@ -259,7 +259,6 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
 
     renderer->useShader(shader);
     glm::vec3 cameraPos = renderer->camera.getPosition();
-    printVector("Camera Pos ",cameraPos);
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
     shader->setMVmatrix((const GLfloat*)glm::value_ptr(viewrendermat));
     shader->setViewMatrix((const GLfloat*)glm::value_ptr(renderer->camera.viewmatrix()));
