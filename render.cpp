@@ -3,7 +3,7 @@
 //#include "glm/gtc/type_ptr.hpp"
 #include "limits"
 #define INF std::numeric_limits<double>::infinity();
-
+#include <vector>
 #include "ui.h"
 #include "shader.h"
 #include "scene.h"
@@ -80,4 +80,18 @@ int Renderer::getClosestIntersectionObject(glm::vec3 origin,glm::vec3 Direction)
     }
     return objId;
     
+};
+
+void Renderer::translateObject(int id,glm::vec3 displacment){
+    std::cout<<"Entererd translate Object\n";
+    std::vector<SceneBase*> allScenes = scene->getAllDescendantScenes();
+    for(int i =0 ;i<allScenes.size();i++){
+        SceneBase* childScene = allScenes[i];
+        std::cout<<"Descendant id = "<<childScene->getObjectId()<<"\n";
+        if(childScene->getObjectId()==id){
+            std::cout<<"Got Scene\n";
+            childScene->translate(displacment);
+        }
+    }
+
 };

@@ -24,6 +24,7 @@ public:
    Scene *scene;     // This is what I render
    std::unordered_map<int,Geom*> objectMap;
    int getClosestIntersectionObject(glm::vec3 origin,glm::vec3 Direction);
+   void translateObject(int id,glm::vec3 displacment);
 private:
    float fov, near, far; // Should I bother remembering? May be useful later for UI purpose.?
    

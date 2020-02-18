@@ -1,7 +1,9 @@
 #include "ui.h"
 #include "render.h"
 #include "gwindow.h"
+#include "scene.h"
 #include "uiConstants.h"
+#include "geombase.h"
 #include <iostream>
 #include "GL/glut.h"
 #include "GL/glew.h"
@@ -128,7 +130,8 @@ int UI::getSelectionId(GLFWwindow* window,int button,double cursorX,double curso
       glfwGetWindowSize(window,&width,&height);
       glm::vec3 rayInWorld = renderer->camera.viewPortToWorldRayDirection(cursorX,cursorY,width,height);
       glm::vec3 cameraPosInWorld = renderer->camera.getPosition();
-      int id = renderer->getClosestIntersectionObject(cameraPosInWorld,rayInWorld);      
+      int id = renderer->getClosestIntersectionObject(cameraPosInWorld,rayInWorld);
+      renderer->translateObject(id,glm::vec3(1,0,0));
       std::cout<<"Selected Object = "<<id<<"\n";
       return id;
 }

@@ -42,7 +42,7 @@ int main( int argc, char* args[] )
 
 
    objects[floor->id]=floor;
-   primaryScene->addchild(floor,floor->getModelMatrix());
+   primaryScene->addchild(floor,floor->id,floor->getModelMatrix());
    cout<<"floor "<<floor->id<<"\n";
    
    Geom* base = new Geom(&id,"sphereVertices.csv"/*,id++*/);
@@ -54,7 +54,7 @@ int main( int argc, char* args[] )
    base->featureVec = baseCentre;
    base->setModelMatrix(basetransform);
    objects[base->id]=base;
-   primaryScene->addchild(base,base->getModelMatrix());
+   primaryScene->addchild(base,base->id,base->getModelMatrix());
    cout<<"base "<<base->id<<"\n";
    
    Geom* torso = new Geom(&id,"sphereVertices.csv"/*,id++*/);
@@ -67,7 +67,7 @@ int main( int argc, char* args[] )
    torso->featureVec = torsoCentre;
    torso->setModelMatrix(torsotransform);
    objects[torso->id]=torso;
-   primaryScene->addchild(torso,torso->getModelMatrix());
+   primaryScene->addchild(torso,torso->id,torso->getModelMatrix());
    cout<<"torso "<<torso->id<<"\n";
 
 
@@ -81,7 +81,7 @@ int main( int argc, char* args[] )
    head->featureVec = headCentre;
    head->setModelMatrix(headtransform);
    objects[head->id]=head;
-   primaryScene->addchild(head,head->getModelMatrix());
+   primaryScene->addchild(head,head->id,head->getModelMatrix());
    cout<<"head "<<head->id<<"\n";
    
    Geom** spheres = new Geom*[12];
@@ -102,7 +102,7 @@ int main( int argc, char* args[] )
       sphere->featureVec = newCentre;
       objects[sphere->id] = sphere;
       sphere->setModelMatrix(sphereTransform);
-      primaryScene->addchild(sphere,sphere->getModelMatrix());
+      primaryScene->addchild(sphere,sphere->id,sphere->getModelMatrix());
 
       cout<<"sphere("<<i<<") "<<sphere->id<<"\n";
    }
@@ -115,8 +115,5 @@ int main( int argc, char* args[] )
    ui.setBaseId(base->id);
    ui.setTorsoId(torso->id);
    ui.setHeadId(head->id);
-
-   Scene* refScene = primaryScene->getAllDescendantScene()[0];
-   refScene->set(glm::translate(basetransform,glm::vec3(-10,0,1)));
    window.renderloop(renderer);		// Keep rendering until an "End condition"
 }

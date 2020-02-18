@@ -24,20 +24,33 @@ int SceneBase::render(Renderer *renderer, const Camera &camera, glm::mat4 mat,bo
    return result;
 }
 
-SceneBase* SceneBase::addchild(const GeomBase *obj, glm::mat4 mat) {
-   SceneBase *sn = new SceneBase(obj, mat, firstchild, NULL);
+SceneBase* SceneBase::addchild(GeomBase *obj, int id, glm::mat4 mat) {
+   SceneBase *sn = new SceneBase(obj, id,mat, firstchild, NULL);
    firstchild = sn;
    return sn;
 }
 
-void SceneBase::init(const GeomBase *obj, glm::mat4 mat, SceneBase *next, SceneBase *child)
+void SceneBase::init(GeomBase *obj, int id,glm::mat4 mat, SceneBase *next, SceneBase *child)
 {
-   set(obj); set(mat);
+   set(obj); set(mat);set(id);
    this->sibling = next;
    this->firstchild = child;
 }
 
-SceneBase::SceneBase(const GeomBase *obj, glm::mat4 mat, SceneBase *next, SceneBase *child)
+SceneBase::SceneBase(GeomBase *obj,int id, glm::mat4 mat, SceneBase *next, SceneBase *child)
 {
-   init(obj, mat, next, child);
+   init(obj,id, mat, next, child);
+}
+
+
+std::vector< SceneBase*> SceneBase::getAllDescendantScenes(){
+   std::vector<SceneBase*> descendants;
+   descendants.push_back(this);
+   for(SceneBase* cur = firstchild;cur!=NULL;cur=cur->sibling){
+      std::vector<SceneBase*> childSubTree = cur->getAllDescendantScenes();
+      for(int i =0;i<childSubTree.size();i++){
+         descendants.push_back(childSubTree[i]);
+      }
+   }
+   return descendants;
 }
