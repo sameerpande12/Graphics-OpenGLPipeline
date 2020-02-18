@@ -105,8 +105,8 @@ void UI::handleMouseDrag(float x, float y){
          glm::mat4 viewmat = renderer->camera.viewmatrix();
          glm::vec3 right = glm::vec3(viewmat[0][0],viewmat[1][0],viewmat[2][0]);
          glm::vec3 up = glm::vec3(viewmat[0][1],viewmat[1][1],viewmat[2][1]);
-         renderer->setCameraLookAt(renderer->camera.at - up * dy);
-         renderer->setCameraLookAt(renderer->camera.at - right * dx);
+         renderer->setCameraLookAt(renderer->camera.at + up * dy);
+         renderer->setCameraLookAt(renderer->camera.at + right * dx);
 
       }
    }
@@ -123,7 +123,7 @@ void UI::handleMouseDrag(float x, float y){
       renderer->rotateObject(headId,dx*2 ,glm::vec3(0,0,1));
    }
    else if(isSideBallId(selectedObjectId)){      
-      renderer->moveSpheretOnFloor(selectedObjectId,x,y,gwindow->Width(),gwindow->Height());
+      // renderer->moveSpheretOnFloor(selectedObjectId,x,y,gwindow->Width(),gwindow->Height());
    }
    
 
