@@ -7,7 +7,7 @@ Camera::Camera(int width, int height, float fov, float near, float far)
     projection(width, height, fov, near, far); 
     zFar = far;
     zNear = near;
-    position(4,0,3, true);
+    position(5,1,2, true);
     lookat(0, 0, 0, true);
     upward(0, 0, 1, true);
 

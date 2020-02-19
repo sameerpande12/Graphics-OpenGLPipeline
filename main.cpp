@@ -14,7 +14,7 @@
 int main( int argc, char* args[] )
 {
    gWindow_GLFW window("Test"); // Create a window. Use default OpenGL settings.
-   glm::vec3 topLight = glm::vec3(0,0,3);
+   glm::vec3 topLight = glm::vec3(0,0,2.1);
    std::unordered_map<int,Geom*> objects;
    int M, m;
    glGetIntegerv(GL_MAJOR_VERSION, &M);
@@ -78,7 +78,7 @@ int main( int argc, char* args[] )
    glm::vec3 headCentre = baseCentre + glm::vec3(0,0,1.75);
    headtransform = glm::translate(headtransform,headCentre);
    headtransform = glm::scale(headtransform,glm::vec3(0.33,0.33,0.33));
-   
+   cout<<"headTop "<<headCentre[2] + 0.33<<"\n";
 
    head->featureValue = 0.33;
    head->featureVec = headCentre;
@@ -99,7 +99,7 @@ int main( int argc, char* args[] )
       float specCoeff = 0.7;
       bool useTexture = true;
       bool useColor = true;
-      if(i%2==1)shine = 5;
+      if(i%2==1)shine = 3;
 
       glm::vec4 color;
       if(i%3==0)color = magenta;

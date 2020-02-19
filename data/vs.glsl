@@ -42,16 +42,16 @@ void main() {
 
     float s = Shininess;
     float diffCoeff =    DiffusionCoefficient;
-    float specCoeff =  SpecularCoefficient;
+    float specCoeff =   SpecularCoefficient;
 
     float diffColor =  diffCoeff*(   max(dot(l1,transformedNormal),0) +  max(dot(l2,transformedNormal),0));
     
     float specColor = 0;
     if(dot(h1,transformedNormal)> 0)
-        specColor = specCoeff * pow(dot(h1,transformedNormal),s);
+        specColor = specColor + specCoeff * pow(dot(h1,transformedNormal),s);
     
     if(dot(h2,transformedNormal)> 0)
-        specColor = specCoeff * pow(dot(h2,transformedNormal),s);
+        specColor = specColor + specCoeff * pow(dot(h2,transformedNormal),s);
 
     specColor = specColor * ( 2.0 * M_PI * 1.0 /( s+1)); 
 
