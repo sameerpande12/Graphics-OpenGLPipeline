@@ -33,7 +33,7 @@ void main() {
 
     vec3 transformedVp  = vec3(MV* vec4(vp,1));
 
-    vec3 transformedNormal = normalize(vec3((MV) * vec4(normal,0)));//since we are rotating the vector
+    vec3 transformedNormal = normalize(vec3( vec4(normal,0) * inverse(MV) ));//since we are rotating the vector
 
 
     vec3 l1 = normalize(transformedLightPos1 - transformedVp);
