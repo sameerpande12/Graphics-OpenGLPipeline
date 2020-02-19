@@ -22,7 +22,8 @@ int main(int argc, char**argv){//produces an xy plane
             float z = 0;
             float texX = (x+len/2)/len;
             float texY = (y + len/2)/len;
-            float color[] = {0.984,0.851,0.329,1};
+            // float color[] = {0.984,0.851,0.329,1};
+            float color[] = {1,1,1,1};
             float normal[] = {0,0,1};
             points[id] = std::vector<float>{x,y,z,normal[0],normal[1],normal[2],color[0],color[1],color[2],color[3],texX,texY};
 
@@ -52,7 +53,7 @@ int main(int argc, char**argv){//produces an xy plane
         }
         
     }
-    outputfile<<"GL_TRIANGLES\n";
+    outputfile<<"GL_TRIANGLES,data/snowtex.jpg\n";
     for(int i = 0;i<triangles.size();i++){
         for(int j = 0;j<triangles[i].size();j++){
             outputfile<<triangles[i][j];

@@ -29,18 +29,19 @@ int main( int argc, char* args[] )
 
    Geom * floor = new Geom(&id,"xyPlaneVertices.csv",false/*,id++*/);
    glm::mat4 floorTransform = glm::mat4(1.0f);
-   float floorScale = 15;
+   float floorXScale = 30;
+   float floorYScale = 30;
    float floorHeight = -1;
    floorTransform = glm::translate(floorTransform,baseCentre+ glm::vec3(0,0,floorHeight));
    
    
-   floorTransform = glm::scale(floorTransform,glm::vec3(floorScale,floorScale,floorScale));
+   floorTransform = glm::scale(floorTransform,glm::vec3(floorXScale,floorYScale,floorXScale));
    floor->setModelMatrix(floorTransform);
 
    floor->featureValue = -1;
    floor->featureVec = glm::vec3(0,0,1);
-   floor->minBounds = glm::vec3(-.5 * floorScale,-.5 * floorScale,floorHeight);
-   floor->maxBounds = glm::vec3(0.5 * floorScale, 0.5 * floorScale,floorHeight);
+   floor->minBounds = glm::vec3(-.5 * floorXScale,-.5 * floorYScale,floorHeight);
+   floor->maxBounds = glm::vec3(0.5 * floorYScale, 0.5 * floorYScale,floorHeight);
 
 
    objects[floor->id]=floor;

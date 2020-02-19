@@ -76,9 +76,9 @@ int gWindow_GLFW::renderloop(Renderer &renderer)
       if(! renderer.render())
         QUIT("renderloop", "Renderer refused to continue");
       glfwSwapBuffers(window);
-      
-    
       glfwWaitEvents();
+    
+      
       // glfwPollEvents();
    }
 
