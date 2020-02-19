@@ -99,7 +99,7 @@ void UI::handleMouseDrag(float x, float y){
       if(!selectedSomeObject() || selectedObjectId == floorId){
          if(getShiftPressedStatus()){
             glm::vec3 camNegZ = glm::normalize(renderer->camera.at - renderer->camera.pos);
-            renderer->setCameraPosition(renderer->camera.pos + camNegZ * dy);
+            renderer->setCameraPosition(renderer->camera.pos + camNegZ * dy * 2.0f);
          }
          else{
             // std::cout<<dy<<"\n";

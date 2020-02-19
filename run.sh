@@ -1,3 +1,4 @@
+mkdir -p build
 g++ genSphereVertices.cpp -o genSphere
 ./genSphere
 rm genSphere

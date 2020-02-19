@@ -34,6 +34,22 @@ public:
    glm::vec3 minBounds;//useful in case of intersection with plane
    glm::vec3 maxBounds;//useful in case of intersection with plane
 
+   void setLightIntensity(int lightNum,glm::vec3 light){
+      if(lightNum%2==0)
+         lightIntensity2 = light;
+      
+      else
+         lightIntensity1 = light;
+   }
+
+
+   glm::vec3 getLightIntensity(int lightNum){
+      if(lightNum%2==0)
+         return lightIntensity2;
+      else
+         return lightIntensity1; 
+   }
+
 private:
    bool useDrawElements;
    int numIndices=-1;
@@ -45,5 +61,7 @@ private:
    bool useTexture;
    glm::vec4 color;
    bool useDefaultColour;
+   glm::vec3 lightIntensity1 = glm::vec3(1,1,1);
+   glm::vec3 lightIntensity2 = glm::vec3(1,1,1);
 };
 

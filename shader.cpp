@@ -51,6 +51,8 @@ void Shader::getUniformIDs()
    diffuseId = glGetUniformLocation(program,"DiffusionCoefficient");
    shineId = glGetUniformLocation(program,"Shininess");
    specCoeffid = glGetUniformLocation(program,"SpecularCoefficient");
+   lightIntensity1 = glGetUniformLocation(program,"Intensity1");
+   lightIntensity2 = glGetUniformLocation(program,"Intensity2");
 }
 
 static bool isCompiled(const char *prefix, GLuint shader)

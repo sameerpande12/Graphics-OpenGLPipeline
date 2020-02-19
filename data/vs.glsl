@@ -12,7 +12,11 @@ uniform mat4 MV;
 
 uniform mat4 CamViewMatrix;
 uniform vec3 LightPos1;
+uniform vec3 Intensity1;
+
 uniform vec3 LightPos2;
+uniform vec3 Intensity2;
+
 uniform vec3 CameraPos;
 uniform float DiffusionCoefficient;
 uniform float Shininess;
@@ -41,8 +45,8 @@ void main() {
     vec3 h2 = normalize(v+l2);
 
     float s = Shininess;
-    float diffCoeff =    DiffusionCoefficient;
-    float specCoeff =   SpecularCoefficient;
+    float diffCoeff = 0.5 *   DiffusionCoefficient;
+    float specCoeff = 0.5 *   SpecularCoefficient;
 
     float diffColor =  diffCoeff*(   max(dot(l1,transformedNormal),0) +  max(dot(l2,transformedNormal),0));
     
@@ -57,7 +61,7 @@ void main() {
 
     float finalCoeff = (diffColor+specColor);
     
-    colorMultiply = vec4(finalCoeff,finalCoeff,finalCoeff,1);
+    colorMultiply = vec4((Intensity1 * finalCoeff + Intensity2 * finalCoeff ),1);
     vcolor = colorMultiply*inVertexColor;
 
     TexCoord = texPos;

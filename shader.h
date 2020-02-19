@@ -44,6 +44,13 @@ public:
    void setSpecularCeoff(const GLfloat specCoef){
       glUniform1f(specCoeffid,specCoef);
    }
+   void setLightIntensity1(const GLfloat* light1){
+      glUniform3fv(lightIntensity1,1,light1);
+   }
+   void setLightIntensity2(const GLfloat* light2){
+      glUniform3fv(lightIntensity2,1,light2);
+   }
+
    Shader(const char *vsfile=NULL, const char *fsfile=NULL);
 
 protected:
@@ -57,7 +64,8 @@ protected:
    GLuint diffuseId;
    GLuint shineId;
    GLuint specCoeffid;
-   // GLuint MVinvid;
+   GLuint lightIntensity1;
+   GLuint lightIntensity2;
 
    void defaults();
    void makeProgram(GLuint vs, GLint fs);

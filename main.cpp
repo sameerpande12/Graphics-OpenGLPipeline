@@ -29,7 +29,7 @@ int main( int argc, char* args[] )
 
    Geom * floor = new Geom(&id,"xyPlaneVertices.csv",false/*,id++*/);
    glm::mat4 floorTransform = glm::mat4(1.0f);
-   float floorScale = 40;
+   float floorScale = 15;
    float floorHeight = -1;
    floorTransform = glm::translate(floorTransform,baseCentre+ glm::vec3(0,0,floorHeight));
    
@@ -45,7 +45,7 @@ int main( int argc, char* args[] )
 
    objects[floor->id]=floor;
    primaryScene->addchild(floor,floor->id,floor->getModelMatrix());
-   cout<<"floor "<<floor->id<<"\n";
+   // cout<<"floor "<<floor->id<<"\n";
    
    Geom* base = new Geom(&id,"sphereVertices.csv",true,topLight,1,0,0,true);
    glm::mat4 basetransform = glm::mat4(1.f);
@@ -78,7 +78,7 @@ int main( int argc, char* args[] )
    glm::vec3 headCentre = baseCentre + glm::vec3(0,0,1.75);
    headtransform = glm::translate(headtransform,headCentre);
    headtransform = glm::scale(headtransform,glm::vec3(0.33,0.33,0.33));
-   cout<<"headTop "<<headCentre[2] + 0.33<<"\n";
+   // cout<<"headTop "<<headCentre[2] + 0.33<<"\n";
 
    head->featureValue = 0.33;
    head->featureVec = headCentre;
@@ -94,12 +94,12 @@ int main( int argc, char* args[] )
    glm::vec4 magenta = glm::vec4(1,0.712,0.756,1);
    glm::vec4 cyan = glm::vec4(0,1,1,1);
    for(int i =0 ;i<12;i++){
-      float shine = 10;
-      float diffCoeff = 0.3;
-      float specCoeff = 0.7;
+      float shine = 12;
+      float diffCoeff = 0;
+      float specCoeff = 1;
       bool useTexture = true;
       bool useColor = true;
-      if(i%2==1)shine = 3;
+      if(i%2==1)shine = 4;
 
       glm::vec4 color;
       if(i%3==0)color = magenta;

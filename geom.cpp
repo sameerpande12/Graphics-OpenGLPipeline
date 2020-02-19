@@ -264,7 +264,8 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     shader->setViewMatrix((const GLfloat*)glm::value_ptr(renderer->camera.viewmatrix()));
     shader->setLightPos1((const GLfloat*)glm::value_ptr(cameraPos));
     shader->setLightPos2((const GLfloat*)glm::value_ptr(topLight));
-    
+    shader->setLightIntensity1((const GLfloat*)glm::value_ptr(lightIntensity1));
+    shader->setLightIntensity2((const GLfloat*)glm::value_ptr(lightIntensity2));
     shader->setCameraPos((const GLfloat*)glm::value_ptr(cameraPos));
     
     shader->setDiffusion((GLfloat)diffuseness);
