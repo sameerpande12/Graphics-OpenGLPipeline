@@ -28,9 +28,11 @@ public:
    void rotateObject(int id, float angle, glm::vec3 axis);
    void moveSpheretOnFloor(int id, float x, float y,int width,int height);
    void setCameraLookAt(glm::vec3 lookat);
+   void setFloorId(int fid){floorId = fid;}
+   int getFloorID(){return floorId;}
 private:
    float fov, near, far; // Should I bother remembering? May be useful later for UI purpose.?
-   
+   int floorId;
    float *rendermat; // Renderer can use a global matrix for its scene. It is identity be default.
    Shader *current_shader; // Cache a shader. so it does not need to be set again unnecessarily
    

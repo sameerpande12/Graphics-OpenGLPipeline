@@ -14,7 +14,7 @@
 int main( int argc, char* args[] )
 {
    gWindow_GLFW window("Test"); // Create a window. Use default OpenGL settings.
-   glm::vec3 topLight = glm::vec3(0,0,2.1);
+   glm::vec3 topLight = glm::vec3(0,0,3.1);
    std::unordered_map<int,Geom*> objects;
    int M, m;
    glGetIntegerv(GL_MAJOR_VERSION, &M);
@@ -23,9 +23,7 @@ int main( int argc, char* args[] )
 
    int id = STARTID;
    Scene* primaryScene = new Scene(&id);                 // Should come from a file. Temporary scene, with default shader
-   glm::vec3 baseCentre = glm::vec3(0,0,0);
-
-   
+   glm::vec3 baseCentre = glm::vec3(0,0,1);
 
    Geom * floor = new Geom(&id,"xyPlaneVertices.csv",false/*,id++*/);
    glm::mat4 floorTransform = glm::mat4(1.0f);
@@ -46,7 +44,10 @@ int main( int argc, char* args[] )
 
    objects[floor->id]=floor;
    primaryScene->addchild(floor,floor->id,floor->getModelMatrix());
-   // cout<<"floor "<<floor->id<<"\n";
+   cout<<"floor->id "<<floor->id<<"\n";
+
+
+      
    
    Geom* base = new Geom(&id,"sphereVertices.csv",true,topLight,1,0,0,true);
    glm::mat4 basetransform = glm::mat4(1.f);
@@ -58,8 +59,8 @@ int main( int argc, char* args[] )
    base->setModelMatrix(basetransform);
    objects[base->id]=base;
    primaryScene->addchild(base,base->id,base->getModelMatrix());
-   // cout<<"base "<<base->id<<"\n";
-   
+   cout<<baseCentre[0]<<" "<<baseCentre[1]<<" "<<baseCentre[2]<<'\n';
+
    Geom* torso = new Geom(&id,"sphereVertices.csv",true,topLight,1,0,0,true);
    glm::mat4 torsotransform = glm::mat4(1.f);
    glm::vec3 torsoCentre = baseCentre+ glm::vec3(0,0,1.15);
@@ -72,6 +73,7 @@ int main( int argc, char* args[] )
    objects[torso->id]=torso;
    primaryScene->addchild(torso,torso->id,torso->getModelMatrix());
    // cout<<"torso "<<torso->id<<"\n";
+   cout<<torsoCentre[0]<<" "<<torsoCentre[1]<<" "<<torsoCentre[2]<<'\n';
 
 
    Geom* head = new Geom(&id,"sphereVertices.csv",true,topLight,1,0,0,true);
@@ -132,6 +134,7 @@ int main( int argc, char* args[] )
 
    Renderer renderer(window.Width(), window.Height(), primaryScene); // Renderer renders scene from its camera
    renderer.objectMap = objects;
+   renderer.setFloorId(floor->id);
 
    UI_GLFW ui(&renderer, &window);	// User interface: intermediary between a renderer and a window
    ui.setBaseId(base->id);

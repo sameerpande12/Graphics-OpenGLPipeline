@@ -173,7 +173,7 @@ int Geom::read(const char *filename)
                 }//https://learnopengl.com/Getting-started/Textures
             
         }
-        glClearDepth(1.0f);
+        glClearDepth(FAR_DEFAULT);
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LEQUAL);
 
@@ -256,7 +256,27 @@ float Geom::getIntersectionTValue(glm::vec3 rayOrigin, glm::vec3 rayDir){
 int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrendermat,bool selectionMode) const//view render mat is same as render mat except projection matrix is not applied
 {
     if(numIndices<=0 )return glGetError();
+    
+    if(selectionMode && id == renderer->getFloorID())return glGetError();
+    if(selectionMode && renderer->camera.getPosition()[2]>0){
+        glm::mat4 viewMatrix = renderer->camera.viewmatrix();
+        
+        glm::mat4 projmat = rendermat * glm::inverse(viewrendermat);
 
+        glm::mat4 objectMatrix = glm::inverse(viewMatrix) * viewrendermat;
+        
+        objectMatrix = glm::scale(glm::mat4(1.0f),glm::vec3(1,1,-1))*objectMatrix ;//reflection about z =  0
+
+        viewrendermat = viewMatrix * objectMatrix;
+        rendermat = projmat * viewrendermat;
+        
+    }
+
+     if(id==renderer->getFloorID()){ 
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+     }
+    
     renderer->useShader(shader);
     glm::vec3 cameraPos = renderer->camera.getPosition();
     shader->setXform((const GLfloat*)glm::value_ptr(rendermat));
@@ -282,6 +302,9 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     }
     else    
         glDrawArrays(GL_TRIANGLES, 0, 0);
-    // if(isSphere)printVector("feature Vec",featureVec);
+
+    if(id==renderer->getFloorID()){
+        glDisable(GL_BLEND);
+    }
     return glGetError();
 }

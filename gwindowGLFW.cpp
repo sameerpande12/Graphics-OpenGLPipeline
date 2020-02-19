@@ -73,7 +73,11 @@ int gWindow_GLFW::renderloop(Renderer &renderer)
    while (!glfwWindowShouldClose(window))
    {
        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-      if(! renderer.render())
+       int first = renderer.render(NULL,true);
+    //    std::cout<<"First done "<<first<<" \n";
+       int second = renderer.render(NULL,false);
+    //    std::cout<<"Second done"<<second<<" \n";
+      if( first * second ==0)
         QUIT("renderloop", "Renderer refused to continue");
       glfwSwapBuffers(window);
       glfwWaitEvents();
