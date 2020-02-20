@@ -77,37 +77,40 @@ int gWindow_GLFW::renderloop(Renderer &renderer)
     //    glEnable(GL_DEPTH_BUFFER_BIT);
     //    glDisable(GL_STENCIL_TEST);
 
-       int first = renderer.render(NULL,false,false);//render all but mirror
-       renderer.render(NULL,true,false);
-    //    glEnable(GL_STENCIL_TEST);
-    //    glStencilOp(GL_KEEP,GL_KEEP,GL_REPLACE);
-    //    glStencilFunc(GL_ALWAYS,1,~0);
-    //    glColorMask(0,0,0,0);
-       
-    //    int second = renderer.render(NULL,true,false);//render mirror only
+    glClearStencil(0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    glEnable(GL_DEPTH_BUFFER_BIT);
+    glDisable(GL_STENCIL_TEST);
+    renderer.render(NULL,false,false);//render all but mirror
 
-    //    glDepthRange(1,1);
-    //    glDepthFunc(GL_ALWAYS);
-    //    glStencilFunc(GL_EQUAL,1,~0);
-    //    glStencilOp(GL_KEEP,GL_KEEP,GL_KEEP);
+    glEnable(GL_STENCIL_TEST);
+    glStencilOp(GL_KEEP,GL_KEEP,GL_REPLACE);
+    glStencilFunc(GL_ALWAYS,1,~0);//always set the values to 1 to all those things that pass the z test
+    glColorMask(0,0,0,0);//disable writing to color buffer
+    renderer.render(NULL,true,false);//render mirror
+    //now above steps have tagged all visible pixels of mirror
 
-    //    int third = renderer.render(NULL,true,false);
+    glDepthRange(1,1);
+    glDepthFunc(GL_ALWAYS);
+    glStencilFunc(GL_EQUAL,1,~0);
+    glStencilOp(GL_KEEP,GL_KEEP,GL_KEEP);
+    renderer.render(NULL,true,false);//render mirror
 
-    //    glDepthFunc(GL_LESS);
-    //    glColorMask(1,1,1,1);
-    //    glDepthRange(0,1);
-       
-    //    glCullFace(GL_FRONT);
-    //    int fourth = renderer.render(NULL,false,true);//draw all but mirror, all reflected
-    //    glCullFace(GL_BACK);
+    glDepthFunc(GL_LESS);
+    glColorMask(1,1,1,1);
+    glDepthRange(0,1);
 
-    //    glColorMask(0,0,0,0);
-    //    glStencilOp(GL_KEEP,GL_KEEP,GL_ZERO);
-    //    glDepthFunc(GL_ALWAYS);
-    //    int fifth = renderer.render(NULL,true,false);
-    //    glDepthFunc(GL_LESS);
-    //    glColorMask(1,1,1,1);
+    renderer.render(NULL,false,true);//render all but mirror. Also reflect the scene
+
+    glColorMask(0,0,0,0);
+    glStencilOp(GL_KEEP,GL_KEEP,GL_ZERO);
+    glDepthFunc(GL_ALWAYS);
+    renderer.render(NULL,true,false);//render mirror only, do not update color buffer
     
+    glDepthFunc(GL_LESS);
+    glColorMask(1,1,1,1);
+
+
     //   if( first * second * third * fourth * fifth  ==0)
         // QUIT("renderloop", "Renderer refused to continue");
       glfwSwapBuffers(window);

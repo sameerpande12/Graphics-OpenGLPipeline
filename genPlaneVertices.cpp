@@ -23,7 +23,7 @@ int main(int argc, char**argv){//produces an xy plane
             float texX = (x+len/2)/len;
             float texY = (y + len/2)/len;
             // float color[] = {0.984,0.851,0.329,1};
-            float color[] = {1,1,1,0.9};
+            float color[] = {1,1,1,0.5};
             float normal[] = {0,0,1};
             points[id] = std::vector<float>{x,y,z,normal[0],normal[1],normal[2],color[0],color[1],color[2],color[3],texX,texY};
 
