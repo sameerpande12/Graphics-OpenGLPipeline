@@ -173,9 +173,9 @@ int Geom::read(const char *filename)
                 }//https://learnopengl.com/Getting-started/Textures
             
         }
-        glClearDepth(FAR_DEFAULT);
+        glClearDepth(1.0f);
         glEnable(GL_DEPTH_TEST);
-        glDepthFunc(GL_LEQUAL);
+        glDepthFunc(GL_LESS);
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ebo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(indices),indices,GL_DYNAMIC_DRAW);
@@ -253,26 +253,29 @@ float Geom::getIntersectionTValue(glm::vec3 rayOrigin, glm::vec3 rayDir){
             return (float)tmin;   
     }
 };
-int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrendermat,bool selectionMode) const//view render mat is same as render mat except projection matrix is not applied
+int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrendermat,bool renderMirror,bool reflectScene) const//view render mat is same as render mat except projection matrix is not applied
 {
     if(numIndices<=0 )return glGetError();
     
-    if(selectionMode && id == renderer->getFloorID())return glGetError();
-    if(selectionMode && renderer->camera.getPosition()[2]>0){
+    // if(renderMirror && id==renderer->getFloorID())return glGetError();
+    // cout<<"Render Mirror = "<<renderMirror<<" reflectScene "<<reflectScene<<"\n";
+
+    if(renderMirror && id!=renderer->getFloorID())return glGetError();
+    if(!renderMirror && id==renderer->getFloorID())return glGetError();
+
+    if(reflectScene){
         glm::mat4 viewMatrix = renderer->camera.viewmatrix();
-        
         glm::mat4 projmat = rendermat * glm::inverse(viewrendermat);
-
         glm::mat4 objectMatrix = glm::inverse(viewMatrix) * viewrendermat;
-        
         objectMatrix = glm::scale(glm::mat4(1.0f),glm::vec3(1,1,-1))*objectMatrix ;//reflection about z =  0
-
+    
         viewrendermat = viewMatrix * objectMatrix;
         rendermat = projmat * viewrendermat;
-        
     }
 
-     if(id==renderer->getFloorID()){ 
+    //  if(id==renderer->getFloorID()){ 
+    if(renderMirror){   
+        // cout<<"HI\n"; 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
      }
@@ -303,7 +306,8 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     else    
         glDrawArrays(GL_TRIANGLES, 0, 0);
 
-    if(id==renderer->getFloorID()){
+    // if(id==renderer->getFloorID()){
+    if(renderMirror){
         glDisable(GL_BLEND);
     }
     return glGetError();

@@ -41,11 +41,11 @@ int Renderer::update()
    return true;
 }
 
-int Renderer::render(float *mat,bool selectionMode)
+int Renderer::render(float *mat,bool renderMirror,bool reflectScene)
 {
     if(mat != NULL)
         rendermat = mat;
-    return scene->render(this, camera, rendermat,selectionMode);
+    return scene->render(this, camera, rendermat,renderMirror, reflectScene);
 }
 
 

@@ -6,20 +6,20 @@
 #include "geombase.h"
 #include "render.h"
 
-int SceneBase::render(Renderer *renderer, const Camera &camera, const float *mat,bool selectionMode)
+int SceneBase::render(Renderer *renderer, const Camera &camera, const float *mat,bool renderMirror, bool reflectScene)
 {
    if(mat == NULL) 
-      return render(renderer, camera, glm::mat4(1.0f),selectionMode);
+      return render(renderer, camera, glm::mat4(1.0f),renderMirror,reflectScene);
    else
-      return render(renderer, camera, glm::make_mat4(mat),selectionMode);
+      return render(renderer, camera, glm::make_mat4(mat),renderMirror,reflectScene);
 }
 
-int SceneBase::render(Renderer *renderer, const Camera &camera, glm::mat4 mat,bool selectionMode) {
+int SceneBase::render(Renderer *renderer, const Camera &camera, glm::mat4 mat,bool renderMirror, bool reflectScene) {
    glm::mat4 nextmat = mat * objmat; // objmat must not be NULL
-   object->render(renderer, camera.matrix(nextmat),camera.viewmatrix(nextmat),selectionMode);
+   object->render(renderer, camera.matrix(nextmat),camera.viewmatrix(nextmat),renderMirror,reflectScene);
    bool result = true;
    for(SceneBase* cur = firstchild; cur != NULL; cur = cur->sibling) {
-      result &= cur->render(renderer, camera, nextmat,selectionMode);
+      result &= cur->render(renderer, camera, nextmat,renderMirror,reflectScene);
    }
    return result;
 }

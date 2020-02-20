@@ -72,13 +72,44 @@ int gWindow_GLFW::renderloop(Renderer &renderer)
 //    glEnable(GL_CULL_FACE);
    while (!glfwWindowShouldClose(window))
    {
-       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-       int first = renderer.render(NULL,true);
-    //    std::cout<<"First done "<<first<<" \n";
-       int second = renderer.render(NULL,false);
-    //    std::cout<<"Second done"<<second<<" \n";
-      if( first * second ==0)
-        QUIT("renderloop", "Renderer refused to continue");
+    //    glClearStencil(0);
+       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    //    glEnable(GL_DEPTH_BUFFER_BIT);
+    //    glDisable(GL_STENCIL_TEST);
+
+       int first = renderer.render(NULL,false,false);//render all but mirror
+       renderer.render(NULL,true,false);
+    //    glEnable(GL_STENCIL_TEST);
+    //    glStencilOp(GL_KEEP,GL_KEEP,GL_REPLACE);
+    //    glStencilFunc(GL_ALWAYS,1,~0);
+    //    glColorMask(0,0,0,0);
+       
+    //    int second = renderer.render(NULL,true,false);//render mirror only
+
+    //    glDepthRange(1,1);
+    //    glDepthFunc(GL_ALWAYS);
+    //    glStencilFunc(GL_EQUAL,1,~0);
+    //    glStencilOp(GL_KEEP,GL_KEEP,GL_KEEP);
+
+    //    int third = renderer.render(NULL,true,false);
+
+    //    glDepthFunc(GL_LESS);
+    //    glColorMask(1,1,1,1);
+    //    glDepthRange(0,1);
+       
+    //    glCullFace(GL_FRONT);
+    //    int fourth = renderer.render(NULL,false,true);//draw all but mirror, all reflected
+    //    glCullFace(GL_BACK);
+
+    //    glColorMask(0,0,0,0);
+    //    glStencilOp(GL_KEEP,GL_KEEP,GL_ZERO);
+    //    glDepthFunc(GL_ALWAYS);
+    //    int fifth = renderer.render(NULL,true,false);
+    //    glDepthFunc(GL_LESS);
+    //    glColorMask(1,1,1,1);
+    
+    //   if( first * second * third * fourth * fifth  ==0)
+        // QUIT("renderloop", "Renderer refused to continue");
       glfwSwapBuffers(window);
       glfwWaitEvents();
     
