@@ -114,6 +114,7 @@ int Geom::read(const char *filename)
             }   
         }
 
+        if(!isSphere)color[3]=0.7;
         if(useDefaultColour){
             for(int i  =0 ;i<numVertices;i++){
                 points[i*vertStride+6] = color[0];
@@ -173,7 +174,6 @@ int Geom::read(const char *filename)
                 }//https://learnopengl.com/Getting-started/Textures
             
         }
-        glClearDepth(1.0f);
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
 
@@ -298,15 +298,9 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
    
     glBindVertexArray(vao);
     glBindTexture(GL_TEXTURE_2D,tex);
-   
-    if(numIndices>0 && useDrawElements)
-    {    
+    if(numIndices>0 && useDrawElements)    
         glDrawElements(GL_TRIANGLES,numIndices,GL_UNSIGNED_INT,0);
-    }
-    else    
-        glDrawArrays(GL_TRIANGLES, 0, 0);
 
-    // if(id==renderer->getFloorID()){
     if(renderMirror){
         glDisable(GL_BLEND);
     }

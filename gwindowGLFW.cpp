@@ -88,19 +88,21 @@ int gWindow_GLFW::renderloop(Renderer &renderer)
     glStencilFunc(GL_ALWAYS,1,~0);//always set the values to 1 to all those things that pass the z test
     glColorMask(0,0,0,0);//disable writing to color buffer
     renderer.render(NULL,true,false);//render mirror
-    //now above steps have tagged all visible pixels of mirror
+    // now above steps have tagged all visible pixels of mirror
 
     glDepthRange(1,1);
     glDepthFunc(GL_ALWAYS);
     glStencilFunc(GL_EQUAL,1,~0);
     glStencilOp(GL_KEEP,GL_KEEP,GL_KEEP);
     renderer.render(NULL,true,false);//render mirror
+    //set depth of all the marked points to max possible
 
     glDepthFunc(GL_LESS);
     glColorMask(1,1,1,1);
     glDepthRange(0,1);
 
     renderer.render(NULL,false,true);//render all but mirror. Also reflect the scene
+    renderer.render(NULL,true);//render mirror
 
     glColorMask(0,0,0,0);
     glStencilOp(GL_KEEP,GL_KEEP,GL_ZERO);

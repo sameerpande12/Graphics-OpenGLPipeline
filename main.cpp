@@ -13,7 +13,7 @@
 #define STARTID 1
 int main( int argc, char* args[] )
 {
-   gWindow_GLFW window("Test"); // Create a window. Use default OpenGL settings.
+   gWindow_GLFW window("Snow Man - By Sameer Pande"); // Create a window. Use default OpenGL settings.
    glm::vec3 topLight = glm::vec3(0,0,3.1);
    std::unordered_map<int,Geom*> objects;
    int M, m;
@@ -44,7 +44,7 @@ int main( int argc, char* args[] )
 
    objects[floor->id]=floor;
    primaryScene->addchild(floor,floor->id,floor->getModelMatrix());
-   cout<<"floor->id "<<floor->id<<"\n";
+   // cout<<"floor->id "<<floor->id<<"\n";
 
 
       
@@ -73,7 +73,7 @@ int main( int argc, char* args[] )
    objects[torso->id]=torso;
    primaryScene->addchild(torso,torso->id,torso->getModelMatrix());
    // cout<<"torso "<<torso->id<<"\n";
-   cout<<torsoCentre[0]<<" "<<torsoCentre[1]<<" "<<torsoCentre[2]<<'\n';
+   // cout<<torsoCentre[0]<<" "<<torsoCentre[1]<<" "<<torsoCentre[2]<<'\n';
 
 
    Geom* head = new Geom(&id,"sphereVertices.csv",true,topLight,1,0,0,true);
