@@ -115,8 +115,8 @@ void printVe(std::string str,glm::vec3 vec){
          std::cout<<str<<" ";
          std::cout<<vec[0]<<","<<vec[1]<<","<<vec[2]<<"\n";
 };
-void Renderer::moveSpheretOnFloor(int id, float cursorX, float cursorY,int width, int height){//assumes id is sphere and x,y are mouse coordinates
-    Geom* sphere = objectMap[id];
+void Renderer::moveSphereOnPlane(int id, float cursorX, float cursorY,int width, int height){//assumes id is sphere and x,y are mouse coordinates
+    Geom* sphere = objectMap[id]; 
     float z = sphere->featureVec[2];
     
     glm::vec3 rayDirectionWorld = camera.viewPortToWorldRayDirection(cursorX,cursorY,width,height);
@@ -124,12 +124,6 @@ void Renderer::moveSpheretOnFloor(int id, float cursorX, float cursorY,int width
     glm::vec3 rayOrigin = camera.getPosition();
     
     if(rayDirectionWorld[2]==0)return;
-
-       double check ;
-      check = (-0.75 - rayOrigin[2])/rayDirectionWorld[2];
-      glm::vec3 intersection = rayOrigin + rayDirectionWorld * (float)check;
-      
-      
 
     float t = (z - rayOrigin[2])/rayDirectionWorld[2];
     if(t<0)return;
@@ -139,4 +133,23 @@ void Renderer::moveSpheretOnFloor(int id, float cursorX, float cursorY,int width
     glm::vec3 translation = newPosition - sphere->featureVec;    
     translateObject(id,translation);
 
+}
+
+void Renderer::moveSphereInCamSpace(int id, float cursorX, float cursorY,int width, int height){//assumes id is sphere and x,y are mouse coordinates
+    Geom* sphere = objectMap[id];
+    
+    glm::vec3 oldPosInWorldCord = sphere->featureVec;
+    glm::vec3 oldPosInCamCord = glm::vec3(camera.viewmatrix() * glm::vec4(oldPosInWorldCord,1));
+
+    glm::vec3 rayInCam = camera.viewPortToCameraRayDirection(cursorX,cursorY,width,height);
+    float camZ  = oldPosInCamCord[2];
+
+    if(rayInCam[2]==0)return ;
+
+    float t = (camZ)/rayInCam[2];
+    glm::vec3 newPosInCamCord = t * rayInCam;
+    glm::vec3 newPosInWorldCord =   glm::vec3( glm::inverse(camera.viewmatrix()) * glm::vec4(newPosInCamCord,1));
+    glm::vec3 translation = newPosInWorldCord - oldPosInWorldCord;
+    translateObject(id,translation);
+    
 }

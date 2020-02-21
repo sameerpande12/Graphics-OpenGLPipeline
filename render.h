@@ -26,7 +26,8 @@ public:
    int  getClosestIntersectionObject(glm::vec3 origin,glm::vec3 Direction);
    void translateObject(int id,glm::vec3 displacment);
    void rotateObject(int id, float angle, glm::vec3 axis);
-   void moveSpheretOnFloor(int id, float x, float y,int width,int height);
+   void moveSphereOnPlane(int id, float x, float y,int width,int height);
+   void moveSphereInCamSpace(int id, float x, float y,int width,int height);
    void setCameraLookAt(glm::vec3 lookat);
    void setFloorId(int fid){floorId = fid;}
    int getFloorID(){return floorId;}

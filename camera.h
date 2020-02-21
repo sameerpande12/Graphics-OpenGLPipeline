@@ -24,6 +24,7 @@ public:
     const glm::vec3 getPosition()const;
     glm::mat4 getProjectionMatrix(){return projmat;};
     glm::vec3 viewPortToWorldRayDirection(double cursorX, double cursorY, int width, int height);
+    glm::vec3 viewPortToCameraRayDirection(double cursorX,double cursorY,int width,int height);
 // private:
     glm::mat4 projmat;
     glm::mat4 viewmat;
