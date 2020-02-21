@@ -6,7 +6,7 @@
 class Geom : public GeomBase {
 public:
    int read(const char *filename);
-   int render(Renderer *renderer, glm::mat4 rendermat,glm::mat4 viewrendermat,bool reflectMirror,bool reflectScene) const;
+   int render(Renderer *renderer, glm::mat4 rendermat,glm::mat4 viewrendermat,bool reflectMirror,bool reflectScene,glm::vec4 plane=glm::vec4(0,0,1,0)) const;
    
    Geom(int *idptr, const char *filename=NULL,bool sphere=true,glm::vec3 tlight = glm::vec3(0,0,3),float diff=1,float specularCoeff=0,float shine = 0,bool useTex = true,glm::vec4 col=glm::vec4(1,1,1,1),bool useCol = false) 
    {

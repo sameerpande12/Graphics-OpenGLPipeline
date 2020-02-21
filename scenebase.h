@@ -23,8 +23,8 @@ public:
    SceneBase(GeomBase *obj, int id,glm::mat4 mat = glm::mat4(1.0f),
              SceneBase *next=NULL, SceneBase *child=NULL);
    void init(GeomBase *obj,int id, glm::mat4 mat, SceneBase *next, SceneBase *child);
-   int render(Renderer *renderer, const Camera &camera, const glm::mat4 mat = glm::mat4(1.0f),bool renderMirror=false,bool reflectScene=false);
-   int render(Renderer *renderer, const Camera &camera, const float *mat=NULL,bool renderMirror=false,bool reflectScene=false);
+   int render(Renderer *renderer, const Camera &camera, const glm::mat4 mat = glm::mat4(1.0f),bool renderMirror=false,bool reflectScene=false,glm::vec4 reflectionPlane=glm::vec4(0,0,1,0));
+   int render(Renderer *renderer, const Camera &camera, const float *mat=NULL,bool renderMirror=false,bool reflectScene=false,glm::vec4 reflectionPlane=glm::vec4(0,0,1,0));
    SceneBase* addchild(GeomBase *obj, int id,glm::mat4 mat = glm::mat4(1.0f));
    int getObjectId(){return sceneId;}
    SceneBase* getSibling(){return sibling;}

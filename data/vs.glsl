@@ -22,10 +22,20 @@ uniform float DiffusionCoefficient;
 uniform float Shininess;
 uniform float SpecularCoefficient;
 
+uniform vec4 ClipPlane;
 #define M_PI 3.1415926535897932384626433832795
 void main() {
 
     gl_Position =  MVP * vec4(vp,1.0);
+
+    mat4 modelMat = inverse(CamViewMatrix) * MV ;
+    vec4 worldPos = modelMat * vec4(vp,1.0);
+
+    gl_ClipDistance[0] = -dot(ClipPlane,worldPos);
+    /*
+        Since we are making sure that the model matrix is already inverted when giving it.
+        Also we are assuming reflection about z = 0;
+    */
 
     vec3 transformedLightPos1 = vec3(CamViewMatrix*vec4(LightPos1,1));
     vec3 transformedLightPos2 = vec3(CamViewMatrix*vec4(LightPos2,1));

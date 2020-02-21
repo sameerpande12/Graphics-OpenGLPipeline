@@ -53,6 +53,7 @@ void Shader::getUniformIDs()
    specCoeffid = glGetUniformLocation(program,"SpecularCoefficient");
    lightIntensity1 = glGetUniformLocation(program,"Intensity1");
    lightIntensity2 = glGetUniformLocation(program,"Intensity2");
+   clipPlaneid = glGetUniformLocation(program,"ClipPlane");
 }
 
 static bool isCompiled(const char *prefix, GLuint shader)

@@ -101,7 +101,15 @@ int gWindow_GLFW::renderloop(Renderer &renderer)
     glColorMask(1,1,1,1);
     glDepthRange(0,1);
 
+    double plane[4] = {0,0,1,0};
+    glEnable(GL_CLIP_PLANE0);
+	glClipPlane(GL_CLIP_PLANE0, plane);
+    
     renderer.render(NULL,false,true);//render all but mirror. Also reflect the scene
+    
+    glDisable(GL_CLIP_PLANE0);
+
+    
     renderer.render(NULL,true);//render mirror
 
     glColorMask(0,0,0,0);

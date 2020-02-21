@@ -41,11 +41,11 @@ int Renderer::update()
    return true;
 }
 
-int Renderer::render(float *mat,bool renderMirror,bool reflectScene)
+int Renderer::render(float *mat,bool renderMirror,bool reflectScene,glm::vec4 reflectionPlane)
 {
     if(mat != NULL)
         rendermat = mat;
-    return scene->render(this, camera, rendermat,renderMirror, reflectScene);
+    return scene->render(this, camera, rendermat,renderMirror, reflectScene,reflectionPlane);
 }
 
 

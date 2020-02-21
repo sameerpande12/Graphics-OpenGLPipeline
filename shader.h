@@ -51,6 +51,10 @@ public:
       glUniform3fv(lightIntensity2,1,light2);
    }
 
+   void setClipPlane(const GLfloat * clipPlane){
+      glUniform4fv(clipPlaneid, 1,clipPlane);
+   }
+
    Shader(const char *vsfile=NULL, const char *fsfile=NULL);
 
 protected:
@@ -66,6 +70,7 @@ protected:
    GLuint specCoeffid;
    GLuint lightIntensity1;
    GLuint lightIntensity2;
+   GLuint clipPlaneid;
 
    void defaults();
    void makeProgram(GLuint vs, GLint fs);

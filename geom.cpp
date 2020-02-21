@@ -253,7 +253,7 @@ float Geom::getIntersectionTValue(glm::vec3 rayOrigin, glm::vec3 rayDir){
             return (float)tmin;   
     }
 };
-int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrendermat,bool renderMirror,bool reflectScene) const//view render mat is same as render mat except projection matrix is not applied
+int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrendermat,bool renderMirror,bool reflectScene,glm::vec4 plane) const//view render mat is same as render mat except projection matrix is not applied
 {
     if(numIndices<=0 )return glGetError();
     
@@ -290,7 +290,7 @@ int Geom::render(Renderer *renderer, glm::mat4 rendermat, glm::mat4 viewrenderma
     shader->setLightIntensity1((const GLfloat*)glm::value_ptr(lightIntensity1));
     shader->setLightIntensity2((const GLfloat*)glm::value_ptr(lightIntensity2));
     shader->setCameraPos((const GLfloat*)glm::value_ptr(cameraPos));
-    
+    shader->setClipPlane((const GLfloat*)glm::value_ptr(plane));
     shader->setDiffusion((GLfloat)diffuseness);
     shader->setShininess((GLfloat)shininess);
     shader->setSpecularCeoff((GLfloat)specularCoefficient);
