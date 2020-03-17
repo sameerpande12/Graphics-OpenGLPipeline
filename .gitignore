@@ -1,9 +1,2 @@
 
 *.out
-gen
-read
-build/
-*.csv
-*.txt
-genPlane
-genSphere
